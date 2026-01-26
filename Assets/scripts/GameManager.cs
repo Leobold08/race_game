@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Linq;
 using System;
+using PurrNet;
 
 
 
@@ -62,56 +63,58 @@ public class GameManager : MonoBehaviour, IDataPersistence
             Destroy(gameObject);
         }
 
-        //etsi autot järjestyksessä (pitäs olla aika ilmiselvää)
-        cars = new GameObject[] 
-        { 
-            GameObject.Find("REALCAR_x"), 
-            GameObject.Find("REALCAR"), 
-            GameObject.Find("REALCAR_y"),
-            GameObject.Find("Lada")
-        };
-
         sceneSelected = SceneManager.GetActiveScene().name;
 
-        carIndex = PlayerPrefs.GetInt("CarIndex");
-        if (sceneSelected == "tutorial")
+        // If PurrNet NetworkManager is active, we let its PlayerSpawner
+        // handle spawning player cars from prefabs and do not manage
+        // scene car instances here.
+        if (NetworkManager.main == null)
         {
-            currentCar = GameObject.Find("REALCAR");
-        }
-        else
-        {
-            currentCar = carIndex >= 0 && carIndex < cars.Length ? cars[carIndex] : cars[0];
-        }
-        chosenMap = PlayerPrefs.GetInt("chosenMap");
-
-        if (maps.Contains(sceneSelected))
-        {
-            if (sceneSelected != "tutorial")
+            //eksi autot järjestyksessä (pitäs olla aika ilmiselvää)
+            cars = new GameObject[]
             {
-                foreach (GameObject car in cars)
-                {
-                    car.SetActive(false);
-                }
+                GameObject.Find("REALCAR_x"),
+                GameObject.Find("REALCAR"),
+                GameObject.Find("REALCAR_y"),
+                GameObject.Find("Lada")
+            };
 
-                if (carIndex >= 0 && carIndex <= cars.Length)
-                {
-                    cars[carIndex].SetActive(true);
-                }
-                else
-                {
-                    Debug.LogError("Car index out of range: " + carIndex);
-                }
+            carIndex = PlayerPrefs.GetInt("CarIndex");
+            if (sceneSelected == "tutorial")
+            {
+                currentCar = GameObject.Find("REALCAR");
+            }
+            else
+            {
+                currentCar = carIndex >= 0 && carIndex < cars.Length ? cars[carIndex] : cars[0];
+            }
+            chosenMap = PlayerPrefs.GetInt("chosenMap");
 
-                foreach (GameObject car in cars)
+            if (maps.Contains(sceneSelected))
+            {
+                if (sceneSelected != "tutorial")
                 {
-                    if (car.activeInHierarchy)
+                    foreach (GameObject car in cars)
                     {
-                        Debug.Log("onnittelut, voitit paketin hiivaa!: " + car.name);
+                        if (car != null)
+                            car.SetActive(false);
+                    }
+
+                    if (carIndex >= 0 && carIndex < cars.Length && cars[carIndex] != null)
+                    {
+                        cars[carIndex].SetActive(true);
                     }
                     else
                     {
-                        Destroy(car);
-                        //tää TAPPAA kaikki ne muut että se ei vittuile se unity lol
+                        Debug.LogError("Car index out of range or car missing: " + carIndex);
+                    }
+
+                    foreach (GameObject car in cars)
+                    {
+                        if (car != null && car.activeInHierarchy)
+                        {
+                            Debug.Log("onnittelut, voitit paketin hiivaa!: " + car.name);
+                        }
                     }
                 }
             }
@@ -134,6 +137,40 @@ public class GameManager : MonoBehaviour, IDataPersistence
         {
             data.scored += this.score;
         }       
+    }
+
+    // When using PurrNet's PlayerSpawner, player cars are spawned at
+    // runtime from prefabs. Here we lazily find and cache the local
+    // player's car as currentCar so existing UI / AI code keeps working.
+    void Update()
+    {
+        if (currentCar != null)
+            return;
+
+        var controllers = FindObjectsByType<CarController>(FindObjectsSortMode.None);
+        if (controllers == null || controllers.Length == 0)
+            return;
+
+        CarController chosen = null;
+
+        if (NetworkManager.main != null)
+        {
+            // Prefer the car owned by this client.
+            foreach (var c in controllers)
+            {
+                if (c != null && c.isOwner)
+                {
+                    chosen = c;
+                    break;
+                }
+            }
+        }
+
+        if (chosen == null)
+            chosen = controllers[0];
+
+        if (chosen != null)
+            currentCar = chosen.gameObject;
     }
 
     //temp ja ota se pois sit

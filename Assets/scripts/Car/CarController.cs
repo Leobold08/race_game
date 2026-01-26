@@ -6,8 +6,9 @@ using UnityEngine.InputSystem;
 using System.Collections;
 using Logitech;
 using System.Linq;
+using PurrNet;
 
-public class CarController : MonoBehaviour
+public class CarController : NetworkBehaviour
 {
 
     CarInputActions Controls;
@@ -104,6 +105,28 @@ public class CarController : MonoBehaviour
         racerScript = FindAnyObjectByType<RacerScript>();
 
         InitializeLogitechWheel(); 
+    }
+
+    // PurrNet: only the owner should run this controller in multiplayer
+    protected override void OnSpawned()
+    {
+        base.OnSpawned();
+        // In networked games, disable this behaviour for non-owners so
+        // only the local player instance processes input and physics.
+        enabled = isOwner;
+
+        // Camera check: if this car has a camera attached (for example a
+        // follow or cockpit camera on the prefab), only enable it for
+        // the owning player so remote cars do not drive a camera.
+        var cam = GetComponentInChildren<Camera>();
+        if (cam != null)
+        {
+            cam.enabled = isOwner;
+
+            var audioListener = cam.GetComponent<AudioListener>();
+            if (audioListener != null)
+                audioListener.enabled = isOwner;
+        }
     }
 
     private void OnControlsChanged(PlayerInput input)
