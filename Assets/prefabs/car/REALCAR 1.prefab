@@ -259,12 +259,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8163307110508535478}
-  - component: {fileID: 1137926034720870015}
   - component: {fileID: 3583480953312794450}
   - component: {fileID: 3213245284794277849}
   - component: {fileID: 6947140919132511771}
   - component: {fileID: 4341405519352628641}
   - component: {fileID: 818099106918105425}
+  - component: {fileID: 367566239540070763}
+  - component: {fileID: 666334302630129216}
   m_Layer: 0
   m_Name: car
   m_TagString: Untagged
@@ -296,33 +297,6 @@ Transform:
   - {fileID: 6150246922587725814}
   m_Father: {fileID: 1145494826426467527}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &1137926034720870015
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 567382629274620321}
-  serializedVersion: 5
-  m_Mass: 500
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &3583480953312794450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,7 +356,7 @@ MonoBehaviour:
   grassMaterial: {fileID: 2100000, guid: 6fd8429b74ab9eb4fae4415c8a29b8e5, type: 2}
   roadMaterial: {fileID: 2100000, guid: 2078d9428218af54fa6eaa4ae7fdbaa1, type: 2}
   driftmaterial: {fileID: 2100000, guid: 2078d9428218af54fa6eaa4ae7fdbaa1, type: 2}
-  carRb: {fileID: 0}
+  carRb: {fileID: 367566239540070763}
   isTurboActive: 0
   Turbesped: 170
   basespeed: 120
@@ -498,6 +472,74 @@ MonoBehaviour:
   _characterControllerPatch: 0
   _ownerAuth: 1
   _interpolationTiming: 0
+--- !u!54 &367566239540070763
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567382629274620321}
+  serializedVersion: 5
+  m_Mass: 500
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &666334302630129216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567382629274620321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d497b70c6fb6adc46b663609bee66dfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PurrNet.Runtime::PurrNet.NetworkRigidbody
+  _isSetup: 0
+  _prefabId: -2147483648
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
+  _ownerAuth: 0
+  _acceptableError: 0.05
+  _hardCorrectionThreshold: 2
+  _maxCorrectionTime: -1
+  _springConstant: 80
+  _dampingConstant: 5
+  _rotationSpringMultiplier: 0.3
+  _minRotationCorrectionAngle: 1
+  _uncertaintySpringDampening: 0.5
+  _accelerationDecay: 0.85
+  _hardCorrectionAccelerationScale: 0.1
+  _maxHardCorrectionMultiplier: 5
+  _lowSpeedThreshold: 1.5
+  _lowSpeedSpringMultiplier: 0.1
+  _extrapolateBasedOnPing: 0
+  _positionChangeThreshold: 0.001
+  _rotationChangeThreshold: 0.001
+  _velocityStopThreshold: 0.001
+  _debugGizmos: 0
+  _debugTextOffset: 2
 --- !u!1 &688792440778110631
 GameObject:
   m_ObjectHideFlags: 0
