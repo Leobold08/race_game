@@ -265,7 +265,6 @@ GameObject:
   - component: {fileID: 4341405519352628641}
   - component: {fileID: 818099106918105425}
   - component: {fileID: 367566239540070763}
-  - component: {fileID: 666334302630129216}
   m_Layer: 0
   m_Name: car
   m_TagString: Untagged
@@ -499,47 +498,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &666334302630129216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 567382629274620321}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d497b70c6fb6adc46b663609bee66dfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: PurrNet.Runtime::PurrNet.NetworkRigidbody
-  _isSetup: 0
-  _prefabId: -2147483648
-  _componentIndex: -2147483648
-  _shouldBePooled: 0
-  _parent: {fileID: 0}
-  _invertedPathToNearestParent: 
-  _directChildren: []
-  _networkRules: {fileID: 0}
-  _visitiblityRules: {fileID: 0}
-  _ownerAuth: 0
-  _acceptableError: 0.05
-  _hardCorrectionThreshold: 2
-  _maxCorrectionTime: -1
-  _springConstant: 80
-  _dampingConstant: 5
-  _rotationSpringMultiplier: 0.3
-  _minRotationCorrectionAngle: 1
-  _uncertaintySpringDampening: 0.5
-  _accelerationDecay: 0.85
-  _hardCorrectionAccelerationScale: 0.1
-  _maxHardCorrectionMultiplier: 5
-  _lowSpeedThreshold: 1.5
-  _lowSpeedSpringMultiplier: 0.1
-  _extrapolateBasedOnPing: 0
-  _positionChangeThreshold: 0.001
-  _rotationChangeThreshold: 0.001
-  _velocityStopThreshold: 0.001
-  _debugGizmos: 0
-  _debugTextOffset: 2
 --- !u!1 &688792440778110631
 GameObject:
   m_ObjectHideFlags: 0

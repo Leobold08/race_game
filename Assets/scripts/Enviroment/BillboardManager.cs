@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,25 +11,28 @@ public class BillboardManager : MonoBehaviour
     public float updateInterval = 0.2f;
     public float lenientAngle = 90f;
 
-    [Header("Camera Resolve")]
-    [Tooltip("How often to retry resolving the local camera when none is assigned.")]
-    public float cameraRetryInterval = 0.5f;
-
     float timer;
-    float cameraRetryTimer;
 
     void Awake()
     {
-        TryResolveCamera(true);
+        if (billboardCamera == null)
+            StartCoroutine(FindCameraDelayed());
+    }
+
+    IEnumerator FindCameraDelayed()
+    {
+        yield return new WaitForSeconds(0.05f); // Wait 50ms before retrying
+        if (billboardCamera == null)
+            billboardCamera = Camera.main;
     }
 
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer < updateInterval) return;
+        if (timer < updateInterval) return; 
         timer = 0f;
 
-        if (!TryResolveCamera(false))
+        if (billboardCamera == null)
             return;
 
         Vector3 camPos = billboardCamera.transform.position;
@@ -50,59 +54,6 @@ public class BillboardManager : MonoBehaviour
             if (lookDir.sqrMagnitude > 0.001f)
                 obj.transform.rotation = Quaternion.LookRotation(-lookDir);
         }
-    }
-
-    bool TryResolveCamera(bool force)
-    {
-        if (billboardCamera != null && billboardCamera.enabled && billboardCamera.gameObject.activeInHierarchy)
-            return true;
-
-        if (!force)
-        {
-            cameraRetryTimer += updateInterval;
-            if (cameraRetryTimer < cameraRetryInterval)
-                return false;
-        }
-
-        cameraRetryTimer = 0f;
-
-        var mainCam = Camera.main;
-        if (mainCam != null && mainCam.enabled && mainCam.gameObject.activeInHierarchy)
-        {
-            billboardCamera = mainCam;
-            return true;
-        }
-
-        var cameras = Camera.allCameras;
-        for (int i = 0; i < cameras.Length; i++)
-        {
-            var cam = cameras[i];
-            if (cam == null || !cam.enabled || !cam.gameObject.activeInHierarchy)
-                continue;
-
-            var listener = cam.GetComponent<AudioListener>();
-            if (listener != null && listener.enabled)
-            {
-                billboardCamera = cam;
-                return true;
-            }
-        }
-
-        if (cameras.Length > 0)
-        {
-            for (int i = 0; i < cameras.Length; i++)
-            {
-                var cam = cameras[i];
-                if (cam != null && cam.enabled && cam.gameObject.activeInHierarchy)
-                {
-                    billboardCamera = cam;
-                    return true;
-                }
-            }
-        }
-
-        billboardCamera = null;
-        return false;
     }
 
     public static void Register(BillboardObject obj)
