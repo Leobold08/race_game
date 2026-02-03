@@ -223,6 +223,7 @@ GameObject:
   - component: {fileID: 1254275666}
   - component: {fileID: 1254275665}
   - component: {fileID: 1254275664}
+  - component: {fileID: 1254275668}
   m_Layer: 0
   m_Name: PurrNet
   m_TagString: Untagged
@@ -278,8 +279,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: PurrNet.Runtime::PurrNet.NetworkManager
   _stopPlayingOnDisconnect: 1
-  _startServerFlags: -1
-  _startClientFlags: -1
+  _startServerFlags: 0
+  _startClientFlags: 0
   _cookieScope: 1
   _dontDestroyOnLoad: 1
   _transport: {fileID: 1254275664}
@@ -305,6 +306,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1254275668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254275663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c476fd9733ed148b4631bd99c76108, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PurrNetLobbySetup::PurrLobby.ConnectionStarter
 --- !u!1 &1930137424
 GameObject:
   m_ObjectHideFlags: 0

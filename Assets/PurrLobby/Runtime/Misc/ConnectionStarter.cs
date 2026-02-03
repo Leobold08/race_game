@@ -9,6 +9,7 @@ using PurrNet.UTP;
 using Unity.Services.Relay.Models;
 #endif
 
+
 namespace PurrLobby
 {
     public class ConnectionStarter : MonoBehaviour
@@ -70,6 +71,42 @@ namespace PurrLobby
         private IEnumerator StartClient()
         {
             yield return new WaitForSeconds(1f);
+
+            var transport = _networkManager.transport;
+            if (transport != null && !_lobbyDataHolder.CurrentLobby.IsOwner)
+            {
+                var transportType = transport.GetType();
+                if (transportType.FullName == "PurrNet.Steam.SteamTransport")
+                {
+                    string hostSteamId = null;
+                    float timeoutSeconds = 10f;
+                    float elapsed = 0f;
+
+                    while (elapsed < timeoutSeconds)
+                    {
+                        if (_lobbyDataHolder.CurrentLobby.Properties != null &&
+                            _lobbyDataHolder.CurrentLobby.Properties.TryGetValue("HostSteamId", out hostSteamId) &&
+                            !string.IsNullOrWhiteSpace(hostSteamId))
+                        {
+                            var addressProp = transportType.GetProperty("address");
+                            addressProp?.SetValue(transport, hostSteamId);
+                            break;
+                        }
+
+                        elapsed += Time.deltaTime;
+                        yield return null;
+                    }
+
+                    var addressPropAfter = transportType.GetProperty("address");
+                    var addressValue = addressPropAfter?.GetValue(transport) as string;
+                    if (string.IsNullOrWhiteSpace(hostSteamId) && string.IsNullOrWhiteSpace(addressValue))
+                    {
+                        PurrLogger.LogError("Failed to start connection. HostSteamId missing from lobby.", this);
+                        yield break;
+                    }
+                }
+            }
+
             _networkManager.StartClient();
         }
     }

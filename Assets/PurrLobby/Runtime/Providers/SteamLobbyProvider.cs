@@ -102,6 +102,12 @@ namespace PurrLobby.Providers
 
             _currentLobby = lobbyId;
 
+            var hostSteamId = Steamworks.SteamUser.GetSteamID().m_SteamID.ToString();
+            Steamworks.SteamMatchmaking.SetLobbyData(lobbyId, "HostSteamId", hostSteamId);
+
+            lobbyProperties ??= new Dictionary<string, string>();
+            lobbyProperties["HostSteamId"] = hostSteamId;
+
             if (lobbyProperties != null)
             {
                 foreach (var prop in lobbyProperties)

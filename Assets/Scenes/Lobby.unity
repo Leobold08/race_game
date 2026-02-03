@@ -2545,7 +2545,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lobbyManager: {fileID: 1097043115}
-  nextScene: ai_haukipudas
+  nextScene: test
 --- !u!114 &1097043117
 MonoBehaviour:
   m_ObjectHideFlags: 0
