@@ -106,9 +106,10 @@ namespace PurrLobby
                 
                 if (transportType.FullName == "PurrNet.Steam.SteamTransport")
                 {
-                    Debug.Log("[ConnectionStarter] Detected SteamTransport, attempting to set host address...");
+                    Debug.Log("[ConnectionStarter] Detected SteamTransport");
+                    Debug.Log("[ConnectionStarter] Note: Steam P2P handles connections automatically via Steam - no manual address setup needed");
                     
-                    // Log all available properties
+                    // Log all available properties for debugging
                     Debug.Log("[ConnectionStarter] Available lobby properties:");
                     if (_lobbyDataHolder.CurrentLobby.Properties != null)
                     {
@@ -121,68 +122,15 @@ namespace PurrLobby
                     {
                         Debug.LogWarning("[ConnectionStarter] Lobby properties are NULL!");
                     }
-
-                    string hostSteamId = null;
-                    float timeoutSeconds = 10f;
-                    float elapsed = 0f;
-
-                    while (elapsed < timeoutSeconds)
-                    {
-                        if (_lobbyDataHolder.CurrentLobby.Properties != null)
-                        {
-                            // Try both possible property keys for compatibility
-                            bool foundHostId = _lobbyDataHolder.CurrentLobby.Properties.TryGetValue("HostSteamId", out hostSteamId);
-                            if (!foundHostId)
-                            {
-                                foundHostId = _lobbyDataHolder.CurrentLobby.Properties.TryGetValue("__gameserverSteamID", out hostSteamId);
-                            }
-                            
-                            if (foundHostId && !string.IsNullOrWhiteSpace(hostSteamId))
-                            {
-                                Debug.Log($"[ConnectionStarter] Found HostSteamId: {hostSteamId}");
-                                var addressProp = transportType.GetProperty("address");
-                                if (addressProp != null)
-                                {
-                                    addressProp.SetValue(transport, hostSteamId);
-                                    Debug.Log($"[ConnectionStarter] Successfully set transport address to {hostSteamId}");
-                                }
-                                else
-                                {
-                                    Debug.LogError("[ConnectionStarter] Could not find 'address' property on SteamTransport");
-                                }
-                                break;
-                            }
-                        }
-
-                        elapsed += Time.deltaTime;
-                        Debug.Log($"[ConnectionStarter] Waiting for HostSteamId... ({elapsed:F2}s/{timeoutSeconds}s)");
-                        yield return null;
-                    }
-
-                    var addressPropAfter = transportType.GetProperty("address");
-                    var addressValue = addressPropAfter?.GetValue(transport) as string;
-                    
-                    if (string.IsNullOrWhiteSpace(hostSteamId))
-                    {
-                        Debug.LogWarning($"[ConnectionStarter] Timeout: HostSteamId was not found in lobby properties after {timeoutSeconds}s");
-                    }
-                    
-                    if (string.IsNullOrWhiteSpace(addressValue))
-                    {
-                        PurrLogger.LogError("Failed to start connection. Transport address is empty after setup.", this);
-                        yield break;
-                    }
-                    
-                    Debug.Log($"[ConnectionStarter] Transport address is set to: {addressValue}");
                 }
                 else
                 {
-                    Debug.Log($"[ConnectionStarter] Transport is not SteamTransport, skipping address setup");
+                    Debug.Log($"[ConnectionStarter] Transport is not SteamTransport (type: {transportType.FullName})");
                 }
             }
             else
             {
-                Debug.Log($"[ConnectionStarter] Skipping address setup - transport: {transport}, isOwner: {_lobbyDataHolder?.CurrentLobby.IsOwner}");
+                Debug.Log($"[ConnectionStarter] Skipping transport setup - transport: {transport}, isOwner: {_lobbyDataHolder?.CurrentLobby.IsOwner}");
             }
 
             Debug.Log("[ConnectionStarter] Starting network client...");
