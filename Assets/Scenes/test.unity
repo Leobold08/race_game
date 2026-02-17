@@ -245,7 +245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: PurrNet.Steam.Runtime::PurrNet.Steam.SteamTransport
   _serverPort: 5003
   _dedicatedServer: 0
-  _peerToPeer: 1
+  _peerToPeer: 0
   _address: 127.0.0.1
 --- !u!114 &1254275665
 MonoBehaviour:
@@ -254,7 +254,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1254275663}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc64ff707d914a64e95f2ac0bf554c09, type: 3}
   m_Name: 
@@ -278,7 +278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baacc2bfe126d544691d4f39fa3785f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: PurrNet.Runtime::PurrNet.NetworkManager
-  _stopPlayingOnDisconnect: 1
+  _stopPlayingOnDisconnect: 0
   _startServerFlags: 0
   _startClientFlags: 0
   _cookieScope: 1
@@ -315,9 +315,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1254275663}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5c476fd9733ed148b4631bd99c76108, type: 3}
+  m_Script: {fileID: 11500000, guid: 525d031b27515904c821ca419bfb58f1, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: PurrNetLobbySetup::PurrLobby.ConnectionStarter
+  m_EditorClassIdentifier: Assembly-CSharp::PurrLobby.ConnectionStarter
 --- !u!1 &1930137424
 GameObject:
   m_ObjectHideFlags: 0
