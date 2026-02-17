@@ -1,8 +1,10 @@
 using UnityEngine;
+using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using System.Linq;
 using System;
-using System.Collections.Generic;
+using PurrNet;
 
 
 
@@ -10,6 +12,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
 {
     public static GameManager instance;
     public static RacerScript racerscript;
+    public static int SelectedCarIndex { get; private set; }
 
     [Header("score systeemi")]
     public int score;
@@ -48,21 +51,14 @@ public class GameManager : MonoBehaviour, IDataPersistence
         instance = this;
 
         sceneSelected = SceneManager.GetActiveScene().name;
-        Dictionary<string, GameObject> carsByName = new();
-        foreach (GameObject car in cars)
-        {
-            if (!carsByName.ContainsKey(car.name))
-            {
-                carsByName.Add(car.name, car);
-            }
-        }
 
+        int carIndex = PlayerPrefs.GetInt("CarIndex", 0);
+        SelectedCarIndex = Mathf.Clamp(carIndex, 0, Mathf.Max(0, cars.Length - 1));
         if (sceneSelected == "tutorial") CurrentCar = GameObject.Find("REALCAR");
-        else if (maps.Contains(sceneSelected))
-        {
-            carsByName.TryGetValue(PlayerPrefs.GetString("SelectedCar"), out GameObject selectedCar);
-            CurrentCar = Instantiate(selectedCar, playerSpawn.position, playerSpawn.rotation);
-        }
+        else CurrentCar = SelectedCarIndex >= 0 && SelectedCarIndex < cars.Length ? cars[SelectedCarIndex] : cars[0];
+
+        if (maps.Contains(sceneSelected) && (NetworkManager.main == null || NetworkManager.main.isOffline))
+            CurrentCar = Instantiate(CurrentCar, playerSpawn.position, playerSpawn.rotation);
     }
 
     void OnEnable()

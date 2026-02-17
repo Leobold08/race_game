@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66869b09091574e4c972f42f5ae2268e, type: 3}
+  m_Name: NetworkPrefabs
+  m_EditorClassIdentifier: PurrNet.Runtime::PurrNet.NetworkPrefabs
+  autoGenerate: 1
+  networkOnly: 1
+  poolByDefault: 0
+  folder: {fileID: 102900000, guid: 078081ce4e371394bbed3c98864e9816, type: 3}
+  linkedNetworkPrefabs: []
+  prefabs:
+  - guid: 1fb1a32fa77eec941956ce5fba5949cd
+    prefab: {fileID: 3470644107909227971, guid: 1fb1a32fa77eec941956ce5fba5949cd, type: 3}
+    pooled: 0
+    warmupCount: 5
+  - guid: a466494dd195c8d49a06e52b49f125dc
+    prefab: {fileID: 2853865628529193986, guid: a466494dd195c8d49a06e52b49f125dc, type: 3}
+    pooled: 0
+    warmupCount: 5
+  - guid: b9967bc823ac2c641b0343d5ee062a9f
+    prefab: {fileID: 6724314122475099813, guid: b9967bc823ac2c641b0343d5ee062a9f, type: 3}
+    pooled: 0
+    warmupCount: 5
+  - guid: e5c93ae4d4eabb84abc6d15c049aaf4f
+    prefab: {fileID: 3778802856073570440, guid: e5c93ae4d4eabb84abc6d15c049aaf4f, type: 3}
+    pooled: 0
+    warmupCount: 5
+  - guid: e63ec9c06badf0f4c86184abb21730c8
+    prefab: {fileID: 5629295490424322811, guid: e63ec9c06badf0f4c86184abb21730c8, type: 3}
+    pooled: 0
+    warmupCount: 5

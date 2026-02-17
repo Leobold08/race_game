@@ -174,6 +174,7 @@ public class BaseCarController : MonoBehaviour
     {
         if (wheel.WheelCollider.GetGroundHit(out hit))
         {
+            print(" ITS FUCKING");
             return (Grass.value & (1 << hit.collider.gameObject.layer)) != 0;
         }
         return false;
