@@ -46,7 +46,24 @@ public class NetworkCarSelector : NetworkBehaviour
         if (_currentCar)
             Destroy(_currentCar);
 
+        // Only the owner requests the spawn (which sends it to server)
+        if (isOwner)
+        {
+            RequestSpawnCar(clamped);
+        }
+    }
+
+    [ServerRpc]
+    private void RequestSpawnCar(int carIndex)
+    {
         var root = carRoot ? carRoot : transform;
-        _currentCar = Instantiate(carPrefabs[clamped], root.position, root.rotation, root);
+        _currentCar = Instantiate(carPrefabs[carIndex], root.position, root.rotation, root);
+        
+        // Get the NetworkIdentity and give ownership to the requesting player
+        var carNetwork = _currentCar.GetComponent<NetworkIdentity>();
+        if (carNetwork != null && owner.HasValue)
+        {
+            carNetwork.GiveOwnership(owner.Value);
+        }
     }
 }

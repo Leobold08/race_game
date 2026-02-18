@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using Logitech;
+using PurrNet;
+
 
  
 public class PlayerCarController : BaseCarController
@@ -15,8 +17,27 @@ public class PlayerCarController : BaseCarController
     private PlayerInput PlayerInput;
     private string CurrentControlScheme = "Keyboard";
 
+    // PurrNet: only the owner should run this controller in multiplayer
+    protected override void OnSpawned(bool asServer)
+    {
+        base.OnSpawned(asServer);
+        // In networked games, disable this behaviour for non-owners so
+        // only the local player instance processes input and physics.
+        enabled = isOwner;
 
-    
+        // Camera check: if this car has a camera attached (for example a
+        // follow or cockpit camera on the prefab), only enable it for
+        // the owning player so remote cars do not drive a camera.
+        var cam = GetComponentInChildren<Camera>();
+        if (cam != null)
+        {
+            cam.enabled = isOwner;
+
+            var audioListener = cam.GetComponent<AudioListener>();
+            if (audioListener != null)
+                audioListener.enabled = isOwner;
+        }
+    }
 
     void Awake()
     {
@@ -113,6 +134,8 @@ public class PlayerCarController : BaseCarController
 
     void Update()
     {
+        if (!isOwner) return;
+
         GetInputs();
         Animatewheels();
         // detect connection state changes and print once when it changes
@@ -134,6 +157,8 @@ public class PlayerCarController : BaseCarController
 
     void FixedUpdate()
     {
+        if (!isOwner) return;
+
         float speed = CarRb.linearVelocity.magnitude * 3.6f;
         isOnGrassCachedValid = false;
         ApplySpeedLimit(speed);

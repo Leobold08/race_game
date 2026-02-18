@@ -6,9 +6,10 @@ using System.Collections;
 using System.Linq;
 using UnityEngine.Analytics;
 using Unity.Splines.Examples;
+using PurrNet;
 
 
-public class BaseCarController : MonoBehaviour
+public class BaseCarController : NetworkBehaviour
 {
 
     internal CarInputActions Controls;
