@@ -160,7 +160,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3649756231474564129}
+  m_Father: {fileID: 8070669712328928004}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &7231225300256046167
 Camera:
@@ -739,6 +739,7 @@ GameObject:
   - component: {fileID: 8914551668265311642}
   - component: {fileID: 3080231982172443036}
   - component: {fileID: 5630865942300931916}
+  - component: {fileID: 2486477855977759323}
   m_Layer: 0
   m_Name: car
   m_TagString: Untagged
@@ -767,6 +768,7 @@ Transform:
   - {fileID: 6306190925905356985}
   - {fileID: 6419307885223075760}
   - {fileID: 5369870290891657856}
+  - {fileID: 2958032281502815075}
   m_Father: {fileID: 3649756231474564129}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &4688050318836244363
@@ -808,6 +810,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 846c21108a9446549ac1ccfe7dfd277a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isSetup: 0
+  _prefabId: -2147483648
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
   CarValues: {fileID: 0}
 --- !u!114 &8914551668265311642
 MonoBehaviour:
@@ -872,6 +883,37 @@ MonoBehaviour:
   left: {fileID: 0}
   duration: 3
   lights: {fileID: 0}
+--- !u!114 &2486477855977759323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3496182830567923885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 817fe5016bd0a2a49a95b6eb338bb132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PurrNet.Runtime::PurrNet.NetworkTransform
+  _isSetup: 0
+  _prefabId: -2147483648
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
+  _syncPosition: 1
+  _syncRotation: 1
+  _syncScale: 1
+  _syncParent: 1
+  _interpolateSettings: 7
+  _minBufferSize: 1
+  _maxBufferSize: 2
+  _characterControllerPatch: 0
+  _ownerAuth: 1
+  _interpolationTiming: 0
 --- !u!1 &3689803584756702517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2390,9 +2432,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6752286418973455843, guid: d564b44e6c3401a46a68ee07eb6a202c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8070669712328928004}
-    - targetCorrespondingSourceObject: {fileID: 6752286418973455843, guid: d564b44e6c3401a46a68ee07eb6a202c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2958032281502815075}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3621995110324072295, guid: d564b44e6c3401a46a68ee07eb6a202c, type: 3}
       insertIndex: -1

@@ -220,11 +220,11 @@ Transform:
   m_GameObject: {fileID: 1380952591434384844}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.9734, y: 10.63647, z: -30.9}
+  m_LocalPosition: {x: 1.9734001, y: 10.63647, z: -30.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2443307842346229887}
+  m_Father: {fileID: 6864653929209379342}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &2786608592962842468
 Camera:
@@ -523,6 +523,7 @@ GameObject:
   - component: {fileID: 187602521392888673}
   - component: {fileID: 5648905003636816547}
   - component: {fileID: 1311118830665507097}
+  - component: {fileID: 5475652199723426818}
   m_Layer: 0
   m_Name: car
   m_TagString: Untagged
@@ -551,6 +552,7 @@ Transform:
   - {fileID: 6851049945322906361}
   - {fileID: 7968768821110970289}
   - {fileID: 7701038519339947872}
+  - {fileID: 8887803345919310670}
   m_Father: {fileID: 2443307842346229887}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &2434049652232776391
@@ -592,6 +594,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 846c21108a9446549ac1ccfe7dfd277a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isSetup: 0
+  _prefabId: -2147483648
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
   CarValues: {fileID: 0}
 --- !u!114 &187602521392888673
 MonoBehaviour:
@@ -656,6 +667,37 @@ MonoBehaviour:
   left: {fileID: 0}
   duration: 3
   lights: {fileID: 0}
+--- !u!114 &5475652199723426818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3013609153453077785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 817fe5016bd0a2a49a95b6eb338bb132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PurrNet.Runtime::PurrNet.NetworkTransform
+  _isSetup: 0
+  _prefabId: -2147483648
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
+  _syncPosition: 1
+  _syncRotation: 1
+  _syncScale: 1
+  _syncParent: 1
+  _interpolateSettings: 7
+  _minBufferSize: 1
+  _maxBufferSize: 2
+  _characterControllerPatch: 0
+  _ownerAuth: 1
+  _interpolationTiming: 0
 --- !u!1 &3083179061489932530
 GameObject:
   m_ObjectHideFlags: 0
@@ -2457,9 +2499,6 @@ PrefabInstance:
     - {fileID: 4449406509289786658, guid: d564b44e6c3401a46a68ee07eb6a202c, type: 3}
     - {fileID: 898646450694620876, guid: d564b44e6c3401a46a68ee07eb6a202c, type: 3}
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 6752286418973455843, guid: d564b44e6c3401a46a68ee07eb6a202c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8887803345919310670}
     - targetCorrespondingSourceObject: {fileID: 6752286418973455843, guid: d564b44e6c3401a46a68ee07eb6a202c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6864653929209379342}
