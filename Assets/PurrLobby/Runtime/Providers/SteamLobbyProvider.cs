@@ -356,6 +356,7 @@ namespace PurrLobby.Providers
         {
             if (IsSteamClientAvailable)
             {
+                SetHostSteamIdLobbyData(Steamworks.SteamUser.GetSteamID());
                 Steamworks.SteamMatchmaking.SetLobbyGameServer(_currentLobby, 0, 0, Steamworks.SteamUser.GetSteamID());
                 Steamworks.SteamMatchmaking.SetLobbyData(_currentLobby, "Started", "True");
             }
@@ -367,6 +368,7 @@ namespace PurrLobby.Providers
         {
             if (IsSteamClientAvailable)
             {
+                SetHostSteamIdLobbyData(serverId);
                 Steamworks.SteamMatchmaking.SetLobbyGameServer(_currentLobby, 0, 0, serverId);
                 Steamworks.SteamMatchmaking.SetLobbyData(_currentLobby, "Started", "True");
             }
@@ -376,6 +378,7 @@ namespace PurrLobby.Providers
         {
             if (IsSteamClientAvailable)
             {
+                SetHostSteamIdLobbyData(Steamworks.SteamUser.GetSteamID());
                 var ipAddress = System.Net.IPAddress.Parse(address);
                 var ipBytes = ipAddress.GetAddressBytes();
                 var ip = (uint)ipBytes[0] << 24;
@@ -391,6 +394,7 @@ namespace PurrLobby.Providers
         {
             if (IsSteamClientAvailable)
             {
+                SetHostSteamIdLobbyData(serverId);
                 var ipAddress = System.Net.IPAddress.Parse(address);
                 var ipBytes = ipAddress.GetAddressBytes();
                 var ip = (uint)ipBytes[0] << 24;
@@ -405,6 +409,17 @@ namespace PurrLobby.Providers
         public void Shutdown()
         {
             //Not needed
+        }
+
+        private void SetHostSteamIdLobbyData(Steamworks.CSteamID serverId)
+        {
+            if (_currentLobby == Steamworks.CSteamID.Nil)
+                return;
+
+            var hostId = serverId != Steamworks.CSteamID.Nil
+                ? serverId
+                : Steamworks.SteamUser.GetSteamID();
+            Steamworks.SteamMatchmaking.SetLobbyData(_currentLobby, "HostSteamId", hostId.m_SteamID.ToString());
         }
 
         private List<LobbyUser> GetLobbyUsers(Steamworks.CSteamID lobbyId)
