@@ -23,7 +23,7 @@ namespace PurrLobby
         [SerializeField] private bool subscribeToOnAllReady = true;
 
         // Prevents duplicate scene transitions
-        private static bool _hasAlreadySwitched = false;
+        private bool _hasAlreadySwitched = false;
 
         private void Start()
         {

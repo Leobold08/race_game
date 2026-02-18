@@ -3,7 +3,6 @@ using PurrNet;
 using PurrNet.Logging;
 using PurrNet.Transports;
 using UnityEngine;
-using PurrNet.Steam;
 
 #if UTP_LOBBYRELAY
 using PurrNet.UTP;
@@ -31,8 +30,6 @@ namespace PurrLobby
 
         private void Start()
         {
-            Debug.Log("[ConnectionStarter] Start() called");
-            
             if (!_networkManager)
             {
                 PurrLogger.LogError($"Failed to start connection. {nameof(NetworkManager)} is null!", this);
@@ -51,91 +48,66 @@ namespace PurrLobby
                 return;
             }
 
-            Debug.Log($"[ConnectionStarter] Transport type: {_networkManager.transport?.GetType().Name ?? "NULL"}");
-            Debug.Log($"[ConnectionStarter] Is Owner: {_lobbyDataHolder.CurrentLobby.IsOwner}");
-
             if(_networkManager.transport is PurrTransport) {
-                Debug.Log("[ConnectionStarter] Using PurrTransport");
                 (_networkManager.transport as PurrTransport).roomName = _lobbyDataHolder.CurrentLobby.LobbyId;
-                Debug.Log($"[ConnectionStarter] Set roomName to {_lobbyDataHolder.CurrentLobby.LobbyId}");
             } 
             
 #if UTP_LOBBYRELAY
             else if(_networkManager.transport is UTPTransport) {
-                Debug.Log("[ConnectionStarter] Using UTPTransport");
                 if(_lobbyDataHolder.CurrentLobby.IsOwner) {
-                    Debug.Log("[ConnectionStarter] Initializing Relay Server...");
                     (_networkManager.transport as UTPTransport).InitializeRelayServer((Allocation)_lobbyDataHolder.CurrentLobby.ServerObject);
                 }
-                Debug.Log("[ConnectionStarter] Initializing Relay Client...");
-                if (_lobbyDataHolder.CurrentLobby.Properties.TryGetValue("JoinCode", out var joinCode))
-                {
-                    (_networkManager.transport as UTPTransport).InitializeRelayClient(joinCode);
-                    Debug.Log($"[ConnectionStarter] Set JoinCode to {joinCode}");
-                }
-                else
-                {
-                    Debug.LogError("[ConnectionStarter] JoinCode not found in lobby properties");
-                }
+                (_networkManager.transport as UTPTransport).InitializeRelayClient(_lobbyDataHolder.CurrentLobby.Properties["JoinCode"]);
             }
 #else
-                //Steam P2P Connection - address will be set in StartClient()
-                Debug.Log("[ConnectionStarter] Using Steam P2P transport (UTP_LOBBYRELAY not defined)");
+                //P2P Connection, receive IP/Port from server
 #endif
 
             if(_lobbyDataHolder.CurrentLobby.IsOwner)
-            {
-                Debug.Log("[ConnectionStarter] Starting server...");
                 _networkManager.StartServer();
-            }
-            
             StartCoroutine(StartClient());
         }
 
         private IEnumerator StartClient()
         {
-            Debug.Log("[ConnectionStarter] StartClient() coroutine started");
             yield return new WaitForSeconds(1f);
-            Debug.Log("[ConnectionStarter] StartClient() wait complete, proceeding...");
 
             var transport = _networkManager.transport;
             if (transport != null && !_lobbyDataHolder.CurrentLobby.IsOwner)
             {
                 var transportType = transport.GetType();
-                Debug.Log($"[ConnectionStarter] Transport type: {transportType.FullName}");
-                
                 if (transportType.FullName == "PurrNet.Steam.SteamTransport")
                 {
-                    Debug.Log("[ConnectionStarter] Detected SteamTransport");
-                    Debug.Log("[ConnectionStarter] Note: Steam P2P handles connections automatically via Steam - no manual address setup needed");
-                    
-                    // Log all available properties for debugging
-                    Debug.Log("[ConnectionStarter] Available lobby properties:");
-                    if (_lobbyDataHolder.CurrentLobby.Properties != null)
+                    string hostSteamId = null;
+                    float timeoutSeconds = 10f;
+                    float elapsed = 0f;
+
+                    while (elapsed < timeoutSeconds)
                     {
-                        foreach (var prop in _lobbyDataHolder.CurrentLobby.Properties)
+                        if (_lobbyDataHolder.CurrentLobby.Properties != null &&
+                            _lobbyDataHolder.CurrentLobby.Properties.TryGetValue("HostSteamId", out hostSteamId) &&
+                            !string.IsNullOrWhiteSpace(hostSteamId))
                         {
-                            Debug.Log($"  - {prop.Key}: {prop.Value}");
+                            var addressProp = transportType.GetProperty("address");
+                            addressProp?.SetValue(transport, hostSteamId);
+                            break;
                         }
+
+                        elapsed += Time.deltaTime;
+                        yield return null;
                     }
-                    else
+
+                    var addressPropAfter = transportType.GetProperty("address");
+                    var addressValue = addressPropAfter?.GetValue(transport) as string;
+                    if (string.IsNullOrWhiteSpace(hostSteamId) && string.IsNullOrWhiteSpace(addressValue))
                     {
-                        Debug.LogWarning("[ConnectionStarter] Lobby properties are NULL!");
+                        PurrLogger.LogError("Failed to start connection. HostSteamId missing from lobby.", this);
+                        yield break;
                     }
                 }
-                else
-                {
-                    Debug.Log($"[ConnectionStarter] Transport is not SteamTransport (type: {transportType.FullName})");
-                }
-            }
-            else
-            {
-                Debug.Log($"[ConnectionStarter] Skipping transport setup - transport: {transport}, isOwner: {_lobbyDataHolder?.CurrentLobby.IsOwner}");
             }
 
-            Debug.Log("[ConnectionStarter] Starting network client...");
             _networkManager.StartClient();
-            Debug.Log("[ConnectionStarter] StartClient() coroutine completed");
         }
     }
 }
