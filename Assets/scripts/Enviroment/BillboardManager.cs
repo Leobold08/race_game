@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PurrNet;
 
 public class BillboardManager : MonoBehaviour
 {
@@ -12,18 +13,45 @@ public class BillboardManager : MonoBehaviour
     public float lenientAngle = 90f;
 
     float timer;
+    bool cameraSearchActive;
 
     void Awake()
     {
         if (billboardCamera == null)
-            StartCoroutine(FindCameraDelayed());
+        {
+            cameraSearchActive = true;
+            StartCoroutine(FindLocalPlayerCamera());
+        }
     }
 
-    IEnumerator FindCameraDelayed()
+    IEnumerator FindLocalPlayerCamera()
     {
-        yield return new WaitForSeconds(0.05f); // Wait 50ms before retrying
-        if (billboardCamera == null)
-            billboardCamera = Camera.main;
+        // Keep searching until we find the local player's camera
+        while (billboardCamera == null)
+        {
+            yield return new WaitForSeconds(0.1f);
+
+            // Try Camera.main first
+            if (Camera.main != null)
+            {
+                billboardCamera = Camera.main;
+                cameraSearchActive = false;
+                yield break;
+            }
+
+            // Look for a camera attached to a NetworkBehaviour that isOwner
+            var cameras = FindObjectsOfType<Camera>();
+            foreach (var cam in cameras)
+            {
+                var networkBehaviour = cam.GetComponentInParent<NetworkBehaviour>();
+                if (networkBehaviour != null && networkBehaviour.isOwner)
+                {
+                    billboardCamera = cam;
+                    cameraSearchActive = false;
+                    yield break;
+                }
+            }
+        }
     }
 
     void Update()
