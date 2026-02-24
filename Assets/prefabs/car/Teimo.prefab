@@ -597,7 +597,6 @@ Transform:
   - {fileID: 3933437320357784576}
   - {fileID: 509875164920011080}
   - {fileID: 241545645708892569}
-  - {fileID: 1356256160655783351}
   m_Father: {fileID: 5219089566138887814}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &5206946789049082942
@@ -1698,7 +1697,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3945601494884906231}
+  m_Father: {fileID: 5219089566138887814}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &5704288345816244637
 Camera:
@@ -2117,6 +2116,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6752286418973455843, guid: d564b44e6c3401a46a68ee07eb6a202c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3945601494884906231}
+    - targetCorrespondingSourceObject: {fileID: 6752286418973455843, guid: d564b44e6c3401a46a68ee07eb6a202c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1356256160655783351}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3621995110324072295, guid: d564b44e6c3401a46a68ee07eb6a202c, type: 3}
       insertIndex: -1
