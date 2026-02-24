@@ -1,5 +1,6 @@
 using UnityEngine;
 using PurrNet;
+using System.Text;
 
 public class NetworkCarSelector : NetworkBehaviour
 {
@@ -23,14 +24,15 @@ public class NetworkCarSelector : NetworkBehaviour
 
     protected override void OnSpawned(bool asServer)
     {
-        HandleCarIndexChanged(carIndex.value);
-
         if (!asServer && isOwner)
         {
             int selectedIndex = ResolveSelectedCarIndex();
-
             carIndex.value = selectedIndex;
+            HandleCarIndexChanged(selectedIndex);
+            return;
         }
+
+        HandleCarIndexChanged(carIndex.value);
     }
 
     private int ResolveSelectedCarIndex()
@@ -43,9 +45,16 @@ public class NetworkCarSelector : NetworkBehaviour
         string selectedCarName = PlayerPrefs.GetString("SelectedCar", string.Empty);
         if (!string.IsNullOrWhiteSpace(selectedCarName))
         {
+            string normalizedSelected = NormalizeCarName(selectedCarName);
             for (int i = 0; i < carPrefabs.Length; i++)
             {
-                if (carPrefabs[i] != null && string.Equals(carPrefabs[i].name, selectedCarName, System.StringComparison.OrdinalIgnoreCase))
+                if (carPrefabs[i] == null)
+                    continue;
+
+                string normalizedPrefab = NormalizeCarName(carPrefabs[i].name);
+                if (string.Equals(normalizedPrefab, normalizedSelected, System.StringComparison.OrdinalIgnoreCase)
+                    || normalizedPrefab.Contains(normalizedSelected)
+                    || normalizedSelected.Contains(normalizedPrefab))
                     return i;
             }
         }
@@ -54,6 +63,24 @@ public class NetworkCarSelector : NetworkBehaviour
             selectedIndex = Mathf.Clamp(PlayerPrefs.GetInt("CarIndex", selectedIndex), 0, carPrefabs.Length - 1);
 
         return selectedIndex;
+    }
+
+    private string NormalizeCarName(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return string.Empty;
+
+        string sanitized = value.Replace("(Clone)", string.Empty, System.StringComparison.OrdinalIgnoreCase);
+        StringBuilder builder = new StringBuilder(sanitized.Length);
+
+        for (int i = 0; i < sanitized.Length; i++)
+        {
+            char character = sanitized[i];
+            if (char.IsLetterOrDigit(character))
+                builder.Append(char.ToLowerInvariant(character));
+        }
+
+        return builder.ToString();
     }
 
     private void HandleCarIndexChanged(int index)
@@ -76,8 +103,16 @@ public class NetworkCarSelector : NetworkBehaviour
     [ServerRpc]
     private void RequestSpawnCar(int carIndex)
     {
+        if (carPrefabs == null || carPrefabs.Length == 0)
+            return;
+
+        int clampedIndex = Mathf.Clamp(carIndex, 0, carPrefabs.Length - 1);
+
+        if (_currentCar)
+            Destroy(_currentCar);
+
         var root = carRoot ? carRoot : transform;
-        _currentCar = Instantiate(carPrefabs[carIndex], root.position, root.rotation, root);
+        _currentCar = Instantiate(carPrefabs[clampedIndex], root.position, root.rotation, root);
         
         // Get the NetworkIdentity and give ownership to the requesting player
         var carNetwork = _currentCar.GetComponent<NetworkIdentity>();

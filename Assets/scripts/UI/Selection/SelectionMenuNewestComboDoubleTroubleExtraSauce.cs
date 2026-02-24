@@ -265,6 +265,7 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
 
         string selectedCarName = availableCars[index].name;
         PlayerPrefs.SetString("SelectedCar", selectedCarName);
+        PlayerPrefs.SetInt("CarIndex", index);
 
         PlayerPrefs.Save();
     }
