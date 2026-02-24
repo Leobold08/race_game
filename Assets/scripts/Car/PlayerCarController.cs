@@ -17,17 +17,12 @@ public class PlayerCarController : BaseCarController
     private PlayerInput PlayerInput;
     private string CurrentControlScheme = "Keyboard";
 
-    // PurrNet: only the owner should run this controller in multiplayer
     protected override void OnSpawned(bool asServer)
     {
         base.OnSpawned(asServer);
-        // In networked games, disable this behaviour for non-owners so
-        // only the local player instance processes input and physics.
+
         enabled = isOwner;
 
-        // Camera check: if this car has a camera attached (for example a
-        // follow or cockpit camera on the prefab), only enable it for
-        // the owning player so remote cars do not drive a camera.
         var cam = GetComponentInChildren<Camera>();
         if (cam != null)
         {

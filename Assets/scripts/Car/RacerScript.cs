@@ -105,6 +105,11 @@ public class RacerScript : MonoBehaviour, IDataPersistence
 
         winMenu = GameObject.Find("WinMenu").GetComponentInChildren<Canvas>(true).gameObject;
         Minimap = GameObject.Find("Minimap");
+        Car1Hud = GameObject.Find("UIcanvas");
+        if (Car1Hud == null)
+        {
+            Debug.LogWarning("UIcanvas EI OLE VITTU OLEMASSA");
+        }
         startFinishLine = GameObject.Find("StartFinish").transform;
 
         totalLaps = PlayerPrefs.GetInt("Laps");

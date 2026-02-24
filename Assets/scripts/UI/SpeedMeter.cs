@@ -1,7 +1,8 @@
+using PurrNet;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SpeedMeter : MonoBehaviour
+public class SpeedMeter : NetworkBehaviour
 {
     public Rigidbody target;
 
@@ -17,8 +18,17 @@ public class SpeedMeter : MonoBehaviour
     public Text speedLabel;//Leo our favourite gremlin
     public RectTransform arrow;
 
+    protected override void OnSpawned(bool asServer)
+    {
+        base.OnSpawned(asServer);
+
+        enabled = isOwner;
+    }
+
     private void Start()
     {
+        if (!isOwner) return;
+        
         if (speedLabel == null)
         {
             Debug.LogWarning("speedLabel EI OLE VITTU OLEMASSA");
