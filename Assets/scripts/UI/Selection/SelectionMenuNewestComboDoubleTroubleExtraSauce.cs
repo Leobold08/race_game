@@ -161,6 +161,7 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
         availableCars = carBases[baseIndex].cars;
 
         availableCars[index].SetActive(true);
+        SaveSelectedCarPrefs();
 
         UpdateCarStats();
     }
@@ -239,8 +240,7 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
             UpdateCarStats(); 
         }
 
-        PlayerPrefs.SetString("SelectedCar", availableCars[index].name);
-        PlayerPrefs.Save();
+        SaveSelectedCarPrefs();
     }
 
     public void LeftButton()
@@ -255,7 +255,17 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
             UpdateCarStats(); 
         }
 
-        PlayerPrefs.SetString("SelectedCar", availableCars[index].name);
+        SaveSelectedCarPrefs();
+    }
+
+    private void SaveSelectedCarPrefs()
+    {
+        if (index < 0 || index >= availableCars.Count || availableCars[index] == null)
+            return;
+
+        string selectedCarName = availableCars[index].name;
+        PlayerPrefs.SetString("SelectedCar", selectedCarName);
+
         PlayerPrefs.Save();
     }
 

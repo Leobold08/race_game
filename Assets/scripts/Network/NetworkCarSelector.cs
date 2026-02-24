@@ -27,13 +27,33 @@ public class NetworkCarSelector : NetworkBehaviour
 
         if (!asServer && isOwner)
         {
-            int selectedIndex = GameManager.SelectedCarIndex;
-            if (carPrefabs != null && carPrefabs.Length > 0)
-                selectedIndex = Mathf.Clamp(selectedIndex, 0, carPrefabs.Length - 1);
-            else selectedIndex = 0;
+            int selectedIndex = ResolveSelectedCarIndex();
 
             carIndex.value = selectedIndex;
         }
+    }
+
+    private int ResolveSelectedCarIndex()
+    {
+        if (carPrefabs == null || carPrefabs.Length == 0)
+            return 0;
+
+        int selectedIndex = Mathf.Clamp(GameManager.SelectedCarIndex, 0, carPrefabs.Length - 1);
+
+        string selectedCarName = PlayerPrefs.GetString("SelectedCar", string.Empty);
+        if (!string.IsNullOrWhiteSpace(selectedCarName))
+        {
+            for (int i = 0; i < carPrefabs.Length; i++)
+            {
+                if (carPrefabs[i] != null && string.Equals(carPrefabs[i].name, selectedCarName, System.StringComparison.OrdinalIgnoreCase))
+                    return i;
+            }
+        }
+
+        if (PlayerPrefs.HasKey("CarIndex"))
+            selectedIndex = Mathf.Clamp(PlayerPrefs.GetInt("CarIndex", selectedIndex), 0, carPrefabs.Length - 1);
+
+        return selectedIndex;
     }
 
     private void HandleCarIndexChanged(int index)

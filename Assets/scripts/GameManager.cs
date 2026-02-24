@@ -52,13 +52,39 @@ public class GameManager : MonoBehaviour, IDataPersistence
 
         sceneSelected = SceneManager.GetActiveScene().name;
 
-        int carIndex = PlayerPrefs.GetInt("CarIndex", 0);
-        SelectedCarIndex = Mathf.Clamp(carIndex, 0, Mathf.Max(0, cars.Length - 1));
+        SelectedCarIndex = ResolveSelectedCarIndex();
         if (sceneSelected == "tutorial") CurrentCar = GameObject.Find("REALCAR");
         else CurrentCar = SelectedCarIndex >= 0 && SelectedCarIndex < cars.Length ? cars[SelectedCarIndex] : cars[0];
 
         if (maps.Contains(sceneSelected) && (NetworkManager.main == null || NetworkManager.main.isOffline))
             CurrentCar = Instantiate(CurrentCar, playerSpawn.position, playerSpawn.rotation);
+    }
+
+    private int ResolveSelectedCarIndex()
+    {
+        if (cars == null || cars.Length == 0)
+            return 0;
+
+        int maxIndex = Mathf.Max(0, cars.Length - 1);
+
+        string selectedCarName = PlayerPrefs.GetString("SelectedCar", string.Empty);
+        if (!string.IsNullOrWhiteSpace(selectedCarName))
+        {
+            for (int i = 0; i < cars.Length; i++)
+            {
+                if (cars[i] != null && string.Equals(cars[i].name, selectedCarName, StringComparison.OrdinalIgnoreCase))
+                {
+                    PlayerPrefs.SetInt("CarIndex", i);
+                    PlayerPrefs.Save();
+                    return i;
+                }
+            }
+        }
+
+        if (PlayerPrefs.HasKey("CarIndex"))
+            return Mathf.Clamp(PlayerPrefs.GetInt("CarIndex", 0), 0, maxIndex);
+
+        return 0;
     }
 
     void OnEnable()
