@@ -1,7 +1,8 @@
 using UnityEngine;
+using PurrNet;
 
 [RequireComponent(typeof(Camera))]
-public class CameraFollow : MonoBehaviour
+public class CameraFollow : NetworkBehaviour
 {
     public float moveSmoothness;
     public float rotSmoothness;
@@ -19,21 +20,48 @@ public class CameraFollow : MonoBehaviour
     public float smoothTime = 0.3f;
     public bool setTutorialValues = false;
 
+    protected override void OnSpawned(bool asServer)
+    {
+        base.OnSpawned(asServer);
+
+        enabled = isOwner;
+
+        if (Cam == null)
+            Cam = GetComponent<Camera>();
+
+        if (Cam != null)
+            Cam.enabled = isOwner;
+
+        var listener = GetComponent<AudioListener>();
+        if (listener != null)
+            listener.enabled = isOwner;
+    }
 
 
     private void Start()
     {
         Cam = GetComponent<Camera>();
-        carController = GameManager.instance.CurrentCar.GetComponentInChildren<PlayerCarController>();
+
+        if (carTarget == null)
+            carTarget = transform.root;
+
+        if (carTarget != null)
+            carController = carTarget.GetComponentInChildren<PlayerCarController>();
+
+        if (carController == null && GameManager.instance != null && GameManager.instance.CurrentCar != null)
+            carController = GameManager.instance.CurrentCar.GetComponentInChildren<PlayerCarController>();
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
+        if (!isOwner) return;
         FollowTarget();
     }
 
     void FollowTarget()
     {
+        if (carTarget == null || carController == null) return;
+
         HandleMovement();
         HandleRotation();
         Cam.fieldOfView = Mathf.Lerp(
