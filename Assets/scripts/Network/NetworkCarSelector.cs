@@ -27,12 +27,9 @@ public class NetworkCarSelector : NetworkBehaviour
         if (!asServer && isOwner)
         {
             int selectedIndex = ResolveSelectedCarIndex();
-            carIndex.value = selectedIndex;
-            HandleCarIndexChanged(selectedIndex);
+            RequestSpawnCar(selectedIndex);
             return;
         }
-
-        HandleCarIndexChanged(carIndex.value);
     }
 
     private int ResolveSelectedCarIndex()
@@ -85,19 +82,7 @@ public class NetworkCarSelector : NetworkBehaviour
 
     private void HandleCarIndexChanged(int index)
     {
-        if (carPrefabs == null || carPrefabs.Length == 0)
-            return;
-
-        int clamped = Mathf.Clamp(index, 0, carPrefabs.Length - 1);
-
-        if (_currentCar)
-            Destroy(_currentCar);
-
-        // Only the owner requests the spawn (which sends it to server)
-        if (isOwner)
-        {
-            RequestSpawnCar(clamped);
-        }
+        // Kept only to satisfy SyncVar subscription; spawning is driven explicitly from owner via RPC.
     }
 
     [ServerRpc]
@@ -110,6 +95,8 @@ public class NetworkCarSelector : NetworkBehaviour
 
         if (_currentCar)
             Destroy(_currentCar);
+
+        this.carIndex.value = clampedIndex;
 
         var root = carRoot ? carRoot : transform;
         _currentCar = Instantiate(carPrefabs[clampedIndex], root.position, root.rotation, root);
