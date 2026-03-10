@@ -39,7 +39,7 @@ public class AiCarController : BaseCarController
     [Header("Turn Detection Settings")]
     [Tooltip("Radius of the detection sphere for upcoming turns.")]
     [SerializeField] private float detectionRadius = 7.0f;
-    [Tooltip("Tolerance for deviation from the Bezier curve.")]
+    [Tooltip("Tolerance in angle for deviation from the path")]
     [SerializeField] private float curveTolerance = 2.0f;
 
     // --- Avoidance ---
@@ -72,9 +72,11 @@ public class AiCarController : BaseCarController
     
     private float playerCarWidth;
     private float playerCarLength;
-    private Transform[] waypoints;
     private Vector3 targetPoint;
     private int currentWaypointIndex = 0;
+    private int waypointSize;
+    // Amount of points to sample when looking at a curve to find moving speed
+    private int turnLookAhead = 4;
     private BaseCarController.Wheel[] frontWheels = Array.Empty<BaseCarController.Wheel>();
     private float targetTorque;
     private float moveInput = 0f;
@@ -92,7 +94,7 @@ public class AiCarController : BaseCarController
         playerCarWidth = pc.bounds.size.x;
         playerCarLength = pc.bounds.size.z;
         Maxspeed = difficultyStats.maxSpeed;
-        MaxAcceleration = difficultyStats.maxAccel;
+        MaxAcceleration = difficultyStats.maxAcceleration;
         avoidance = difficultyStats.avoidance;
         return this;
     }
@@ -118,34 +120,41 @@ public class AiCarController : BaseCarController
     {
         Grass = LayerMask.NameToLayer("Grass");
         objectLayerMask = LayerMask.NameToLayer("roadObjects");
+
+        TurnSensitivty *= Time.fixedDeltaTime;
+        waypointSize = aiCarManager.Waypoints.Count();
+        targetPoint = aiCarManager.Waypoints[0];
     }
 
     private void FixedUpdate()
     {
-        // Airborne?
-        if (Physics.Raycast(carRb.position, Vector3.down, GROUND_RAY_LENGTH))
-        {
-            // Apply gravity
-            carRb.AddForce(GravityMultiplier * Physics.gravity.magnitude * Vector3.down, ForceMode.Acceleration);
-        }
+        // Gravity
+        if (Physics.Raycast(carRb.position, Vector3.down, GROUND_RAY_LENGTH)) carRb.AddForce(GravityMultiplier * Physics.gravity.magnitude * Vector3.down, ForceMode.Acceleration);
 
         // Set new waypoint if close enough to current
         if (Vector3.Distance(carRb.position, aiCarManager.Waypoints[currentWaypointIndex]) < waypointThreshold)
         {
-            currentWaypointIndex = (currentWaypointIndex + 1) % aiCarManager.Waypoints.Count();
+            currentWaypointIndex = (currentWaypointIndex + 1) % waypointSize;
+            targetPoint = aiCarManager.Waypoints[currentWaypointIndex];
         }
-
-        targetPoint = aiCarManager.Waypoints[currentWaypointIndex];
 
         AvoidObstacles();
 
-        carRb.rotation = Quaternion.Lerp(
-            carRb.rotation,
-            Quaternion.LookRotation(new Vector3(targetPoint.x - carRb.position.x, 0, targetPoint.z - carRb.position.z)),
-            TurnSensitivty * Time.fixedDeltaTime
-        );
+        // Prevent car from jiggling when already pointing at the target
+        if (Vector3.Angle(carRb.rotation.eulerAngles.normalized, targetPoint.normalized) > curveTolerance)
+        {
+            // Rotate car itself
+            carRb.rotation = Quaternion.Lerp(
+                carRb.rotation,
+                Quaternion.LookRotation(
+                    new Vector3(targetPoint.x - carRb.position.x, 0, targetPoint.z - carRb.position.z)
+                ),
+                TurnSensitivty
+            );
 
-        foreach (Wheel wheel in frontWheels) wheel.WheelCollider.steerAngle = carRb.rotation.y;
+            // Turn wheels
+            foreach (Wheel wheel in frontWheels) wheel.WheelCollider.steerAngle = carRb.rotation.y;
+        }
 
         ApplyDriveInputs();
     }

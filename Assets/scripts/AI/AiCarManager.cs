@@ -25,14 +25,14 @@ public class AiCarManager : MonoBehaviour
  
     public struct DifficultyStats
     {
-        public float minSpeed, maxSpeed, minAccel, maxAccel, avoidance;
-        public DifficultyStats(float minS, float maxS, float minA, float maxA, float avoidanceMultiplier)
+        public float minSpeed, maxSpeed, minAcceleration, maxAcceleration, avoidance;
+        public DifficultyStats(float minSpeed, float maxSpeed, float minAcceleration, float maxAcceleration, float avoidance)
         {
-            minSpeed = minS; 
-            maxSpeed = maxS; 
-            minAccel = minA; 
-            maxAccel = maxA;
-            avoidance = avoidanceMultiplier;
+            this.minSpeed = minSpeed; 
+            this.maxSpeed = maxSpeed; 
+            this.minAcceleration = minAcceleration; 
+            this.maxAcceleration = maxAcceleration;
+            this.avoidance = avoidance;
         }
     }
 
@@ -47,7 +47,7 @@ public class AiCarManager : MonoBehaviour
     {
         BezierBaker bezierBaker = GetComponent<BezierBaker>();
         Waypoints = bezierBaker.GetCachedPoints();
-        spawnedAiCarCount = 3;//(byte)PlayerPrefs.GetInt("AIAmount");
+        spawnedAiCarCount = 1;//(byte)PlayerPrefs.GetInt("AIAmount");
         difficulty = (AIDifficulty)PlayerPrefs.GetInt("AILevel");
 
         gm = GameManager.instance;
