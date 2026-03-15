@@ -26,12 +26,12 @@ public class BaseCarController : MonoBehaviour
     }
 
     [Header("Auton asetukset")]
-    [SerializeField] protected float MaxAcceleration = 700.0f;
+    [SerializeField] internal float MaxAcceleration = 700.0f;
     [SerializeField] protected float BrakeAcceleration = 500.0f;
     [Header("turn asetukset")]
-    [SerializeField] protected float TurnSensitivty  = 1.0f;
-    [SerializeField] protected float TurnSensitivtyAtHighSpeed  = 17.5f;
-    [SerializeField] protected float TurnSensitivtyAtLowSpeed  = 30.0f;
+    [SerializeField] protected float TurnSensitivity  = 1.0f;
+    [SerializeField] protected float TurnSensitivityAtHighSpeed  = 17.5f;
+    [SerializeField] protected float TurnSensitivityAtLowSpeed  = 30.0f;
     [SerializeField] protected float Deceleration  = 1.0f;
     [Min(100.0f)]
     [SerializeField] protected float Maxspeed  = 100.0f;
@@ -46,25 +46,24 @@ public class BaseCarController : MonoBehaviour
     public float MoveInput;
     public float SteerInput;
     protected Vector3 _CenterofMass;
-    protected float TargetTorque  = 0.0f;
+    internal float TargetTorque  = 0.0f;
     public Rigidbody CarRb { get; protected set; }
-    public bool IsTurboActive { get; protected set; } = false;
     protected float Activedrift = 0.0f;
     [SerializeField] protected float Turbesped = 60.0f, TurbeChargeSped = 80, BaseSpeed = 180f, Grassmaxspeed = 50.0f, DriftMaxSpeed = 140f;
     [Header("Drift asetukset")]
     //protected float DriftMultiplier = 1.0f;
     public bool IsDrifting { get; protected set; } = false;
-    protected Color GrassTrailColor = new Color(0.3f, 0.15f, 0.0f);
-    protected Color RoadTrailColor = Color.black;
-    protected float PerusMaxAccerelation, PerusTargetTorque, SmoothedMaxAcceleration;
+    protected Color GrassTrailColor = new Color(0.6f, 0.35f, 0.1f);
+    protected Color RoadTrailColor = new Color(0.08f, 0.08f, 0.08f);
+    internal float PerusMaxAccerelation, PerusTargetTorque, SmoothedMaxAcceleration;
     [Header("turbe asetukset")]
-    protected Image TurbeMeter;
-    [SerializeField] protected float TurbeAmount = 100.0f, TurbeMax = 100.0f, Turbepush = 15.0f, turbechargepush = 20;
+    protected Image TurbeBar;
+    public bool IsTurboActive { get; internal set; } = false;
+    [SerializeField] internal float TurbeAmount = 100.0f, TurbeMax = 100.0f, Turbepush = 15.0f, turbechargepush = 20;
     [SerializeField] protected float TurbeReduce = 10.0f;
     [SerializeField] protected float TurbeRegen = 10.0f;
-
-    protected bool IsRegenerating = false;
-    protected int TurbeRegenCoroutineAmount = 0;
+    [SerializeField] protected float TurbeWaitTime = 2.0f;
+    protected Coroutine TurbeRegeneration = null;
 
     [NonSerialized] public bool CanDrift = false;
     [NonSerialized] public bool CanUseTurbo = false;
@@ -137,6 +136,7 @@ public class BaseCarController : MonoBehaviour
     protected void OnGrass()
     {
         int wheelsOnGrass = 0;
+        //Color rgbColor = Color.HSVToRGB((Time.time * 0.5f) % 1f, 1f, 1f);
 
         foreach (var wheel in Wheels)
         {
@@ -145,7 +145,7 @@ public class BaseCarController : MonoBehaviour
             if (WheelOnGrass) wheelsOnGrass++;
 
             var trail = wheel.WheelEffectobj.GetComponentInChildren<TrailRenderer>();
-
+                                                //if you want rgb colors change one of them to rgbcolor and uncomment the rgb color just for fun
             trail.material.color = WheelOnGrass ? GrassTrailColor : RoadTrailColor;
         }
 
@@ -238,7 +238,7 @@ public class BaseCarController : MonoBehaviour
         foreach (var wheel in Wheels.Where(w => w.Axel == Axel.Front))
         {
         
-            var _steerAngle = SteerInput * TurnSensitivty * (IsDrifting ? 0.8f : 0.35f);
+            var _steerAngle = SteerInput * TurnSensitivity * (IsDrifting ? 0.8f : 0.35f);
             wheel.WheelCollider.steerAngle = Mathf.Lerp(wheel.WheelCollider.steerAngle, _steerAngle, 0.6f);            
         }
     }
@@ -325,98 +325,32 @@ public class BaseCarController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// käytetään TURBEmeterin päivittämiseen joka frame
-    /// </summary>
-    protected void TURBEmeter()
+    protected void TurbeMeter()
     {
-        if (IsTurboActive && TurbeAmount != 0) //jos käytät turboa ja sitä o jäljellä
+        if (IsTurboActive)
         {
-            GameManager.instance.turbeActive = true;
-
-            if (TurbeRegenCoroutineAmount > 0)
+            if (TurbeRegeneration != null) 
             {
-                turbeRegenCoroutines("stop");
+                StopCoroutine(TurbeRegeneration);
+                TurbeRegeneration = null;
             }
-            IsRegenerating = false;
-            TurbeRegenCoroutineAmount = 0;
-
-            TurbeAmount -= TurbeReduce * Time.deltaTime;
+            TurbeAmount = Mathf.Max(TurbeAmount - TurbeReduce * Time.deltaTime, 0f);
         }
-        else if (!IsTurboActive && TurbeAmount < TurbeMax) //jos et käytä turboa ja se ei oo täynnä
-        {
-
-            GameManager.instance.turbeActive = false;
-
-            if (TurbeRegenCoroutineAmount == 0 && IsRegenerating == false)
-            {
-                turbeRegenCoroutines("start");
-                TurbeRegenCoroutineAmount += 1;
-            }
-        }
-
-        if (TurbeAmount < 0)
-        {
-            TurbeAmount = 0;
-        }
-        if (TurbeAmount > TurbeMax)
-        {
-            //Debug.Log("I bought a property in Egypt, and what they do is they give you the property");
-            TurbeAmount = TurbeMax;
-
-            turbeRegenCoroutines("stop");
-            IsRegenerating = false;
-            TurbeRegenCoroutineAmount = 0;
-        }
-
-        TurbeMeter.fillAmount = TurbeAmount / TurbeMax;
+        else if (TurbeAmount < TurbeMax && TurbeRegeneration == null) TurbeRegeneration = StartCoroutine(RegenerateTurbe());
+        TurbeBar.fillAmount = TurbeAmount / TurbeMax;
     }
 
-    /// <summary>
-    /// käytetään TURBEn regeneroimiseen
-    /// ...koska fuck C#
-    /// </summary>
-    private IEnumerator turbeRegenerate()
+    private IEnumerator RegenerateTurbe()
     {
-        yield return new WaitForSecondsRealtime(2.0f);
-        IsRegenerating = true;
+        yield return new WaitForSeconds(TurbeWaitTime);
 
-        if (IsRegenerating && TurbeRegenCoroutineAmount == 1)
+        while (TurbeAmount < TurbeMax)
         {
-            while (IsRegenerating && TurbeRegenCoroutineAmount == 1)
-            {
-                yield return StartCoroutine(RegenerateTurbeAmount());
-            }
+            TurbeAmount = Mathf.Min(TurbeAmount + TurbeRegen * Time.deltaTime, TurbeMax);
+            yield return null;
         }
-        else
-        {
-            Debug.Log("stopped regen coroutine");
-            yield break;
-            //scriptin ei pitäs päästä tähä tilanteeseen missään vaiheessa, mutta se on täällä varmuuden vuoksi
-        }
-    }
 
-    private IEnumerator RegenerateTurbeAmount()
-    {
-        TurbeAmount += TurbeRegen * Time.deltaTime;
-        yield return null; // Wait for the next frame
-    }
-
-    /// <summary>
-    /// aloita tai pysäytä TURBEn regenerointi coroutine
-    /// </summary>
-    /// <param name="option">start / stop</param>
-    private void turbeRegenCoroutines(string option)
-    {
-        switch (option)
-        {
-            case "start":
-                StartCoroutine("turbeRegenerate");
-                break;
-
-            case "stop":
-                StopCoroutine("turbeRegenerate");
-                break;
-        }
+        TurbeRegeneration = null;
+        yield break;
     }
 }

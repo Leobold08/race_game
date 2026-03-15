@@ -1,89 +1,30 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Events;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] optionScript OptionScript;
+    private optionScript OptionScript;
     public GameObject fullMenu;
-    private AudioSource menuMusic;
+    [SerializeField] private AudioSource menuMusic;
     private int musictweenIDstart = -1;
     private int musictweenIDend = -1;
 
-    // new: assign in inspector (or the script will try to find "PlayPanel")
     [SerializeField] private GameObject playConfirmPanel;
-    [SerializeField] private GameObject mainMenuPanel; // assign in Inspector (fallback to Find below)
 
     void Awake()
     {
-        menuMusic = GameObject.Find("menuLoop").GetComponent<AudioSource>();
-
-        fullMenu = GameObject.Find("menuCanvas");
-        OptionScript = GameObject.Find("Optionspanel").GetComponent<optionScript>();
-        GameObject.Find("Optionspanel").SetActive(false);
-
-        if (mainMenuPanel == null)
-            mainMenuPanel = GameObject.Find("MainMenu");
-        if (playConfirmPanel == null)
-            playConfirmPanel = GameObject.Find("PlayPanel");
-        if (playConfirmPanel != null)
-            playConfirmPanel.SetActive(false);
-
-        //hei nimeni on main menu ja tykkään vittuilla koodaajille
+        OptionScript = GetComponentInChildren<optionScript>();
         OptionScript.CacheUIElements();
         OptionScript.InitializeSliderValues();
         OptionScript.InitializeToggleValues();
+
+        OptionScript.gameObject.SetActive(false);
+        if (playConfirmPanel != null) playConfirmPanel.SetActive(false);
     }
 
     void Start()
     {
-        LeanTween.moveLocalY(fullMenu, 0.0f, 1.5f).setEase(LeanTweenType.easeOutBounce).setOnStart(() =>
-        {
-            menuMusic.Play();
-        });
-    }
-
-    // changed: show the play-confirm UI instead of immediately loading
-    // new: events for camera animation (assign in Inspector)
-    [SerializeField] private UnityEvent onShowPlayMenu;
-    [SerializeField] private UnityEvent onHidePlayMenu;
-
-    public void Playgame()
-    {
-        if (playConfirmPanel == null)
-        {
-            // fallback to old behaviour if no UI panel found
-            ConfirmPlay();
-            return;
-        }
-
-        if (mainMenuPanel != null)
-            mainMenuPanel.SetActive(false);
-
-        playConfirmPanel.SetActive(true);
-
-        // signal camera to move forward on Play
-        onShowPlayMenu?.Invoke();
-    }
-
-    // called by the "Play Game" button on the playConfirmPanel
-    public void ConfirmPlay()
-    {
-        SceneManager.LoadSceneAsync("SelectionMenu");
-        DatapersistenceManager.instance.LoadGame();
-    }
-
-    // optional: called by a "Back" button on the playConfirmPanel
-    public void CancelPlay()
-    {
-        if (playConfirmPanel != null)
-            playConfirmPanel.SetActive(false);
-
-        if (mainMenuPanel != null)
-            mainMenuPanel.SetActive(true);
-
-        // signal camera to move back to start
-        onHidePlayMenu?.Invoke();
+        LeanTween.moveLocalY(fullMenu, 0.0f, 1.5f).setEase(LeanTweenType.easeOutBounce).setOnStart(() => { menuMusic.Play(); });
     }
 
     public void MainMenuMusic(bool active)
@@ -92,27 +33,26 @@ public class MainMenu : MonoBehaviour
         switch (active)
         {
             case true:
-                if (musictweenIDend != -1)
-                    LeanTween.cancel(musictweenIDend);
+                if (musictweenIDend != -1) LeanTween.cancel(musictweenIDend);
 
-                musictweenIDstart = LeanTween.value(menuMusic.volume, 0.27f, 0.9f)
-                .setOnUpdate(val => menuMusic.volume = val).id;
+                musictweenIDstart = LeanTween.value(menuMusic.volume, 0.27f, 0.9f).setOnUpdate(val => menuMusic.volume = val).id;
                 break;
             case false:
-                if (musictweenIDstart != -1)
-                    LeanTween.cancel(musictweenIDstart);
-                musictweenIDend = LeanTween.value(menuMusic.volume, 0.0f, 0.9f)
-                .setOnUpdate(val => menuMusic.volume = val).id;
+                if (musictweenIDstart != -1) LeanTween.cancel(musictweenIDstart);
+
+                musictweenIDend = LeanTween.value(menuMusic.volume, 0.0f, 0.9f).setOnUpdate(val => menuMusic.volume = val).id;
                 break;
         }
     }
 
+    public void Playgame()
+    {
+        SceneManager.LoadSceneAsync("SelectionMenu");
+    }
     public void PlayTutorial()
     {
         SceneManager.LoadSceneAsync("tutorial");
-        DatapersistenceManager.instance.LoadGame();
     }
-
     public void QuitGame()
     {
         Application.Quit();

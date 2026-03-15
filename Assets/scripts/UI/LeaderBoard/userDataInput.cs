@@ -17,7 +17,7 @@ public class userDataInput : MonoBehaviour
     private string[] bannedNamePopups;
     [SerializeField] private Text bannedPopup;
     private Button enter;
-    private RacerScript racerscript;
+    private winmenu winmenu;
     private HashSet<string> bannedRegexWords;
 
     void OnEnable()
@@ -39,7 +39,7 @@ public class userDataInput : MonoBehaviour
 
     void Start()
     {
-        racerscript = FindFirstObjectByType<RacerScript>();
+        winmenu = FindFirstObjectByType<winmenu>();
     }
     
     [Serializable]
@@ -118,6 +118,6 @@ public class userDataInput : MonoBehaviour
     public void SaveDataWithUserName()
     {
         RaceResultCollector.instance.SaveRaceResult(userName);
-        racerscript.FinalizeRaceAndSaveData();
+        winmenu.FinalizeRaceAndSaveData();
     }
 }

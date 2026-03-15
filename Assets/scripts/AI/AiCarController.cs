@@ -121,7 +121,7 @@ public class AiCarController : BaseCarController
         Grass = LayerMask.NameToLayer("Grass");
         objectLayerMask = LayerMask.NameToLayer("roadObjects");
 
-        TurnSensitivty *= Time.fixedDeltaTime;
+        TurnSensitivity *= Time.fixedDeltaTime;
         waypointSize = aiCarManager.Waypoints.Count();
         targetPoint = aiCarManager.Waypoints[0];
     }
@@ -149,7 +149,7 @@ public class AiCarController : BaseCarController
                 Quaternion.LookRotation(
                     new Vector3(targetPoint.x - carRb.position.x, 0, targetPoint.z - carRb.position.z)
                 ),
-                TurnSensitivty
+                TurnSensitivity
             );
 
             // Turn wheels

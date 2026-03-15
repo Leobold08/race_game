@@ -9,25 +9,20 @@ using System.Collections;
 
 public class PlayerCarController : BaseCarController
 {
-
-
-    private CarInputActions Controls;
+    internal CarInputActions Controls;
     RacerScript racerScript;
     //LogitechMovement LGM;
 
 
     private PlayerInput PlayerInput;
     private string CurrentControlScheme = "Keyboard";
-    [SerializeField] protected int turbeChargeAmount = 3;
+    [Header("Turbo Type")]
+    [SerializeField] private TurbeType selectedTurboType = TurbeType.TURBO;
+    internal int turbeChargeAmount = 3;
     
-    public enum TurbeType
-    {
-        HandleTurbo,
-        TurbeChargeBoost
-    }
 
-    protected Coroutine TurbeBoost;
-    protected TurbeType turbeType = TurbeType.HandleTurbo;
+
+    internal Coroutine TurbeBoost;
 
 
     
@@ -36,7 +31,7 @@ public class PlayerCarController : BaseCarController
     {
         Controls = new CarInputActions();
         Controls.Enable();
-        TurbeMeter = GameObject.Find("turbeFull").GetComponent<Image>();
+        TurbeBar = GameObject.Find("turbeFull").GetComponent<Image>();
         AutoAssignWheelsAndMaterials();
     }
 
@@ -150,15 +145,10 @@ public class PlayerCarController : BaseCarController
         float speed = CarRb.linearVelocity.magnitude * 3.6f;
         isOnGrassCachedValid = false;
         ApplySpeedLimit(speed);
-
         UpdateDriftSpeed();
-
         ApplyGravity();
         Move();
         Steer();
-
-        
-
         Decelerate();
         Applyturnsensitivity(speed);
         OnGrass();
@@ -208,37 +198,19 @@ public class PlayerCarController : BaseCarController
 
     void Applyturnsensitivity(float speed)
     {
-        TurnSensitivty = Mathf.Lerp(
-            TurnSensitivtyAtLowSpeed,
-            TurnSensitivtyAtHighSpeed,
+        TurnSensitivity = Mathf.Lerp(
+            TurnSensitivityAtLowSpeed,
+            TurnSensitivityAtHighSpeed,
             Mathf.Clamp01(speed / Maxspeed));
     }
 
     protected void HandleTurbo()
     {
         if (!CanUseTurbo) return;
-
-        if (turbeType == TurbeType.HandleTurbo)
-        {
-            TURBE();
-            TURBEmeter();
-        }
-        else if (turbeType == TurbeType.TurbeChargeBoost)
-        {
-            TurbeChargeBoost();
-        }
+        Turbe.Apply(this, selectedTurboType);
+        TurbeMeter();
     }
 
-    protected void TURBE()
-    {
-        IsTurboActive = Controls.CarControls.turbo.IsPressed() && TurbeAmount > 0;
-        if (IsTurboActive)
-        {
-            CarRb.AddForce(Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized * Turbepush, ForceMode.Acceleration);
-            TargetTorque = PerusTargetTorque * 1.5f;                
-            TargetTorque = Mathf.Min(TargetTorque, MaxAcceleration); 
-        }
-    }
 
 
     void Move()
@@ -359,52 +331,28 @@ public class PlayerCarController : BaseCarController
 
     internal void StopDrifting()
     {
-        Activedrift = 0;
-   
-        IsDrifting = false;
-        MaxAcceleration = PerusMaxAccerelation;
-        CarRb.angularDamping = 0.1f;
-        if (racerScript.raceFinished || GameManager.instance.carSpeed < 20.0f)
+        if (IsDrifting)
         {
+            Activedrift = 0;
+            IsDrifting = false;
+            MaxAcceleration = PerusMaxAccerelation;
         }
-        AdjustForwardFrictrion();
-        AdjustSuspension();
+        float DeltaTime = Time.deltaTime * 2.5f;
 
+        CarRb.angularDamping = Mathf.Lerp(CarRb.angularDamping, 0.1f, DeltaTime);
+        
         foreach (var wheel in Wheels)
         {
             if (wheel.WheelCollider == null) continue;
-
-            WheelFrictionCurve sidewaysFriction = wheel.WheelCollider.sidewaysFriction;
-            sidewaysFriction.extremumSlip = 0.15f;
-            sidewaysFriction.asymptoteSlip = 0.1f;
-            sidewaysFriction.extremumValue = 1.0f;
-            sidewaysFriction.asymptoteValue = 1f;
-            sidewaysFriction.stiffness = 5f;
-            wheel.WheelCollider.sidewaysFriction = sidewaysFriction;
+            WheelFrictionCurve sideways = wheel.WheelCollider.sidewaysFriction;
+            sideways.stiffness = Mathf.Lerp(sideways.stiffness, 5f, DeltaTime);
+            sideways.extremumSlip  = Mathf.Lerp(sideways.extremumSlip, 0.15f, DeltaTime);
+            sideways.asymptoteSlip = Mathf.Lerp(sideways.asymptoteSlip, 0.1f, DeltaTime);
+            wheel.WheelCollider.sidewaysFriction = sideways;
         }
     }
 
-    protected void TurbeChargeBoost()
-    {
-        bool turbepressed = Controls.CarControls.turbo.IsPressed();
-        IsTurboActive = turbepressed && turbeChargeAmount > 0;
 
-        float turbecharge = Mathf.InverseLerp(8f, 12f, turbechargepush);
-        float TurbeStrength = Mathf.Lerp(3f, 7f, turbecharge);
-        float Duration = 6.3f;
-        
-        if (IsTurboActive && !turbepressed)
-        {
-            turbeChargeAmount--;
-            print(turbeChargeAmount);
-
-            if (TurbeBoost != null)
-                StopCoroutine(TurbeBoost);
-
-            TurbeBoost = StartCoroutine(BoostCoroutine(TurbeStrength, Duration));
-        }
-    
-    }
 
     public void OnDriftEndBoostTheCar()
     {
@@ -422,7 +370,7 @@ public class PlayerCarController : BaseCarController
         TurbeBoost = StartCoroutine(BoostCoroutine(TurbeStrength, Duration));
     }
 
-    private IEnumerator BoostCoroutine(float TurbeStrength, float Duration)
+    internal IEnumerator BoostCoroutine(float TurbeStrength, float Duration)
     {
         float originalspeed = Maxspeed;
 

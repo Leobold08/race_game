@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.IO;
 
+[RequireComponent(typeof(LeaderBoard))]
 public class leaderboardClearer : MonoBehaviour
 {
     private string filePath;
@@ -28,6 +29,8 @@ public class leaderboardClearer : MonoBehaviour
         if (File.Exists(filePath))
         {
             File.Delete(filePath);
+            var LeaderboardManager = GetComponent<LeaderBoard>();
+            LeaderboardManager.ClearLeaderboard();
             Debug.Log("Leaderboard data cleared!");
         }
         else

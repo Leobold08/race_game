@@ -922,7 +922,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 04e18e206919a834686d9f1b2c295ec9, type: 2}
+  - {fileID: 2100000, guid: be148bfa16d91fc408eef161dcebcef6, type: 2}
   - {fileID: 2100000, guid: be148bfa16d91fc408eef161dcebcef6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -1167,12 +1167,14 @@ MonoBehaviour:
   MoveInput: 0
   SteerInput: 0
   Turbesped: 60
+  TurbeChargeSped: 80
   BaseSpeed: 180
   Grassmaxspeed: 50
   DriftMaxSpeed: 140
   TurbeAmount: 100
   TurbeMax: 100
   Turbepush: 15
+  turbechargepush: 20
   TurbeReduce: 10
   TurbeRegen: 10
   waypointThreshold: 10

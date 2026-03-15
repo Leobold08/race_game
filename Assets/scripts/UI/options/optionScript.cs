@@ -38,7 +38,7 @@ public class optionScript : MonoBehaviour
         InitializeSliderValues();
         InitializeToggleValues();
 
-        foreach (var colorChanger in FindObjectsByType<ColorChanger>(FindObjectsSortMode.None))
+        foreach (var colorChanger in FindObjectsByType<PlayerCarColors>(FindObjectsSortMode.None))
         {
             colorChanger.LightsState(3, true);
         }
@@ -88,7 +88,7 @@ public class optionScript : MonoBehaviour
             PlayerPrefs.SetInt(toggleName + "_value", toggle.isOn ? 1 : 0);
             if (toggleName == "optionTest")
             {
-                foreach (var colorChanger in FindObjectsByType<ColorChanger>(FindObjectsSortMode.None))
+                foreach (var colorChanger in FindObjectsByType<PlayerCarColors>(FindObjectsSortMode.None))
                 {
                     colorChanger.LightsState(3, true);
                 }
@@ -128,8 +128,6 @@ public class optionScript : MonoBehaviour
         Vector3 preTweenScale = new(1.0f, 0.0f, 1.0f);
         gameObject.transform.localScale = preTweenScale;
 
-        LeanTween.scaleY(gameObject, 1.0f, 0.5f)
-        .setIgnoreTimeScale(true)
-        .setEaseOutQuart();
+        LeanTween.scaleY(gameObject, 1.0f, 0.5f).setIgnoreTimeScale(true).setEaseOutQuart();
     }
 }

@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
     
     [Header("auto")]
     public float carSpeed;
-    public bool turbeActive = false;
     void Awake()
     {
         instance = this;
@@ -57,5 +56,15 @@ public class GameManager : MonoBehaviour
     void OnEnable()
     {
         racerscript = FindAnyObjectByType<RacerScript>();
+    }
+
+    //temp ja ota se pois sit
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (racerscript.raceFinished) return;
+            racerscript.EndRace();
+        }
     }
 }

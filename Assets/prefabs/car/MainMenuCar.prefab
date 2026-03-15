@@ -1166,10 +1166,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4391063eeffdd034ab37674067935863, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointLight: {fileID: 3235060978786287580}
-  right: {fileID: 8275279323254570142}
-  left: {fileID: 8789206275375407084}
-  duration: 2
+  pointLight: {fileID: 0}
+  right: {fileID: 0}
+  left: {fileID: 0}
 --- !u!114 &9222563498200951672
 MonoBehaviour:
   m_ObjectHideFlags: 0

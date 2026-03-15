@@ -432,7 +432,7 @@ MonoBehaviour:
   m_ReadOnly: 0
   m_RichText: 1
   m_GlobalFontAsset: {fileID: 11400000, guid: ada91ad055cbfe24e8a8d64d23ca9b34, type: 2}
-  m_OnFocusSelectAll: 1
+  m_OnFocusSelectAll: 0
   m_ResetOnDeActivation: 1
   m_KeepTextSelectionVisible: 0
   m_RestoreOriginalTextOnEscape: 1
@@ -867,6 +867,7 @@ GameObject:
   - component: {fileID: 6051718215427101996}
   - component: {fileID: 66221865973979393}
   - component: {fileID: 2223898795751077038}
+  - component: {fileID: 2656051287054486450}
   m_Layer: 5
   m_Name: WinCanvas
   m_TagString: Untagged
@@ -969,6 +970,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2656051287054486450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3168483669016942917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57d710ccd0c4515448fdd28bf7966451, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::winmenu
 --- !u!1 &3519180184561171245
 GameObject:
   m_ObjectHideFlags: 0

@@ -85,7 +85,6 @@ Transform:
   - {fileID: 2892050656997403685}
   - {fileID: 6268441669253989315}
   - {fileID: 1007106158067370152}
-  - {fileID: 5734643515791108747}
   - {fileID: 1360778627385000851}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -203,51 +202,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0034849d033d3444b4c3f33ef275840, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Waitbeforestart
-  racerScript: {fileID: 0}
---- !u!1 &8652714450798268608
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5734643515791108747}
-  - component: {fileID: 3791469532284746096}
-  m_Layer: 0
-  m_Name: win_menu_manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5734643515791108747
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8652714450798268608}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7910035355320451708}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3791469532284746096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8652714450798268608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57d710ccd0c4515448fdd28bf7966451, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  countGraphics: []
+  countSounds: []
 --- !u!1 &8892613847836274383
 GameObject:
   m_ObjectHideFlags: 0

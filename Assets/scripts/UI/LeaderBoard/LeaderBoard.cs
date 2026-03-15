@@ -3,9 +3,6 @@ using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.ComponentModel;
-using UnityEngine.UI;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class LeaderBoard : MonoBehaviour
 {
@@ -34,10 +31,7 @@ public class LeaderBoard : MonoBehaviour
 
     void OnDestroy()
     {
-        if (updateCoroutine != null)
-        {
-            StopCoroutine(updateCoroutine);
-        }
+        if (updateCoroutine != null) StopCoroutine(updateCoroutine);
     }
 
     private IEnumerator UpdateLeaderboardRoutine()
@@ -60,79 +54,35 @@ public class LeaderBoard : MonoBehaviour
             return;
         }
 
-        List<RaceResultData> sortedResults = collection.results
-            .OrderBy(r => r.score)
-            .Reverse()
-            .Take(5)
-            .ToList();
+        List<RaceResultData> sortedResults = collection.results.OrderBy(r => r.score).Reverse().Take(5).ToList();
 
         for (int i = 0; i < 5; i++)
         {
-            if (i < sortedResults.Count)
-            {
-                DisplayResult(i, sortedResults[i]);
-            }
-            else
-            {
-                ClearSlot(i);
-            }
+            if (i < sortedResults.Count) DisplayResult(i, sortedResults[i]);
+            else ClearSlot(i);
         }
     }
 
     private void DisplayResult(int index, RaceResultData result)
     {
-        if (racerNameTexts[index] != null)
-        {
-            racerNameTexts[index].text = result.racerName;
-        }
-
-        if (timeTexts[index] != null)
-        {
-            timeTexts[index].text = result.time.ToString("F2") + "s";
-        }
-
-        if (showScoreColumn && scoreTexts[index] != null)
-        {
-            scoreTexts[index].text = result.score.ToString();
-        }
-
-        if (showMapColumn && mapTexts[index] != null)
-        {
-            mapTexts[index].text = result.map;
-        }
-
-        if (loadCar)
-        {
-            carTexts[index].text = result.carName;
-        }
+        if (racerNameTexts[index] != null) racerNameTexts[index].text = result.racerName;
+        if (timeTexts[index] != null) timeTexts[index].text = result.time.ToString("F2") + "s";
+        if (showScoreColumn && scoreTexts[index] != null) scoreTexts[index].text = result.score.ToString();
+        if (showMapColumn && mapTexts[index] != null) mapTexts[index].text = result.map;
+        if (loadCar) carTexts[index].text = result.carName;
     }
 
     private void ClearSlot(int index)
     {
-        if (racerNameTexts[index] != null)
-            racerNameTexts[index].text = "---";
-
-        if (timeTexts[index] != null)
-            timeTexts[index].text = "---";
-
-        if (scoreTexts[index] != null)
-            scoreTexts[index].text = "---";
-
-        if (mapTexts[index] != null)
-            mapTexts[index].text = "---";
-
-        if (loadCar)
-        {
-            if (carTexts[index] != null)
-                carTexts[index].text = "---";
-        }
+        if (racerNameTexts[index] != null) racerNameTexts[index].text = "---";
+        if (timeTexts[index] != null) timeTexts[index].text = "---";
+        if (scoreTexts[index] != null) scoreTexts[index].text = "---";
+        if (mapTexts[index] != null) mapTexts[index].text = "---";
+        if (loadCar && carTexts[index] != null) carTexts[index].text = "---";
     }
 
-    private void ClearLeaderboard()
+    public void ClearLeaderboard()
     {
-        for (int i = 0; i < 5; i++)
-        {
-            ClearSlot(i);
-        }
+        for (int i = 0; i < 5; i++) ClearSlot(i);
     }
 }

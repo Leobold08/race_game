@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6622370632386012221}
   - component: {fileID: 4434859143444362636}
   - component: {fileID: 142837362771034333}
+  - component: {fileID: 6195296521682289582}
   m_Layer: 9
   m_Name: streetlight spotlight
   m_TagString: Untagged
@@ -45,7 +46,7 @@ Light:
   serializedVersion: 12
   m_Type: 0
   m_Color: {r: 1, g: 0.92483133, b: 0.6556604, a: 1}
-  m_Intensity: 200
+  m_Intensity: 50
   m_Range: 70
   m_SpotAngle: 165
   m_InnerSpotAngle: 70
@@ -218,7 +219,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  useOcclusion: 0
+  useOcclusion: 1
   useBackgroundCloudOcclusion: 0
   environmentOcclusion: 0
   useWaterOcclusion: 0
@@ -258,6 +259,21 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   lightOverride: {fileID: 0}
+--- !u!114 &6195296521682289582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603045374743624291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c8bca95f7c947b4db5fb152a0d693d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.cqf.urpvolumetricfog.runtime::VolumetricAdditionalLight
+  anisotropy: 0.25
+  scattering: 1
+  radius: 0.2
 --- !u!1001 &9200897204099671469
 PrefabInstance:
   m_ObjectHideFlags: 0

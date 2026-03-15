@@ -33,7 +33,7 @@ public class LapCounter : MonoBehaviour
     // Update is called once per frame aaa
     void Update()
     {
-        int lap = racer != null ? racer.CurrentLap : 0;
+        int lap = racer != null ? racer.currentLap : 0;
         int totalLaps = PlayerPrefs.GetInt("Laps");
         string lapString = lap.ToString().PadLeft(digitCount, '0');
 

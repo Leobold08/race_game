@@ -9,14 +9,10 @@ public class ScrollingImageEffect : MonoBehaviour
 
     private void Start()
     {
-        buttontween = LeanTween.value(0.0f, 0.0f + 1.0f, scrollSpeed)
-        .setOnUpdate((float val) =>
-        {
+        buttontween = LeanTween.value(0.0f, 0.0f + 1.0f, scrollSpeed).setOnUpdate((float val) => {
             Rect rect = targetImage.uvRect;
             rect.x = val;
-            targetImage.uvRect = rect;
-        })
-        .setLoopClamp().id;
+            targetImage.uvRect = rect; }).setLoopClamp().id;
     }
     private void OnDestroy()
     {

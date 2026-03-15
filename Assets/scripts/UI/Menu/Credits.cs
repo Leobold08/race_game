@@ -24,16 +24,11 @@ public class Credits : MonoBehaviour
     private int musictweenIDstart = -1;
     private int musictweenIDend = -1;
 
-    CarInputActions Controls;
-
     //BEST VALUE!!
     private Coroutine inactivityCoroutine;
 
     private void Awake()
     {
-        Controls = new CarInputActions();
-        Controls.Enable();
-
         tasks = new string[]
         {
             "PixelatedGoose\nPROJECT LEAD\ngraphical design, map design, shaders",
@@ -52,11 +47,6 @@ public class Credits : MonoBehaviour
             "- AI car code\n- user input check system",
             "- car textures\n- ideas",
         };
-    }
-
-    void OnDisable()
-    {
-        Controls.Disable();
     }
 
     public void UpdateIconSelection()
@@ -88,14 +78,12 @@ public class Credits : MonoBehaviour
                 creditsTrack.Stop();
                 creditsTrack.Play();
 
-                musictweenIDstart = LeanTween.value(creditsTrack.volume, 0.27f, 0.9f)
-                .setOnUpdate(val => creditsTrack.volume = val).id;
+                musictweenIDstart = LeanTween.value(creditsTrack.volume, 0.27f, 0.9f).setOnUpdate(val => creditsTrack.volume = val).id;
                 break;
             case false:
                 if (musictweenIDstart != -1)
                     LeanTween.cancel(musictweenIDstart);
-                musictweenIDend = LeanTween.value(creditsTrack.volume, 0.0f, 0.9f)
-                .setOnUpdate(val => creditsTrack.volume = val).id;
+                musictweenIDend = LeanTween.value(creditsTrack.volume, 0.0f, 0.9f).setOnUpdate(val => creditsTrack.volume = val).id;
                 break;
         }
     }
