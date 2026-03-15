@@ -99,7 +99,7 @@ public class ButtonInstructions : MonoBehaviour
 
         var step = TutorialSteps[currentStep];
 
-        // Combo step
+        //just so it can do the combo check
         if (step.RequiredComboActions != null && step.RequiredComboActions.Length > 0)
         {
             bool allPressed = true;

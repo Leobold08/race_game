@@ -1,0 +1,2276 @@
+fileFormatVersion: 2
+guid: 602c7749c16d26842b338746ecf18942
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 0
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: gdb-playstation-2_38
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 592
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2860f6287294b44a89c7ee1c18192ec
+      internalID: 2017337585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_39
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 592
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 571ded0e0b0443f43981ec57e0f50146
+      internalID: -1696113080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_40
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 592
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2552a51b819b8294ca4a06f2461f3caa
+      internalID: 1006193034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_41
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 592
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6519d97992dbd264093a6cdb6c344bb4
+      internalID: -1775144423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_42
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 592
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 458bf7620b3af484099ab9824e7f57c6
+      internalID: -320909440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_60
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 576
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 232bc0cb317909d49b28aeeed490c72d
+      internalID: 1771462785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_61
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 576
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a464cb7b7023786459fd851f642381ef
+      internalID: 512688450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_62
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 576
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cb3da3d9e44dd14f879c0f4860ed2a9
+      internalID: 1485719401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_63
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 576
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40b097e29619d5045b192740a05e588f
+      internalID: -926626026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_64
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 576
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cac6091f8156d6d4482f33d7288725bf
+      internalID: -2061552366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_65
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 569
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54b0b2620506bf6499ab8379f2bffd51
+      internalID: 2023197723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_67
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 569
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3df42750d4278c64c8b52cfff8d2a25a
+      internalID: 756101417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_68
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 569
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29bc2efeb2c40c447a5c237e9d2df178
+      internalID: -2053738821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_69
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 569
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c8c8667213ef4941b70567888b85491
+      internalID: -324657914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_83
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 560
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2b4eccfe19ebbd458b0adbbdc660a90
+      internalID: -406646559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_84
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 560
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae418d9059dd5814b8770e698a10f9ef
+      internalID: 233232808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_85
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 560
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bd4d685dc6935c4182a1457609e7bc7
+      internalID: -1696048044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_86
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 560
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8702f1ebcd6b97d4e8f00f9f0dd76d1e
+      internalID: -1441665822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_87
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 560
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7c24e8a2c8cb794cabd3357e04c65e7
+      internalID: -294703466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_106
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 544
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f264488a6580cb44eb89de9f74e8f158
+      internalID: -1616598268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_107
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 544
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c01c3197c22dd8043939a57955f0c49b
+      internalID: 630830290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_108
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 544
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ab3cb1787d104c4e97b0b88311b3b23
+      internalID: -1440085108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_109
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 544
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c3e86b913a6dee4fa4ebd14b3b8b492
+      internalID: 1431772761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_110
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 544
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59c6afe02ca250a418fd04d2a3c167c3
+      internalID: 1497955588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_111
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 551
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20d88d7cd60ddb24eaa180e5210232a7
+      internalID: -1442209933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_120
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 544
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf27a7ed805a9074dbf95527c2a302fe
+      internalID: 1140825625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_121
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 544
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be48f50264adf264bb6e3d51f4266b5d
+      internalID: 447975449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_122
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 544
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0db019ec9befc94479833dd0bf8b073a
+      internalID: -890278431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_123
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 544
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aff46407f60655e4a8c935c389203cf9
+      internalID: 1745978767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_144
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 528
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7da83e0a5ae0158419d5fa390ad19345
+      internalID: -1250681189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_145
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 528
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af935aa04b73a96488a3389b23d4a7b1
+      internalID: -764564420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_146
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 528
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f120c898db0694e4e8514f9a0c0fdecd
+      internalID: 1651739320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_147
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 528
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a708aa6f120c05c4dac117a3f5e6e2e3
+      internalID: -1581262259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_166
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 512
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc6eae7cd826fb3428999edd14afc5ed
+      internalID: 76476857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_167
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 512
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7ab19bcf23867849adf7090b46b0e1e
+      internalID: 1218555303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_168
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 512
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4da67d02120b134e924e453aae7611a
+      internalID: -1398378712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_169
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 512
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3ed0b719913e6f4c970a57b5709e7db
+      internalID: -546592548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_170
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 512
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 111e91eb68cda2749ad80046be9c07fd
+      internalID: 220303189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_191
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 496
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e847032d7b1cdec4fba2c8baf9927be4
+      internalID: 1777479317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_192
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 496
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f31856d43c9ad749844d9af1d49fadd
+      internalID: -193342947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_193
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 496
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3e3b564937968a40a83b80e5c814994
+      internalID: -102479469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_194
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 496
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a065f792223ee92469fcfc8a49457ede
+      internalID: 1983206314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_195
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 496
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c595c5263b123140b0298129eb523b6
+      internalID: 1064691030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_196
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 480
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4349ef319f3305e4b80d3acc29d68e3d
+      internalID: 632331928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_203
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 480
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79a6c4dc9d2914041bbb8929e15b34bc
+      internalID: 1330931233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_259
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 432
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9c54cec5e5c22049bd32122c40784ec
+      internalID: -237978224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_260
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 432
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ecd2a23b8c98a347a7f96612ce3be5c
+      internalID: -67733530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_261
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 432
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f153175752257384da02b20de18e9f89
+      internalID: 309802857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_262
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 432
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac2b1aa84990c1043b03fb6ea5684367
+      internalID: 1410647123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_263
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 432
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: daa6dca88ec6af246acb3ec226bd120c
+      internalID: 1061138285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_90
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 551
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94805750f605f594abe5f8e3ddce4ea9
+      internalID: -644525008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_91
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 551
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f4fdfbe78e033f4590b98a51756c406
+      internalID: 1561332703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_93
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 551
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a84e9c236fccd4b40a8eb372d802cceb
+      internalID: -2016765366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_94
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 533
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f0b4f83dd1ea8f468abdfa8a0e8fded
+      internalID: 957485167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_95
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 551
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a899b9aa56788cb4a8995c01dc07ff80
+      internalID: -779725147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_114
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 533
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee6a1891523b9254a9b6ad93fc3264ce
+      internalID: -585768673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_116
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 533
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f34f7486f0dbe614b8bf83d5d03a9df7
+      internalID: -1683143793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_117
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 533
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fb13a28d3ebadb4c9e9166f4d0fbc36
+      internalID: 1400512931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_136
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 533
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70335b972ee0ad644a16addca839602a
+      internalID: 299479531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_137
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 533
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01a4e145aa4502547adb24d870009c7b
+      internalID: -1733874640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_143
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 528
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9f6cffdd1b42524db42a552989baa3b
+      internalID: -916886079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_198
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 480
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07787df4424f0f349bd28b2806dcbb43
+      internalID: 1091945449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_201
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 480
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 446d008609758d94b82d4cdc8080277a
+      internalID: 1111522055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_205
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 480
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f97f8818f0a0b64292aabb508fc7e8c
+      internalID: -1604844888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_0
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 569
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb4c34bc99e60214c9977bf2d70bc73b
+      internalID: -168660867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-2_1
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 569
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c59b3e337e177704aa3f7ba3d131a10e
+      internalID: 513415883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: e8b52f769435e8f4193ba4c623284ec2
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":15.0,"y":15.0},"gridSpriteSize":{"x":16.0,"y":16.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      gdb-playstation-2_0: -168660867
+      gdb-playstation-2_1: 513415883
+      gdb-playstation-2_10: -1557239613
+      gdb-playstation-2_100: -1464263357
+      gdb-playstation-2_101: 1120408238
+      gdb-playstation-2_102: 1946153542
+      gdb-playstation-2_103: -1783271829
+      gdb-playstation-2_104: 1468914719
+      gdb-playstation-2_105: 1595753828
+      gdb-playstation-2_106: -1616598268
+      gdb-playstation-2_107: 630830290
+      gdb-playstation-2_108: -1440085108
+      gdb-playstation-2_109: 1431772761
+      gdb-playstation-2_11: 474036122
+      gdb-playstation-2_110: 1497955588
+      gdb-playstation-2_111: -1442209933
+      gdb-playstation-2_112: 1144637437
+      gdb-playstation-2_113: -647258492
+      gdb-playstation-2_114: -585768673
+      gdb-playstation-2_115: 665317865
+      gdb-playstation-2_116: -1683143793
+      gdb-playstation-2_117: 1400512931
+      gdb-playstation-2_118: 834028572
+      gdb-playstation-2_119: -1216213247
+      gdb-playstation-2_12: 1501078647
+      gdb-playstation-2_120: 1140825625
+      gdb-playstation-2_121: 447975449
+      gdb-playstation-2_122: -890278431
+      gdb-playstation-2_123: 1745978767
+      gdb-playstation-2_124: 1900707577
+      gdb-playstation-2_125: -625543003
+      gdb-playstation-2_126: -1475643697
+      gdb-playstation-2_127: 419831060
+      gdb-playstation-2_128: -1251794052
+      gdb-playstation-2_129: -669919084
+      gdb-playstation-2_13: -120346488
+      gdb-playstation-2_130: -1424325496
+      gdb-playstation-2_131: 1242848010
+      gdb-playstation-2_132: 1752493206
+      gdb-playstation-2_133: -496534601
+      gdb-playstation-2_134: -200563116
+      gdb-playstation-2_135: -2019595267
+      gdb-playstation-2_136: 299479531
+      gdb-playstation-2_137: -1733874640
+      gdb-playstation-2_138: -2141558676
+      gdb-playstation-2_139: 2112427077
+      gdb-playstation-2_14: 90158518
+      gdb-playstation-2_140: -2033367465
+      gdb-playstation-2_141: -1009545068
+      gdb-playstation-2_142: -999620379
+      gdb-playstation-2_143: -916886079
+      gdb-playstation-2_144: -1250681189
+      gdb-playstation-2_145: -764564420
+      gdb-playstation-2_146: 1651739320
+      gdb-playstation-2_147: -1581262259
+      gdb-playstation-2_148: 1151525625
+      gdb-playstation-2_149: -1359770505
+      gdb-playstation-2_15: 292395220
+      gdb-playstation-2_150: -1080453490
+      gdb-playstation-2_151: -1519049159
+      gdb-playstation-2_152: -1293928166
+      gdb-playstation-2_153: 411000107
+      gdb-playstation-2_154: -1923358028
+      gdb-playstation-2_155: -554461497
+      gdb-playstation-2_156: -1663870480
+      gdb-playstation-2_157: 1543664787
+      gdb-playstation-2_158: 1597314388
+      gdb-playstation-2_159: -1325348244
+      gdb-playstation-2_16: 1212409173
+      gdb-playstation-2_160: 1001695315
+      gdb-playstation-2_161: -296380950
+      gdb-playstation-2_162: -1460173423
+      gdb-playstation-2_163: -892005825
+      gdb-playstation-2_164: -333778906
+      gdb-playstation-2_165: 1342334125
+      gdb-playstation-2_166: 76476857
+      gdb-playstation-2_167: 1218555303
+      gdb-playstation-2_168: -1398378712
+      gdb-playstation-2_169: -546592548
+      gdb-playstation-2_17: -1186985397
+      gdb-playstation-2_170: 220303189
+      gdb-playstation-2_171: -1294145403
+      gdb-playstation-2_172: 659978886
+      gdb-playstation-2_173: 1823602488
+      gdb-playstation-2_174: -1402345147
+      gdb-playstation-2_175: -572069135
+      gdb-playstation-2_176: 406391017
+      gdb-playstation-2_177: 726904350
+      gdb-playstation-2_178: -1154530874
+      gdb-playstation-2_179: 1507018540
+      gdb-playstation-2_18: -620278600
+      gdb-playstation-2_180: 903350760
+      gdb-playstation-2_181: -1074245556
+      gdb-playstation-2_182: -1361368844
+      gdb-playstation-2_183: 50458849
+      gdb-playstation-2_184: 1900632368
+      gdb-playstation-2_185: 83793551
+      gdb-playstation-2_186: -892571942
+      gdb-playstation-2_187: 1237441184
+      gdb-playstation-2_188: 1629614617
+      gdb-playstation-2_189: 1140142200
+      gdb-playstation-2_19: 1109949353
+      gdb-playstation-2_190: -140624463
+      gdb-playstation-2_191: 1777479317
+      gdb-playstation-2_192: -193342947
+      gdb-playstation-2_193: -102479469
+      gdb-playstation-2_194: 1983206314
+      gdb-playstation-2_195: 1064691030
+      gdb-playstation-2_196: 632331928
+      gdb-playstation-2_197: 2087513834
+      gdb-playstation-2_198: 1091945449
+      gdb-playstation-2_199: 1176245004
+      gdb-playstation-2_2: -386468421
+      gdb-playstation-2_20: 1387173783
+      gdb-playstation-2_200: -354330643
+      gdb-playstation-2_201: 1111522055
+      gdb-playstation-2_202: -629516933
+      gdb-playstation-2_203: 1330931233
+      gdb-playstation-2_204: -1278476366
+      gdb-playstation-2_205: -1604844888
+      gdb-playstation-2_206: -874603584
+      gdb-playstation-2_207: 1426539772
+      gdb-playstation-2_208: 1303193772
+      gdb-playstation-2_209: 546687709
+      gdb-playstation-2_21: -150978015
+      gdb-playstation-2_210: 263882091
+      gdb-playstation-2_211: -1605841329
+      gdb-playstation-2_212: 84014682
+      gdb-playstation-2_213: -390186605
+      gdb-playstation-2_214: -45116411
+      gdb-playstation-2_215: 656252081
+      gdb-playstation-2_216: 821355671
+      gdb-playstation-2_217: -1410611563
+      gdb-playstation-2_218: -1454878142
+      gdb-playstation-2_219: -1769411927
+      gdb-playstation-2_22: 2141650635
+      gdb-playstation-2_220: -1886405941
+      gdb-playstation-2_221: 663671788
+      gdb-playstation-2_222: 1400137749
+      gdb-playstation-2_223: 2010197851
+      gdb-playstation-2_224: -1820001217
+      gdb-playstation-2_225: -1093804551
+      gdb-playstation-2_226: 736868154
+      gdb-playstation-2_227: 574068912
+      gdb-playstation-2_228: -1831259381
+      gdb-playstation-2_229: -1800287234
+      gdb-playstation-2_23: 399244100
+      gdb-playstation-2_230: -872301300
+      gdb-playstation-2_231: -482504578
+      gdb-playstation-2_232: 1113697074
+      gdb-playstation-2_233: -112803587
+      gdb-playstation-2_234: 571669479
+      gdb-playstation-2_235: 1438518480
+      gdb-playstation-2_236: 2146235831
+      gdb-playstation-2_237: -1680214639
+      gdb-playstation-2_238: 800933635
+      gdb-playstation-2_239: -1134605914
+      gdb-playstation-2_24: -1357760459
+      gdb-playstation-2_240: -360674703
+      gdb-playstation-2_241: 876356449
+      gdb-playstation-2_242: 1550864428
+      gdb-playstation-2_243: -1879029287
+      gdb-playstation-2_244: 1728518477
+      gdb-playstation-2_245: 1372688882
+      gdb-playstation-2_246: -1031153547
+      gdb-playstation-2_247: -1742022016
+      gdb-playstation-2_248: -800729625
+      gdb-playstation-2_249: -1398217205
+      gdb-playstation-2_25: -783940662
+      gdb-playstation-2_250: -1910185591
+      gdb-playstation-2_251: -833687786
+      gdb-playstation-2_252: 1889661815
+      gdb-playstation-2_253: -530622749
+      gdb-playstation-2_254: -1062993509
+      gdb-playstation-2_255: 1217407874
+      gdb-playstation-2_256: 439132884
+      gdb-playstation-2_257: -1545742313
+      gdb-playstation-2_258: -692451484
+      gdb-playstation-2_259: -237978224
+      gdb-playstation-2_26: 1962446467
+      gdb-playstation-2_260: -67733530
+      gdb-playstation-2_261: 309802857
+      gdb-playstation-2_262: 1410647123
+      gdb-playstation-2_263: 1061138285
+      gdb-playstation-2_264: 1698662737
+      gdb-playstation-2_265: 603912134
+      gdb-playstation-2_266: 789477383
+      gdb-playstation-2_267: -365159787
+      gdb-playstation-2_268: 290516710
+      gdb-playstation-2_269: 884844876
+      gdb-playstation-2_27: 327530937
+      gdb-playstation-2_270: 1374130370
+      gdb-playstation-2_271: -1216659484
+      gdb-playstation-2_272: 733737141
+      gdb-playstation-2_273: 1720899230
+      gdb-playstation-2_274: 1063224205
+      gdb-playstation-2_275: -1854288968
+      gdb-playstation-2_276: 1039904414
+      gdb-playstation-2_277: 627433047
+      gdb-playstation-2_278: 1147857076
+      gdb-playstation-2_279: 648260142
+      gdb-playstation-2_28: -618006583
+      gdb-playstation-2_280: -852436920
+      gdb-playstation-2_281: 2098937716
+      gdb-playstation-2_282: -182475190
+      gdb-playstation-2_283: -1169561689
+      gdb-playstation-2_284: -1190098371
+      gdb-playstation-2_285: -1546540016
+      gdb-playstation-2_286: 878227625
+      gdb-playstation-2_287: -1745703031
+      gdb-playstation-2_288: -537377280
+      gdb-playstation-2_289: 2085337357
+      gdb-playstation-2_29: -1951445783
+      gdb-playstation-2_290: 744454108
+      gdb-playstation-2_291: -660994505
+      gdb-playstation-2_292: 806939671
+      gdb-playstation-2_293: 824574710
+      gdb-playstation-2_294: -855868386
+      gdb-playstation-2_295: -1080431234
+      gdb-playstation-2_296: 5075753
+      gdb-playstation-2_297: -105158709
+      gdb-playstation-2_298: -1781363258
+      gdb-playstation-2_299: 789954742
+      gdb-playstation-2_3: -1461740065
+      gdb-playstation-2_30: 479314074
+      gdb-playstation-2_300: 1573593735
+      gdb-playstation-2_301: -2108129623
+      gdb-playstation-2_302: 115195833
+      gdb-playstation-2_303: 1623625804
+      gdb-playstation-2_304: 511541809
+      gdb-playstation-2_305: -1184707679
+      gdb-playstation-2_306: -147584620
+      gdb-playstation-2_307: 831193377
+      gdb-playstation-2_308: -1618134569
+      gdb-playstation-2_309: 265161011
+      gdb-playstation-2_31: 1922188638
+      gdb-playstation-2_310: 759904834
+      gdb-playstation-2_311: 1311646637
+      gdb-playstation-2_312: 332515951
+      gdb-playstation-2_313: -1355936244
+      gdb-playstation-2_314: 774323543
+      gdb-playstation-2_315: 1085398349
+      gdb-playstation-2_316: 141386920
+      gdb-playstation-2_317: -1035181984
+      gdb-playstation-2_318: -1201952400
+      gdb-playstation-2_319: 963292631
+      gdb-playstation-2_32: 160710249
+      gdb-playstation-2_320: 220787733
+      gdb-playstation-2_321: -822650510
+      gdb-playstation-2_322: -1431001352
+      gdb-playstation-2_323: 1322763547
+      gdb-playstation-2_324: -1769681563
+      gdb-playstation-2_325: 1717680276
+      gdb-playstation-2_326: 1938130996
+      gdb-playstation-2_327: -22487834
+      gdb-playstation-2_328: 382661916
+      gdb-playstation-2_329: 328386206
+      gdb-playstation-2_33: 2005846485
+      gdb-playstation-2_330: -799496556
+      gdb-playstation-2_331: 1478528878
+      gdb-playstation-2_332: 893761920
+      gdb-playstation-2_333: -273195132
+      gdb-playstation-2_334: -936192925
+      gdb-playstation-2_335: 1351460350
+      gdb-playstation-2_336: -80000816
+      gdb-playstation-2_337: 698628290
+      gdb-playstation-2_338: -1982611944
+      gdb-playstation-2_339: -1266785150
+      gdb-playstation-2_34: 1610542364
+      gdb-playstation-2_340: 1830563962
+      gdb-playstation-2_341: 1947548886
+      gdb-playstation-2_342: -593955321
+      gdb-playstation-2_343: 470080414
+      gdb-playstation-2_344: -868801461
+      gdb-playstation-2_345: -1136957466
+      gdb-playstation-2_346: -158588832
+      gdb-playstation-2_347: -267121441
+      gdb-playstation-2_348: 1741161690
+      gdb-playstation-2_349: 223947040
+      gdb-playstation-2_35: -1229014855
+      gdb-playstation-2_350: 1896776566
+      gdb-playstation-2_351: -511699374
+      gdb-playstation-2_352: 2024470261
+      gdb-playstation-2_353: -883579380
+      gdb-playstation-2_354: -1251417787
+      gdb-playstation-2_355: 137846915
+      gdb-playstation-2_356: 1574610905
+      gdb-playstation-2_357: 385297791
+      gdb-playstation-2_358: 1365533397
+      gdb-playstation-2_359: -838587508
+      gdb-playstation-2_36: -2020180919
+      gdb-playstation-2_360: 5837928
+      gdb-playstation-2_361: 406043028
+      gdb-playstation-2_362: 175550844
+      gdb-playstation-2_363: -215258046
+      gdb-playstation-2_364: -179302639
+      gdb-playstation-2_365: 1048821234
+      gdb-playstation-2_366: 510389821
+      gdb-playstation-2_367: -2020193203
+      gdb-playstation-2_368: 1035260851
+      gdb-playstation-2_369: -718464651
+      gdb-playstation-2_37: -370506037
+      gdb-playstation-2_370: 379951243
+      gdb-playstation-2_371: 656342708
+      gdb-playstation-2_372: -664829158
+      gdb-playstation-2_373: -1584963237
+      gdb-playstation-2_374: 995182938
+      gdb-playstation-2_375: 2126370573
+      gdb-playstation-2_376: 1820179697
+      gdb-playstation-2_377: -497212951
+      gdb-playstation-2_378: 1577528449
+      gdb-playstation-2_379: -389033421
+      gdb-playstation-2_38: 2017337585
+      gdb-playstation-2_380: -2049690989
+      gdb-playstation-2_381: 135960630
+      gdb-playstation-2_382: -1597937229
+      gdb-playstation-2_383: -108551928
+      gdb-playstation-2_384: 862351025
+      gdb-playstation-2_385: -214167773
+      gdb-playstation-2_386: 976229634
+      gdb-playstation-2_387: 1196620609
+      gdb-playstation-2_388: -812842269
+      gdb-playstation-2_389: 370594862
+      gdb-playstation-2_39: -1696113080
+      gdb-playstation-2_390: -520824625
+      gdb-playstation-2_391: -1794489990
+      gdb-playstation-2_392: -1251910226
+      gdb-playstation-2_393: -465511080
+      gdb-playstation-2_394: 1666047278
+      gdb-playstation-2_395: 235686412
+      gdb-playstation-2_396: -696460995
+      gdb-playstation-2_397: -1821846478
+      gdb-playstation-2_398: -4118785
+      gdb-playstation-2_399: -972704192
+      gdb-playstation-2_4: 867550931
+      gdb-playstation-2_40: 1006193034
+      gdb-playstation-2_400: -987676223
+      gdb-playstation-2_401: 1373931310
+      gdb-playstation-2_402: -1134696735
+      gdb-playstation-2_403: 1568864595
+      gdb-playstation-2_404: 1365997403
+      gdb-playstation-2_405: -895381766
+      gdb-playstation-2_406: -1185338529
+      gdb-playstation-2_407: -1107277769
+      gdb-playstation-2_408: 621729162
+      gdb-playstation-2_409: -460966193
+      gdb-playstation-2_41: -1775144423
+      gdb-playstation-2_410: 2017183345
+      gdb-playstation-2_411: 406757964
+      gdb-playstation-2_412: 1722243142
+      gdb-playstation-2_413: -2082691384
+      gdb-playstation-2_414: -1738883006
+      gdb-playstation-2_415: 1151480222
+      gdb-playstation-2_416: 658546518
+      gdb-playstation-2_417: -456793050
+      gdb-playstation-2_418: 1856890380
+      gdb-playstation-2_419: 1052273416
+      gdb-playstation-2_42: -320909440
+      gdb-playstation-2_420: -472673762
+      gdb-playstation-2_421: -565641779
+      gdb-playstation-2_422: 603723385
+      gdb-playstation-2_423: 2071619608
+      gdb-playstation-2_424: -571076745
+      gdb-playstation-2_425: -328695931
+      gdb-playstation-2_426: 1196962444
+      gdb-playstation-2_427: 426366857
+      gdb-playstation-2_428: 794864620
+      gdb-playstation-2_429: -1114307178
+      gdb-playstation-2_43: -409410795
+      gdb-playstation-2_430: 1082695964
+      gdb-playstation-2_431: -1700961095
+      gdb-playstation-2_432: -191416180
+      gdb-playstation-2_433: 1937519993
+      gdb-playstation-2_434: 1579502977
+      gdb-playstation-2_435: 464390382
+      gdb-playstation-2_436: 317955422
+      gdb-playstation-2_437: 1927850353
+      gdb-playstation-2_438: -928568630
+      gdb-playstation-2_439: 1491780776
+      gdb-playstation-2_44: 16000456
+      gdb-playstation-2_440: 1575766769
+      gdb-playstation-2_441: -117161940
+      gdb-playstation-2_442: 1922183891
+      gdb-playstation-2_443: 2017694692
+      gdb-playstation-2_444: 212246948
+      gdb-playstation-2_445: -609393651
+      gdb-playstation-2_446: 1323330760
+      gdb-playstation-2_447: 2033369889
+      gdb-playstation-2_448: -2072817911
+      gdb-playstation-2_449: 532932657
+      gdb-playstation-2_45: 485473973
+      gdb-playstation-2_450: -192109549
+      gdb-playstation-2_451: 959919140
+      gdb-playstation-2_452: -529050145
+      gdb-playstation-2_453: 1194131795
+      gdb-playstation-2_454: 1485233802
+      gdb-playstation-2_455: -353712885
+      gdb-playstation-2_456: -1345155832
+      gdb-playstation-2_457: 1248500403
+      gdb-playstation-2_458: -329475808
+      gdb-playstation-2_459: 220816801
+      gdb-playstation-2_46: -121147462
+      gdb-playstation-2_460: -745477508
+      gdb-playstation-2_461: 979762369
+      gdb-playstation-2_462: 2115810024
+      gdb-playstation-2_463: 397768730
+      gdb-playstation-2_464: 1329035863
+      gdb-playstation-2_465: -725279988
+      gdb-playstation-2_466: 91136497
+      gdb-playstation-2_467: -139346435
+      gdb-playstation-2_468: 470831491
+      gdb-playstation-2_469: 628556751
+      gdb-playstation-2_47: -1560114224
+      gdb-playstation-2_470: -146978388
+      gdb-playstation-2_471: 488891076
+      gdb-playstation-2_472: 408653319
+      gdb-playstation-2_473: 718729596
+      gdb-playstation-2_474: -1151466702
+      gdb-playstation-2_475: 208837845
+      gdb-playstation-2_476: -480634304
+      gdb-playstation-2_477: -1600474851
+      gdb-playstation-2_478: -1919425936
+      gdb-playstation-2_479: 1396625949
+      gdb-playstation-2_48: -495568858
+      gdb-playstation-2_480: -2136776156
+      gdb-playstation-2_481: -255131100
+      gdb-playstation-2_482: 2050371682
+      gdb-playstation-2_483: 92250036
+      gdb-playstation-2_484: 474500710
+      gdb-playstation-2_485: 387651342
+      gdb-playstation-2_486: -2032688495
+      gdb-playstation-2_487: -1703673193
+      gdb-playstation-2_488: -557867731
+      gdb-playstation-2_489: -1189132032
+      gdb-playstation-2_49: 412155629
+      gdb-playstation-2_490: -1176006383
+      gdb-playstation-2_491: 1399300483
+      gdb-playstation-2_492: -1421284333
+      gdb-playstation-2_493: 902237296
+      gdb-playstation-2_494: 479463618
+      gdb-playstation-2_495: 303784080
+      gdb-playstation-2_496: 758599628
+      gdb-playstation-2_497: 462104410
+      gdb-playstation-2_498: 195166225
+      gdb-playstation-2_499: -864671714
+      gdb-playstation-2_5: 681373067
+      gdb-playstation-2_50: 594286446
+      gdb-playstation-2_500: -382991950
+      gdb-playstation-2_501: 1653292558
+      gdb-playstation-2_502: 1663646331
+      gdb-playstation-2_503: -1482604902
+      gdb-playstation-2_504: 1022168904
+      gdb-playstation-2_505: 1814250998
+      gdb-playstation-2_506: -1998122521
+      gdb-playstation-2_507: 1158733644
+      gdb-playstation-2_508: -509102888
+      gdb-playstation-2_509: 338988016
+      gdb-playstation-2_51: -1080717637
+      gdb-playstation-2_510: -1237409212
+      gdb-playstation-2_511: -839193792
+      gdb-playstation-2_512: 36177620
+      gdb-playstation-2_513: -1596704903
+      gdb-playstation-2_514: 880890425
+      gdb-playstation-2_515: 1602299676
+      gdb-playstation-2_516: 990848620
+      gdb-playstation-2_517: -1437696607
+      gdb-playstation-2_518: 1932577130
+      gdb-playstation-2_519: 479324534
+      gdb-playstation-2_52: 1647262477
+      gdb-playstation-2_520: 405857880
+      gdb-playstation-2_521: -117411810
+      gdb-playstation-2_522: 653027858
+      gdb-playstation-2_523: -2010340105
+      gdb-playstation-2_524: -258192037
+      gdb-playstation-2_525: 634547224
+      gdb-playstation-2_526: -1339165879
+      gdb-playstation-2_527: 1710496495
+      gdb-playstation-2_528: -1352393060
+      gdb-playstation-2_529: 1796750661
+      gdb-playstation-2_53: -264030062
+      gdb-playstation-2_530: -1866981610
+      gdb-playstation-2_531: 1695151849
+      gdb-playstation-2_532: -1247175173
+      gdb-playstation-2_533: -589377685
+      gdb-playstation-2_534: 1918651489
+      gdb-playstation-2_535: -534219371
+      gdb-playstation-2_536: 1883862480
+      gdb-playstation-2_537: 1732141724
+      gdb-playstation-2_538: 1884815933
+      gdb-playstation-2_539: -1434464283
+      gdb-playstation-2_54: -1375540854
+      gdb-playstation-2_540: -1686192903
+      gdb-playstation-2_541: 1940944551
+      gdb-playstation-2_542: -938651078
+      gdb-playstation-2_543: -315430223
+      gdb-playstation-2_544: -691725215
+      gdb-playstation-2_545: -666129017
+      gdb-playstation-2_546: -780343982
+      gdb-playstation-2_547: -1285886061
+      gdb-playstation-2_548: 1902335954
+      gdb-playstation-2_549: 1691531636
+      gdb-playstation-2_55: -414617162
+      gdb-playstation-2_550: 1592634996
+      gdb-playstation-2_551: -88970358
+      gdb-playstation-2_552: -621411496
+      gdb-playstation-2_553: -1114661129
+      gdb-playstation-2_554: 1736954523
+      gdb-playstation-2_555: 1544488327
+      gdb-playstation-2_556: -1772597888
+      gdb-playstation-2_557: 1651381298
+      gdb-playstation-2_558: -157397359
+      gdb-playstation-2_559: 1332787272
+      gdb-playstation-2_56: -1391296052
+      gdb-playstation-2_560: -567430226
+      gdb-playstation-2_561: -2036850873
+      gdb-playstation-2_562: 894771813
+      gdb-playstation-2_563: -699795551
+      gdb-playstation-2_564: -561256238
+      gdb-playstation-2_565: 183300153
+      gdb-playstation-2_566: -1026342821
+      gdb-playstation-2_567: -715497506
+      gdb-playstation-2_568: 1280282795
+      gdb-playstation-2_569: -872791916
+      gdb-playstation-2_57: 564417509
+      gdb-playstation-2_570: 589063304
+      gdb-playstation-2_571: -380000974
+      gdb-playstation-2_572: -2029335003
+      gdb-playstation-2_573: -1116771580
+      gdb-playstation-2_574: -153689568
+      gdb-playstation-2_575: -723460121
+      gdb-playstation-2_576: -1207183374
+      gdb-playstation-2_577: 1404599081
+      gdb-playstation-2_578: 137062043
+      gdb-playstation-2_579: -1770037820
+      gdb-playstation-2_58: 1861698289
+      gdb-playstation-2_580: 838363557
+      gdb-playstation-2_581: 1343905819
+      gdb-playstation-2_582: -1283360792
+      gdb-playstation-2_583: -1986224492
+      gdb-playstation-2_584: -1045630683
+      gdb-playstation-2_585: -1352630521
+      gdb-playstation-2_586: -262139796
+      gdb-playstation-2_587: 1965816422
+      gdb-playstation-2_588: 623695453
+      gdb-playstation-2_589: -1967105346
+      gdb-playstation-2_59: -2084422087
+      gdb-playstation-2_590: 1401885717
+      gdb-playstation-2_591: -797418813
+      gdb-playstation-2_592: -468888142
+      gdb-playstation-2_593: -883401455
+      gdb-playstation-2_594: 128326308
+      gdb-playstation-2_595: 2007168416
+      gdb-playstation-2_596: 255673992
+      gdb-playstation-2_597: 277630329
+      gdb-playstation-2_598: 549093776
+      gdb-playstation-2_599: -2074762868
+      gdb-playstation-2_6: 1300317457
+      gdb-playstation-2_60: 1771462785
+      gdb-playstation-2_600: -299220618
+      gdb-playstation-2_601: -1947868036
+      gdb-playstation-2_602: 1782771736
+      gdb-playstation-2_603: 12032739
+      gdb-playstation-2_604: 1530442745
+      gdb-playstation-2_605: -1913655808
+      gdb-playstation-2_606: -1789559208
+      gdb-playstation-2_607: -1893907665
+      gdb-playstation-2_608: -1400440248
+      gdb-playstation-2_609: 1652941059
+      gdb-playstation-2_61: 512688450
+      gdb-playstation-2_610: -1072565585
+      gdb-playstation-2_611: 1044101639
+      gdb-playstation-2_612: 1658028835
+      gdb-playstation-2_613: -2028751794
+      gdb-playstation-2_614: -139764091
+      gdb-playstation-2_615: 588457730
+      gdb-playstation-2_616: 2141528937
+      gdb-playstation-2_617: -1847993732
+      gdb-playstation-2_618: -1816716111
+      gdb-playstation-2_619: 629351314
+      gdb-playstation-2_62: 1485719401
+      gdb-playstation-2_620: 1255484675
+      gdb-playstation-2_621: 1678566621
+      gdb-playstation-2_622: 714470714
+      gdb-playstation-2_623: -1343225986
+      gdb-playstation-2_624: -1110383772
+      gdb-playstation-2_625: -1817534962
+      gdb-playstation-2_626: -1093161852
+      gdb-playstation-2_627: -529432879
+      gdb-playstation-2_628: 604766856
+      gdb-playstation-2_629: 338204649
+      gdb-playstation-2_63: -926626026
+      gdb-playstation-2_630: 645874792
+      gdb-playstation-2_631: 706931766
+      gdb-playstation-2_632: 597304720
+      gdb-playstation-2_633: -1538940102
+      gdb-playstation-2_634: 1177942501
+      gdb-playstation-2_635: -379768191
+      gdb-playstation-2_636: 1629868067
+      gdb-playstation-2_637: -1427634647
+      gdb-playstation-2_638: -1937938208
+      gdb-playstation-2_639: 1779833347
+      gdb-playstation-2_64: -2061552366
+      gdb-playstation-2_640: -1607139859
+      gdb-playstation-2_641: 1643862630
+      gdb-playstation-2_642: -934649219
+      gdb-playstation-2_643: 903733309
+      gdb-playstation-2_644: 1201842731
+      gdb-playstation-2_645: -1584654200
+      gdb-playstation-2_646: -665724856
+      gdb-playstation-2_647: -1841907047
+      gdb-playstation-2_648: -1155621992
+      gdb-playstation-2_649: 804806589
+      gdb-playstation-2_65: 2023197723
+      gdb-playstation-2_650: 1674926023
+      gdb-playstation-2_651: -1340269393
+      gdb-playstation-2_652: 1296275895
+      gdb-playstation-2_653: 1881164947
+      gdb-playstation-2_654: 1387598777
+      gdb-playstation-2_655: -1923417805
+      gdb-playstation-2_656: 1994505735
+      gdb-playstation-2_657: 387535070
+      gdb-playstation-2_658: -1712272992
+      gdb-playstation-2_659: 1271774503
+      gdb-playstation-2_66: 299969837
+      gdb-playstation-2_660: -1661086904
+      gdb-playstation-2_661: 1849676287
+      gdb-playstation-2_662: -538326488
+      gdb-playstation-2_663: -835355233
+      gdb-playstation-2_664: -158520544
+      gdb-playstation-2_665: 259106105
+      gdb-playstation-2_666: -1311088040
+      gdb-playstation-2_667: 1327690895
+      gdb-playstation-2_668: -731537522
+      gdb-playstation-2_669: 1031429053
+      gdb-playstation-2_67: 756101417
+      gdb-playstation-2_670: 1553958607
+      gdb-playstation-2_671: 854651390
+      gdb-playstation-2_672: 257548215
+      gdb-playstation-2_673: 749099168
+      gdb-playstation-2_674: 1706477679
+      gdb-playstation-2_675: -2142798815
+      gdb-playstation-2_676: 282017035
+      gdb-playstation-2_677: 2116484616
+      gdb-playstation-2_678: 1049708911
+      gdb-playstation-2_679: 1709436817
+      gdb-playstation-2_68: -2053738821
+      gdb-playstation-2_680: -1904481160
+      gdb-playstation-2_681: 1988567445
+      gdb-playstation-2_682: -1795124445
+      gdb-playstation-2_683: 1769195982
+      gdb-playstation-2_684: -535703116
+      gdb-playstation-2_685: -990335586
+      gdb-playstation-2_686: 660280748
+      gdb-playstation-2_687: -389018816
+      gdb-playstation-2_688: 2011607182
+      gdb-playstation-2_689: 1236980597
+      gdb-playstation-2_69: -324657914
+      gdb-playstation-2_690: -1668751621
+      gdb-playstation-2_691: -688705861
+      gdb-playstation-2_7: 1396881619
+      gdb-playstation-2_70: 1552637062
+      gdb-playstation-2_71: 2119055917
+      gdb-playstation-2_72: 1576507879
+      gdb-playstation-2_73: -446841049
+      gdb-playstation-2_74: 738978257
+      gdb-playstation-2_75: 1522185949
+      gdb-playstation-2_76: -1707491530
+      gdb-playstation-2_77: 1832520496
+      gdb-playstation-2_78: -505981787
+      gdb-playstation-2_79: 1219009834
+      gdb-playstation-2_8: -667641576
+      gdb-playstation-2_80: -2112732425
+      gdb-playstation-2_81: -329667845
+      gdb-playstation-2_82: -1957863174
+      gdb-playstation-2_83: -406646559
+      gdb-playstation-2_84: 233232808
+      gdb-playstation-2_85: -1696048044
+      gdb-playstation-2_86: -1441665822
+      gdb-playstation-2_87: -294703466
+      gdb-playstation-2_88: -1012692757
+      gdb-playstation-2_89: 101024361
+      gdb-playstation-2_9: 825774893
+      gdb-playstation-2_90: -644525008
+      gdb-playstation-2_91: 1561332703
+      gdb-playstation-2_92: 233701091
+      gdb-playstation-2_93: -2016765366
+      gdb-playstation-2_94: 957485167
+      gdb-playstation-2_95: -779725147
+      gdb-playstation-2_96: 1756489140
+      gdb-playstation-2_97: 47274747
+      gdb-playstation-2_98: 610463208
+      gdb-playstation-2_99: -1913822777
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
