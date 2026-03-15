@@ -115,7 +115,7 @@ public class BetterNewAiCarController : MonoBehaviour
         playerCarWidth = pc.bounds.size.x;
         playerCarLength = pc.bounds.size.z;
         maxSpeed = difficultyStats.maxSpeed;
-        maxAcceleration = difficultyStats.maxAccel;
+        //maxAcceleration = difficultyStats.maxAccel;
         avoidance = difficultyStats.avoidance;
         return this;
     }
