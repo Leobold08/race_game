@@ -132,7 +132,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gdb-keyboard-2_175
+      name: w
       rect:
         serializedVersion: 2
         x: 80
@@ -154,7 +154,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gdb-keyboard-2_197
+      name: a
       rect:
         serializedVersion: 2
         x: 64
@@ -176,7 +176,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gdb-keyboard-2_198
+      name: s
       rect:
         serializedVersion: 2
         x: 80
@@ -198,7 +198,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gdb-keyboard-2_199
+      name: d
       rect:
         serializedVersion: 2
         x: 96
@@ -220,7 +220,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gdb-keyboard-2_218
+      name: Shift
       rect:
         serializedVersion: 2
         x: 32
@@ -242,7 +242,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gdb-keyboard-2_241
+      name: Control
       rect:
         serializedVersion: 2
         x: 32
@@ -264,7 +264,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gdb-keyboard-2_251
+      name: Space
       rect:
         serializedVersion: 2
         x: 100
@@ -286,7 +286,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gdb-keyboard-2_0
+      name: r
       rect:
         serializedVersion: 2
         x: 112
@@ -294,7 +294,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -323,7 +323,11 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":16.0,"y":16.0},"gridSpriteSize":{"x":16.0,"y":16.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":1,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      gdb-keyboard-2_0: -926676129
+      Control: 974030542
+      Shift: -1015577009
+      Space: -51075137
+      a: 1150829692
+      d: 1903719266
       gdb-keyboard-2_1: -1062064382
       gdb-keyboard-2_10: -347095499
       gdb-keyboard-2_100: 1118149209
@@ -408,7 +412,6 @@ TextureImporter:
       gdb-keyboard-2_172: 261657904
       gdb-keyboard-2_173: -1972098109
       gdb-keyboard-2_174: 1101951226
-      gdb-keyboard-2_175: -1370896756
       gdb-keyboard-2_176: 458926277
       gdb-keyboard-2_177: -1734645300
       gdb-keyboard-2_178: -1073564340
@@ -432,9 +435,6 @@ TextureImporter:
       gdb-keyboard-2_194: -1368629941
       gdb-keyboard-2_195: -778333942
       gdb-keyboard-2_196: -2001934057
-      gdb-keyboard-2_197: 1150829692
-      gdb-keyboard-2_198: -1110515193
-      gdb-keyboard-2_199: 1903719266
       gdb-keyboard-2_2: -1841463826
       gdb-keyboard-2_20: 1624450880
       gdb-keyboard-2_200: 285998243
@@ -456,7 +456,6 @@ TextureImporter:
       gdb-keyboard-2_215: 153311022
       gdb-keyboard-2_216: -1822301737
       gdb-keyboard-2_217: 1512678003
-      gdb-keyboard-2_218: -1015577009
       gdb-keyboard-2_219: -311172695
       gdb-keyboard-2_22: -867550301
       gdb-keyboard-2_220: 234855096
@@ -482,7 +481,6 @@ TextureImporter:
       gdb-keyboard-2_239: 1710840031
       gdb-keyboard-2_24: 946157324
       gdb-keyboard-2_240: 346107085
-      gdb-keyboard-2_241: 974030542
       gdb-keyboard-2_242: -328234218
       gdb-keyboard-2_243: -1640286245
       gdb-keyboard-2_244: 687130913
@@ -493,7 +491,6 @@ TextureImporter:
       gdb-keyboard-2_249: 1238823650
       gdb-keyboard-2_25: -35730760
       gdb-keyboard-2_250: 509414496
-      gdb-keyboard-2_251: -51075137
       gdb-keyboard-2_252: -1641316076
       gdb-keyboard-2_253: 2081703329
       gdb-keyboard-2_254: 1815995593
@@ -957,6 +954,9 @@ TextureImporter:
       gdb-keyboard-2_97: -155100232
       gdb-keyboard-2_98: 1658520138
       gdb-keyboard-2_99: -94512929
+      r: -926676129
+      s: -1110515193
+      w: -1370896756
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
