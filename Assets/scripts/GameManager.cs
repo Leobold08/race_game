@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
 using System;
+using System.Collections.Generic;
 
 
 
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform playerSpawn;
     [SerializeField] private Transform reverse_playerSpawn;
     [SerializeField] private GameObject[] cars;
+    public HashSet<BaseCarController> spawnedCars = new();
 
     [Header("scene asetukset")]
     public string sceneSelected;
@@ -50,6 +52,7 @@ public class GameManager : MonoBehaviour
             if (selectedCar == null) selectedCar = cars[0];
             Transform spawn = PlayerPrefs.GetInt("Reverse") == 1 ? reverse_playerSpawn : playerSpawn;
             CurrentCar = Instantiate(selectedCar, spawn.position, spawn.rotation);
+            spawnedCars.Add(CurrentCar.GetComponentInChildren<BaseCarController>());
         }
     }
 
@@ -59,6 +62,7 @@ public class GameManager : MonoBehaviour
     }
 
     //temp ja ota se pois sit
+    #if !UNITY_EDITOR
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
@@ -67,4 +71,5 @@ public class GameManager : MonoBehaviour
             racerscript.EndRace();
         }
     }
+    #endif
 }

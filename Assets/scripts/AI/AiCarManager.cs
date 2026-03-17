@@ -45,11 +45,11 @@ public class AiCarManager : MonoBehaviour
 
     void Awake()
     {
-        if (PlayerPrefs.GetInt("SpawnAi") == 0)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        // if (PlayerPrefs.GetInt("SpawnAi") == 0)
+        // {
+        //     Destroy(gameObject);
+        //     return;
+        // }
     }
 
     void Start()
@@ -81,6 +81,7 @@ public class AiCarManager : MonoBehaviour
                 controller.Initialize(this, gm.CurrentCar.GetComponentInChildren<Collider>(), difficultyRanges[difficulty]);
                 
                 AiCars.Add(controller);
+                GameManager.instance.spawnedCars.Add(controller);
             }
         }
     }

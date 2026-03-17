@@ -67,6 +67,16 @@ public class BaseCarController : MonoBehaviour
 
     [NonSerialized] public bool CanDrift = false;
     [NonSerialized] public bool CanUseTurbo = false;
+    protected Collider carCollider;
+    public float CarWidth { get; protected set; }
+    public float CarLength { get; protected set; }
+
+    protected virtual void Start()
+    {
+        carCollider = GetComponentInChildren<MeshCollider>();
+        CarWidth = carCollider.bounds.size.x;
+        CarLength = carCollider.bounds.size.z;
+    }
 
     public float GetSpeed()
     {
@@ -170,8 +180,8 @@ public class BaseCarController : MonoBehaviour
 
     protected void ApplySpeedLimit(float speed)
     {
-        if (speed <= Maxspeed) return;
-        CarRb.linearVelocity = CarRb.linearVelocity.normalized * (Maxspeed / 3.6f);
+        // 3.6 is to convert from m/s to km/h and vice versa
+        if (CarRb.linearVelocity.magnitude * 3.6f > speed) CarRb.linearVelocity = speed / 3.6f * CarRb.linearVelocity.normalized;
     }
 
 
