@@ -11,7 +11,7 @@ public class PlayerCarController : BaseCarController
 {
     internal CarInputActions Controls;
     RacerScript racerScript;
-    //LogitechMovement LGM;
+    LogitechMovement LGM;
 
 
     private PlayerInput PlayerInput;
@@ -23,6 +23,9 @@ public class PlayerCarController : BaseCarController
 
 
     internal Coroutine TurbeBoost;
+    // timestamps to arbitrate input sources (wheel vs non-wheel)
+    public float LastNonWheelInputTime = 0f;
+    public float LastWheelInputTime = 0f;
 
 
     
@@ -31,15 +34,22 @@ public class PlayerCarController : BaseCarController
     {
         Controls = new CarInputActions();
         Controls.Enable();
+        PlayerInput = GetComponent<PlayerInput>();
         TurbeBar = GameObject.Find("turbeFull").GetComponent<Image>();
         AutoAssignWheelsAndMaterials();
     }
 
     override protected void Start()
     {
+
         PerusMaxAccerelation = MaxAcceleration;
         SmoothedMaxAcceleration = PerusMaxAccerelation;
         PerusTargetTorque = TargetTorque;
+
+        if (LGM == null)
+        {
+            LGM = FindFirstObjectByType<LogitechMovement>();
+        }
         if (CarRb == null)
             CarRb = GetComponent<Rigidbody>();
         CarRb.centerOfMass = _CenterofMass;
@@ -51,7 +61,10 @@ public class PlayerCarController : BaseCarController
         racerScript = FindAnyObjectByType<RacerScript>();
 
 
-        //LGM.InitializeLogitechWheel(); 
+        if (LGM != null)
+        {
+            LGM.InitializeLogitechWheel(); 
+        }
 
 
         base.Start();
@@ -60,6 +73,29 @@ public class PlayerCarController : BaseCarController
     private void OnControlsChanged(PlayerInput input)
     {
         CurrentControlScheme = input.currentControlScheme;
+        if (LGM != null)
+            LGM.ReenableFromControlScheme(CurrentControlScheme);
+    }
+
+    void OnAnyActionTriggered(InputAction.CallbackContext ctx)
+    {
+        var control = ctx.action?.activeControl;
+        if (control == null)
+            return;
+
+        var device = control.device;
+        if (device is Keyboard || device is Mouse)
+            CurrentControlScheme = "Keyboard";
+        else if (device is Gamepad)
+            CurrentControlScheme = "Gamepad";
+
+        LastNonWheelInputTime = Time.time;
+        if (LGM != null)
+        {
+            LGM.useLogitechWheel = false;
+            LGM.allowAutoEnable = true;
+            LGM.StopAllForceFeedback();
+        }
     }
 
 
@@ -72,22 +108,28 @@ public class PlayerCarController : BaseCarController
         SteerInput = 0f;
     }
 
-    // void OnApplicationFocus(bool focus)
-    // {
-    //     if (focus){
-    //         if (//LGM.logitechInitialized && LogitechGSDK.LogiIsConnected(0))
-    //         {
-    //             LogitechGSDK.LogiUpdate();
-    //         }
-    //     }
-    // }
+    void OnApplicationFocus(bool focus)
+    {
+        if (focus)
+        {
+            if (LGM != null && LGM.logitechInitialized && LogitechGSDK.LogiIsConnected(0))
+            {
+                LogitechGSDK.LogiUpdate();
+            }
+        }
+    }
 
 
     private void OnEnable()
     {
         Controls.Enable();
+        if (PlayerInput == null)
+            PlayerInput = GetComponent<PlayerInput>();
+
         if (PlayerInput != null)
             PlayerInput.onControlsChanged += OnControlsChanged;
+
+        Controls.CarControls.Get().actionTriggered += OnAnyActionTriggered;
 
         // INPUT SUBSCRIPTIONS: KERRAN
         Controls.CarControls.Move.performed += OnMovePerformed;
@@ -103,20 +145,24 @@ public class PlayerCarController : BaseCarController
         if (PlayerInput != null)
             PlayerInput.onControlsChanged -= OnControlsChanged;
 
+        Controls.CarControls.Get().actionTriggered -= OnAnyActionTriggered;
+
         // UNSUBSCRIBE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         Controls.CarControls.Move.performed -= OnMovePerformed;
         Controls.CarControls.Move.canceled  -= OnMoveCanceled;
         Controls.CarControls.Drift.performed -= OnDriftPerformed;
         Controls.CarControls.Drift.canceled  -= OnDriftCanceled;
-        //LGM.StopAllForceFeedback();
+        if (LGM != null)
+            LGM.StopAllForceFeedback();
     }
 
     private void OnDestroy()
     {
         Controls.Disable();
         Controls.Dispose();
-        
-        //LGM.StopAllForceFeedback();
+
+        if (LGM != null)
+            LGM.StopAllForceFeedback();
     }
 
 
@@ -125,19 +171,19 @@ public class PlayerCarController : BaseCarController
         GetInputs();
         Animatewheels();
         // detect connection state changes and print once when it changes
-    //     bool currentlyConnected = //LGM.logitechInitialized && LogitechGSDK.LogiIsConnected(0);
-    //     if (currentlyConnected != //LGM.lastLogiConnected)
-    //     {
-    //         //LGM.lastLogiConnected = currentlyConnected;
-    //         Debug.Log($"[CarController] Logitech connection status: {(currentlyConnected ? "Connected" : "Disconnected")}");
-    //     }
+        bool currentlyConnected = (LGM != null) && LGM.logitechInitialized && LogitechGSDK.LogiIsConnected(0);
+        if (LGM != null && currentlyConnected != LGM.lastLogiConnected)
+        {
+            LGM.lastLogiConnected = currentlyConnected;
+            Debug.Log($"[CarController] Logitech connection status: {(currentlyConnected ? "Connected" : "Disconnected")}");
+        }
 
-    //     if (//LGM.logitechInitialized && LogitechGSDK.LogiIsConnected(0))
-    //     {
-    //         LogitechGSDK.LogiUpdate();
-    //         //LGM.GetLogitechInputs();
-    //         //LGM.ApplyForceFeedback(); 
-    //     }
+        if (LGM != null && LGM.useLogitechWheel && LGM.logitechInitialized && LogitechGSDK.LogiIsConnected(0))
+        {
+            LogitechGSDK.LogiUpdate();
+            LGM.GetLogitechInputs();
+            LGM.ApplyForceFeedback(); 
+        }
     }
 
 
@@ -181,9 +227,19 @@ public class PlayerCarController : BaseCarController
     void GetInputs()
     {
         //reads inputs and assigns them to values 
-        //LGM.logitechInitialized || !LogitechGSDK.LogiIsConnected(0))
-        
+        // read non-wheel input (keyboard / gamepad) and mark last-non-wheel time when active
         SteerInput = Controls.CarControls.Move.ReadValue<Vector2>().x;
+        float nonWheelMove = Mathf.Abs(SteerInput) + Mathf.Abs(Controls.CarControls.MoveForward.ReadValue<float>()) + Mathf.Abs(Controls.CarControls.MoveBackward.ReadValue<float>());
+        if (nonWheelMove > 0.001f || Controls.CarControls.Drift.IsPressed() || Controls.CarControls.Brake.IsPressed())
+        {
+            LastNonWheelInputTime = Time.time;
+            if (LGM != null)
+            {
+                LGM.useLogitechWheel = false;
+                LGM.allowAutoEnable = true;
+                LGM.StopAllForceFeedback();
+            }
+        }
         
         
         if (Controls.CarControls.MoveForward.IsPressed())
@@ -229,9 +285,12 @@ public class PlayerCarController : BaseCarController
 
     private void UpdateTargetTorque()
     {
-        float inputValue = CurrentControlScheme == "Gamepad"
-            ? Controls.CarControls.Move.ReadValue<float>()
-            : Mathf.Abs(MoveInput);
+        float inputValue = Mathf.Abs(MoveInput);
+        if (CurrentControlScheme == "Gamepad")
+        {
+            Vector2 moveVector = Controls.CarControls.Move.ReadValue<Vector2>();
+            inputValue = Mathf.Max(inputValue, Mathf.Abs(moveVector.y));
+        }
 
         float power = CurrentControlScheme == "Gamepad" ? 0.9f : 1.0f;
 
