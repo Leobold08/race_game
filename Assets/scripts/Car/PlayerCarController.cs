@@ -35,7 +35,7 @@ public class PlayerCarController : BaseCarController
         AutoAssignWheelsAndMaterials();
     }
 
-    void Start()
+    override protected void Start()
     {
         PerusMaxAccerelation = MaxAcceleration;
         SmoothedMaxAcceleration = PerusMaxAccerelation;
@@ -54,6 +54,7 @@ public class PlayerCarController : BaseCarController
         //LGM.InitializeLogitechWheel(); 
 
 
+        base.Start();
     }
 
     private void OnControlsChanged(PlayerInput input)

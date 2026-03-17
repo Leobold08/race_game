@@ -67,6 +67,16 @@ public class BaseCarController : MonoBehaviour
 
     [NonSerialized] public bool CanDrift = false;
     [NonSerialized] public bool CanUseTurbo = false;
+    protected Collider carCollider;
+    public float CarWidth { get; protected set; }
+    public float CarLength { get; protected set; }
+
+    protected virtual void Start()
+    {
+        carCollider = GetComponentInChildren<MeshCollider>();
+        CarWidth = carCollider.bounds.size.x;
+        CarLength = carCollider.bounds.size.z;
+    }
 
     public float GetSpeed()
     {

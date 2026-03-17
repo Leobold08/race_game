@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Linq;
 using System;
+using UnityEditor.Recorder.Input;
 
 public class AiCarController : BaseCarController
 {
@@ -63,10 +64,6 @@ public class AiCarController : BaseCarController
     [Tooltip("Reference to the player car.")]
     private PlayerCarController playerCar;
     public AiCarManager aiCarManager;
-    private Collider carCollider;
-    public float CarWidth { get; private set; }
-    public float CarLength { get; private set; }
-
     
     private float playerCarWidth;
     private float playerCarLength;
@@ -81,6 +78,8 @@ public class AiCarController : BaseCarController
     private LayerMask objectLayerMask;
     private float steerInput;
     private float avoidance;
+    // Used for calculating the speed on curves
+    private float speedLimit;
     public AiCarController Initialize(
         AiCarManager aiCarManager, 
         Collider playerCollider, 
@@ -110,11 +109,10 @@ public class AiCarController : BaseCarController
         {
             CarWidth = carCollider.bounds.size.x;
             CarLength = carCollider.bounds.size.z;
-            safeRadius = Mathf.Max(CarWidth, CarLength) * 0.5f;
         }
     }
 
-    private void Start()
+    override protected void Start()
     {
         Grass = LayerMask.NameToLayer("Grass");
         objectLayerMask = LayerMask.NameToLayer("roadObjects");
@@ -122,6 +120,10 @@ public class AiCarController : BaseCarController
         TurnSensitivity *= Time.fixedDeltaTime;
         waypointSize = aiCarManager.Waypoints.Count();
         targetPoint = aiCarManager.Waypoints[0];
+        
+        base.Start();
+
+        safeRadius = Mathf.Max(CarWidth, CarLength) * 0.5f;
     }
 
     private void FixedUpdate()
@@ -134,6 +136,7 @@ public class AiCarController : BaseCarController
         {
             currentWaypointIndex = (currentWaypointIndex + 1) % waypointSize;
             targetPoint = aiCarManager.Waypoints[currentWaypointIndex];
+            speedLimit = Mathf.Min(Mathf.Sqrt(Maxspeed / 3.6f * BezierMath.GetRadius(targetPoint, aiCarManager.Waypoints[(currentWaypointIndex + 1) % waypointSize], aiCarManager.Waypoints[(currentWaypointIndex + 2) % waypointSize])), Maxspeed);
         }
 
         AvoidObstacles();
@@ -172,9 +175,7 @@ public class AiCarController : BaseCarController
             targetTorque *= GrassSpeedMultiplier;
         }
 
-        float speedLimit = Mathf.Min(Mathf.Sqrt(MaxAcceleration * BezierMath.GetRadius(targetPoint, aiCarManager.Waypoints[(currentWaypointIndex + 1) % waypointSize], aiCarManager.Waypoints[(currentWaypointIndex + 2) % waypointSize])), Maxspeed);
-        Debug.Log(Mathf.Sqrt(MaxAcceleration * BezierMath.GetRadius(targetPoint, aiCarManager.Waypoints[(currentWaypointIndex + 1) % waypointSize], aiCarManager.Waypoints[(currentWaypointIndex + 2) % waypointSize])));
-
+        Debug.Log(Mathf.Sqrt(Maxspeed / 3.6f * BezierMath.GetRadius(targetPoint, aiCarManager.Waypoints[(currentWaypointIndex + 1) % waypointSize], aiCarManager.Waypoints[(currentWaypointIndex + 2) % waypointSize])));
         // Apply boost if active
         if (isBoosting)
         {
@@ -196,7 +197,7 @@ public class AiCarController : BaseCarController
     {
         float avoidanceOffset = 0f;
 
-        foreach (var other in aiCarManager.AiCars)
+        foreach (BaseCarController other in GameManager.instance.spawnedCars)
         {
             if (other == this) continue;
 
@@ -220,29 +221,6 @@ public class AiCarController : BaseCarController
                     {
                         moveInput = 0.7f;
                     }
-                }
-            }
-        }
-
-        if (playerCar != null && playerCar.CarRb != null && playerCar != this)
-        {
-            Vector3 toPlayer = playerCar.transform.position - CarRb.transform.position;
-            float distance = toPlayer.magnitude;
-            float playerSafeRadius = Mathf.Max(playerCarWidth, playerCarLength) * 0.5f;
-            float minSafeDistance = safeRadius + playerSafeRadius + avoidanceBuffer;
-
-            if (distance < minSafeDistance && Vector3.Dot(CarRb.transform.forward, toPlayer.normalized) > 0.5f)
-            {
-                Vector3 myFuturePos = CarRb.transform.position + CarRb.linearVelocity * 0.5f;
-                Vector3 playerFuturePos = playerCar.transform.position + playerCar.CarRb.linearVelocity * 0.5f;
-                float futureDist = (myFuturePos - playerFuturePos).magnitude;
-
-                if (futureDist < minSafeDistance)
-                {
-                    float steerDirection = Vector3.Cross(CarRb.transform.forward, toPlayer).y > 0 ? -1f : 1f;
-                    avoidanceOffset += steerDirection * avoidanceLateralOffset;
-
-                    if (distance < minSafeDistance * 0.5f && CarRb.linearVelocity.magnitude > playerCar.CarRb.linearVelocity.magnitude) moveInput = 0.7f;
                 }
             }
         }
