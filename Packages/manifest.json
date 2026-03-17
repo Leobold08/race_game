@@ -3,6 +3,7 @@
     "com.cqf.urpvolumetricfog": "https://github.com/CristianQiu/Unity-URP-Volumetric-Light.git",
     "com.unity.2d.animation": "13.0.4",
     "com.unity.2d.sprite": "1.0.0",
+    "com.unity.addressables": "2.7.6",
     "com.unity.ai.navigation": "2.0.10",
     "com.unity.collab-proxy": "2.10.2",
     "com.unity.formats.fbx": "5.1.5",

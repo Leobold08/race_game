@@ -1,14 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(SelectionMenuLoading))]
 public class loadtextbehaviour : MonoBehaviour
 {
-    private RawImage loadingImage;
-
-    public void Awake()
-    {
-        loadingImage = GameObject.Find("loadImage").GetComponentInChildren<RawImage>();
-    }
+    [SerializeField] private RawImage loadingImage;
 
     public void SetSpecialLoadTextBehaviour(string key)
     {
@@ -20,6 +16,8 @@ public class loadtextbehaviour : MonoBehaviour
             case "reallyspecial":
                 Texture2D special = Resources.Load<Texture2D>("loading/reallyspecial");
                 loadingImage.texture = special;
+                break;
+            default:
                 break;
         }
     }

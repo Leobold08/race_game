@@ -5,17 +5,14 @@ using System.Collections.Generic;
 public class optionScript : MonoBehaviour
 {
     public Material pixelCount;
-    private Text pixelCountLabel;
     private Dictionary<string, Slider> sliders = new();
     private Dictionary<string, Toggle> toggles = new();
 
     private const float DefaultPixelValue = 320f;
     private const float PixelMultiplier = 64f;
-    private const float DefaultVolume = 0.6f;
 
     [SerializeField] private Toggle optionTestRef;
     [SerializeField] private Slider pixelRef, audioRef;
-    [SerializeField] private Text LabelPARef;
 
     void OnEnable()
     {
@@ -23,12 +20,6 @@ public class optionScript : MonoBehaviour
         {
             pixelCount.SetFloat("_pixelcount", DefaultPixelValue);
             Debug.Log("pixel_value not found; set to default: " + DefaultPixelValue);
-        }
-
-        if (!PlayerPrefs.HasKey("audio_value"))
-        {
-            PlayerPrefs.SetFloat("audio_value", DefaultVolume);
-            Debug.Log("audio_value not found; set to default: " + DefaultVolume);
         }
     }
 
@@ -42,19 +33,17 @@ public class optionScript : MonoBehaviour
         {
             colorChanger.LightsState(3, true);
         }
-
-        //vaikka meillä ei pitäs tehä näin...
-        UpdateLabels(PlayerPrefs.GetFloat("pixel_value"));
     }
 
+    //TODO: unfuck this garbage 1
     public void CacheUIElements()
     {
         toggles["optionTest"] = optionTestRef;
         sliders["pixel"] = pixelRef;
         sliders["audio"] = audioRef;
-        pixelCountLabel = LabelPARef;
     }
 
+    //also this
     public void InitializeSliderValues()
     {
         foreach (var entry in sliders)
@@ -69,6 +58,7 @@ public class optionScript : MonoBehaviour
         }
     }
     
+    //and this
     public void InitializeToggleValues()
     {
         foreach (var entry in toggles)
@@ -81,6 +71,7 @@ public class optionScript : MonoBehaviour
         }
     }
 
+    //TODO: unfuck this garbage 2
     public void UpdateTogglePreference(string toggleName)
     {
         if (toggles.TryGetValue(toggleName, out Toggle toggle))
@@ -97,6 +88,7 @@ public class optionScript : MonoBehaviour
         }
     }
 
+    //TODO: unfuck this garbage 3
     public void UpdateSliderPreference(string sliderName)
     {
         if (sliders.TryGetValue(sliderName, out Slider slider))
@@ -105,15 +97,9 @@ public class optionScript : MonoBehaviour
             if (sliderName == "pixel")
             {
                 pixelCount.SetFloat("_pixelcount", slider.value * PixelMultiplier);
-                UpdateLabels(slider.value);
             }
             Debug.Log($"changed: {sliderName}, with value of {slider.value}");
         }
-    }
-
-    private void UpdateLabels(float pixelvalue)
-    {
-        pixelCountLabel.text = (pixelvalue * PixelMultiplier).ToString();
     }
 
     public void SavePlayerPrefs()

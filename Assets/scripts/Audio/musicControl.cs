@@ -1,7 +1,6 @@
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class musicControl : MonoBehaviour
 {
@@ -28,21 +27,20 @@ public class musicControl : MonoBehaviour
         Controls = new CarInputActions();
         carController = FindAnyObjectByType<PlayerCarController>();
 
-        //temporarily disabled
-        /* Controls.CarControls.Drift.performed += DriftCall;
-        Controls.CarControls.Drift.canceled += DriftCanceled;
-        Controls.CarControls.turbo.performed += TurboCall;
-        Controls.CarControls.turbo.canceled += TurboCanceled; */
+        Controls.CarControls.Drift.started += ctx => DriftCall();
+        Controls.CarControls.Drift.canceled += ctx => DriftCanceled();
+        Controls.CarControls.turbo.started += ctx => TurboCall();
+        Controls.CarControls.turbo.canceled += ctx => TurboCanceled();
     }
 
     private void OnEnable() => Controls.Enable();
     private void OnDisable()
     {
         LeanTween.cancelAll();
-        Controls.CarControls.Drift.performed -= DriftCall;
-        Controls.CarControls.Drift.canceled -= DriftCanceled;
-        Controls.CarControls.turbo.performed -= TurboCall;
-        Controls.CarControls.turbo.canceled -= TurboCanceled;
+        Controls.CarControls.Drift.started -= ctx => DriftCall();
+        Controls.CarControls.Drift.canceled -= ctx => DriftCanceled();
+        Controls.CarControls.turbo.started -= ctx => TurboCall();
+        Controls.CarControls.turbo.canceled -= ctx => TurboCanceled();
         Controls.Disable();
     }
     private void OnDestroy() => Controls.Disable();
@@ -58,25 +56,30 @@ public class musicControl : MonoBehaviour
     }
 
     //kaikki tarpeelline on täs
-    void DriftCall(InputAction.CallbackContext context)
+    void DriftCall()
     {
         CurrentMusState = carController.IsTurboActive ? CarMusicState.Turbo : CarMusicState.Drift;
         FadeTracks();
     }
-    void DriftCanceled(InputAction.CallbackContext context)
+    void DriftCanceled()
     {
         CurrentMusState = carController.IsTurboActive ? CarMusicState.Turbo : CarMusicState.Main;
         FadeTracks();
     }
-    void TurboCall(InputAction.CallbackContext context)
+    void TurboCall()
     {
         CurrentMusState = CarMusicState.Turbo;
         FadeTracks();
     }
-    void TurboCanceled(InputAction.CallbackContext context)
+    void TurboCanceled()
     {
         CurrentMusState = carController.IsDrifting ? CarMusicState.Drift : CarMusicState.Main;
         FadeTracks();
+    }
+
+    private void Update()
+    {
+        Debug.Log($"current music state: {CurrentMusState}; is drifting: {carController.IsDrifting}; is using turbo: {carController.IsTurboActive}");
     }
 
     private void FadeTracks()
@@ -84,60 +87,50 @@ public class musicControl : MonoBehaviour
         //tarkistaa staten ku funktio alkaa, ei tarvi muualla
         if (CurrentMusState == LatestMusState) return;
 
-
-
         int stateIndex = (int)CurrentMusState; //current on oikeesti se viimeisin lol
         int previousStateIndex = (int)LatestMusState;
         AudioSource NextTrack = musicTracks[stateIndex];
         AudioSource PreviousTrack = musicTracks[previousStateIndex];
 
-        // Cancel any existing tweens on these tracks
         LeanTween.cancel(activeTweenIDs[stateIndex]);
         LeanTween.cancel(activeTweenIDs[previousStateIndex]);
-
-        // Start new tweens and store their IDs
-        activeTweenIDs[stateIndex] =
-        LeanTween.value(NextTrack.volume, 0.3f, 1.0f)
-            .setOnUpdate(val => NextTrack.volume = val)
-            .id;
-        activeTweenIDs[previousStateIndex] =
-        LeanTween.value(PreviousTrack.volume, 0.0f, 1.0f)
-            .setOnUpdate(val => PreviousTrack.volume = val)
-            .id;
-        
+        activeTweenIDs[stateIndex] = LeanTween.value(NextTrack.volume, 0.3f, 0.7f).setOnUpdate(val => NextTrack.volume = val).id;
+        activeTweenIDs[previousStateIndex] = LeanTween.value(PreviousTrack.volume, 0.0f, 0.7f).setOnUpdate(val => PreviousTrack.volume = val).id;
         LatestMusState = CurrentMusState;
+
+        //ihan VITUN PASKANEN hackki, joka tarkistaa että onko lopullinen music state ees oikea
+        //jostain syystä IsTurboActive ei halua toimia samalla framella music staten kanssa, toisin kuin drift...
+        if (CurrentMusState == CarMusicState.Turbo && !Controls.CarControls.turbo.IsPressed())
+        {
+            Debug.LogWarning("Kill yourself");
+            if (carController.IsDrifting) CurrentMusState = CarMusicState.Drift;
+            else CurrentMusState = CarMusicState.Main;
+            FadeTracks();
+        }
     }
 
     public void StartMusicTracks()
     {
-        foreach (AudioSource track in musicTracks)
-        {
-            track.Play();
-        }
+        foreach (AudioSource track in musicTracks) track.Play();
     }
     //when
     public void StartFinalLapTrack()
     {
         Debug.Log("jos näitä logeja on enemmän ku yks jokin on paskana.");
-        /* Controls.CarControls.Drift.performed -= DriftCall;
-        Controls.CarControls.Drift.canceled -= DriftCanceled;
-        Controls.CarControls.turbo.performed -= TurboCall;
-        Controls.CarControls.turbo.canceled -= TurboCanceled; */
+        Controls.CarControls.Drift.started -= ctx => DriftCall();
+        Controls.CarControls.Drift.canceled -= ctx => DriftCanceled();
+        Controls.CarControls.turbo.started -= ctx => TurboCall();
+        Controls.CarControls.turbo.canceled -= ctx => TurboCanceled();
         StopMusicTracks();
         finalLapTrack.Play();
     }
     //when 2
     public void StopMusicTracks(bool endRaceEvent = false, bool stopFinalLap = false)
     {
-        foreach (AudioSource track in musicTracks)
-        {
-            track.Stop();
-        }
+        foreach (AudioSource track in musicTracks) track.Stop();
 
-        if (endRaceEvent || stopFinalLap && finalLapTrack != null)
-            finalLapTrack.Stop();
-        if (endRaceEvent)
-            resultsTrack.Play();
+        if (endRaceEvent || stopFinalLap && finalLapTrack != null) finalLapTrack.Stop();
+        if (endRaceEvent) resultsTrack.Play();
     }
 
     public void PausedMusicHandler()
@@ -145,10 +138,8 @@ public class musicControl : MonoBehaviour
         bool isPaused = GameManager.instance.isPaused;
         foreach (AudioSource track in musicTracks)
         {
-            if (isPaused)
-                track.Pause();
-            else
-                track.UnPause();
+            if (isPaused) track.Pause();
+            else track.UnPause();
         }
     }
 }
