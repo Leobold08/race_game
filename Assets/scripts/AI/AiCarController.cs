@@ -228,8 +228,6 @@ public class AiCarController : BaseCarController
         Vector3 localPosition = CarRb.gameObject.transform.InverseTransformPoint(targetPoint);
         localPosition.x += avoidanceOffset;
 
-
         targetPoint = CarRb.gameObject.transform.TransformPoint(localPosition);
-
     }
 }
