@@ -88,7 +88,7 @@ public static class BezierMath
 
                 if ((DateTime.Now.Ticks - startTime) / 10_000_000 > timeOut) // Time out after a set amount of seconds
                 {
-                    Debug.Log($"Baking took too long, timing out. Is the loop infinite? Inverse resolution: {inverseResolution} (if 0 then loop is infinite)");
+                    Debug.Log($"Baking took too long, timing out. Is the loop infinite?\nInverse resolution: {inverseResolution} (if 0 then the loop is infinite)");
                     return null;
                 }
             }
@@ -97,5 +97,19 @@ public static class BezierMath
         Debug.Log($"Bezier points computed in {(DateTime.Now.Ticks - startTime) / 10} microseconds");
 
         return bezierPoints.ToArray();
+    }
+
+    // Gets the radius of a curve consisting of 3 points.
+    public static float GetRadius(Vector3 p1, Vector3 p2, Vector3 p3) {
+        float a = Mathf.Sqrt(Mathf.Pow(p2.x - p1.x, 2f) + Mathf.Pow(p2.x - p1.x, 2f));
+        float b = Mathf.Sqrt(Mathf.Pow(p3.x - p2.x, 2f) + Mathf.Pow(p3.x - p2.x, 2f));
+        float c = Mathf.Sqrt(Mathf.Pow(p1.x - p3.x, 2f) + Mathf.Pow(p1.x - p3.x, 2f));
+
+        float s = (a + b + c) / 2f;
+        float area = Mathf.Sqrt(s * (s - a) * (s - b) * (s - c));
+        Debug.Log("a:" + a + " b: " + b + " c: " + c + " s: " + s);
+        Debug.Log("area: " + area);
+
+        return a * b * c / (4 * area);
     }
 }
