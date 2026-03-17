@@ -143,9 +143,8 @@ public class PlayerCarController : BaseCarController
 
     void FixedUpdate()
     {
-        float speed = CarRb.linearVelocity.magnitude * 3.6f;
+        float speed = CarRb.linearVelocity.magnitude;
         isOnGrassCachedValid = false;
-        ApplySpeedLimit(speed);
         UpdateDriftSpeed();
         ApplyGravity();
         Move();
@@ -155,6 +154,7 @@ public class PlayerCarController : BaseCarController
         OnGrass();
         HandleTurbo();
 
+        ApplySpeedLimit(Maxspeed);
         WheelEffects(IsDrifting);
     }
 

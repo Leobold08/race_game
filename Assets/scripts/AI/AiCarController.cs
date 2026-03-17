@@ -137,6 +137,8 @@ public class AiCarController : BaseCarController
             currentWaypointIndex = (currentWaypointIndex + 1) % waypointSize;
             targetPoint = aiCarManager.Waypoints[currentWaypointIndex];
             speedLimit = Mathf.Min(Mathf.Sqrt(Maxspeed / 3.6f * BezierMath.GetRadius(targetPoint, aiCarManager.Waypoints[(currentWaypointIndex + 1) % waypointSize], aiCarManager.Waypoints[(currentWaypointIndex + 2) % waypointSize])), Maxspeed);
+            Debug.Log($"{speedLimit}, {Maxspeed / 3.6f}");
+            Debug.Log("Current speed: " + CarRb.linearVelocity.magnitude);
         }
 
         AvoidObstacles();
@@ -175,7 +177,6 @@ public class AiCarController : BaseCarController
             targetTorque *= GrassSpeedMultiplier;
         }
 
-        Debug.Log(Mathf.Sqrt(Maxspeed / 3.6f * BezierMath.GetRadius(targetPoint, aiCarManager.Waypoints[(currentWaypointIndex + 1) % waypointSize], aiCarManager.Waypoints[(currentWaypointIndex + 2) % waypointSize])));
         // Apply boost if active
         if (isBoosting)
         {
