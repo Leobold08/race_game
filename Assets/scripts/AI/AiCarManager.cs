@@ -43,6 +43,15 @@ public class AiCarManager : MonoBehaviour
         { AIDifficulty.Hard,         new DifficultyStats(130f, 140f, 280f, 300f, 0.3f) }
     };
 
+    void Awake()
+    {
+        if (PlayerPrefs.GetInt("SpawnAi") == 0)
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
+
     void Start()
     {
         BezierBaker bezierBaker = GetComponent<BezierBaker>();
