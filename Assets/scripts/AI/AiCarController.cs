@@ -49,7 +49,7 @@ public class AiCarController : BaseCarController
     [SerializeField] private float avoidanceBuffer = 5.0f;
     [Tooltip("How far to offset laterally when dodging another car.")]
     [SerializeField] private float avoidanceLateralOffset = 2.0f;
-    private float avoidanceOffset = 0f;
+    [SerializeField] private float maxAvoidanceOffset = 8f;
     public float safeRadius { get; private set; }
 
     // --- Boost ---
@@ -120,7 +120,9 @@ public class AiCarController : BaseCarController
         TurnSensitivity *= Time.fixedDeltaTime;
         waypointSize = aiCarManager.Waypoints.Count();
         targetPoint = aiCarManager.Waypoints[0];
+        speedLimit = Mathf.Min(Mathf.Sqrt(Maxspeed / 3.6f * BezierMath.GetRadius(targetPoint, aiCarManager.Waypoints[(currentWaypointIndex + 1) % waypointSize], aiCarManager.Waypoints[(currentWaypointIndex + 2) % waypointSize])), Maxspeed);
         
+
         base.Start();
 
         safeRadius = Mathf.Max(CarWidth, CarLength) * 0.5f;
@@ -135,11 +137,10 @@ public class AiCarController : BaseCarController
         if (Vector3.Distance(CarRb.position, aiCarManager.Waypoints[currentWaypointIndex]) < waypointThreshold)
         {
             currentWaypointIndex = (currentWaypointIndex + 1) % waypointSize;
-            targetPoint = aiCarManager.Waypoints[currentWaypointIndex];
             speedLimit = Mathf.Min(Mathf.Sqrt(Maxspeed / 3.6f * BezierMath.GetRadius(targetPoint, aiCarManager.Waypoints[(currentWaypointIndex + 1) % waypointSize], aiCarManager.Waypoints[(currentWaypointIndex + 2) % waypointSize])), Maxspeed);
-            Debug.Log($"{speedLimit}, {Maxspeed / 3.6f}");
-            Debug.Log("Current speed: " + CarRb.linearVelocity.magnitude);
+
         }
+        targetPoint = aiCarManager.Waypoints[currentWaypointIndex];
 
         AvoidObstacles();
 
@@ -160,6 +161,7 @@ public class AiCarController : BaseCarController
         }
 
         ApplyDriveInputs();
+        ApplySpeedLimit(speedLimit * 3.6f);
     }
 
     private void ApplyDriveInputs()
@@ -189,14 +191,12 @@ public class AiCarController : BaseCarController
             wheel.WheelCollider.motorTorque = targetTorque;
             wheel.WheelCollider.brakeTorque = 0f;
         }
-
-        // Apply speed limit
-        ApplySpeedLimit(speedLimit);
     }
 
     private void AvoidObstacles()
     {
-        float avoidanceOffset = 0f;
+        Vector3 localTarget = CarRb.gameObject.transform.InverseTransformPoint(targetPoint);
+        Vector3 localPosition = localTarget;
 
         foreach (BaseCarController other in GameManager.instance.spawnedCars)
         {
@@ -216,19 +216,27 @@ public class AiCarController : BaseCarController
                 if (futureDist < minSafeDistance)
                 {
                     float steerDirection = Vector3.Cross(CarRb.transform.forward, toOther).y > 0 ? -1f : 1f;
-                    avoidanceOffset += steerDirection * avoidanceLateralOffset * avoidance;
+                    localPosition.x += steerDirection * avoidanceLateralOffset * avoidance;
 
                     if (distance < minSafeDistance * 0.5f && CarRb.linearVelocity.magnitude > other.CarRb.linearVelocity.magnitude)
                     {
                         moveInput = 0.7f;
                     }
+
+                    if (localPosition.x == 0) localPosition.x += avoidanceBuffer;
                 }
             }
         }
 
-        Vector3 localPosition = CarRb.gameObject.transform.InverseTransformPoint(targetPoint);
-        localPosition.x += avoidanceOffset;
-
+        
+        if (Vector3.Distance(localTarget, localPosition) > maxAvoidanceOffset) localPosition.x = maxAvoidanceOffset;
         targetPoint = CarRb.gameObject.transform.TransformPoint(localPosition);
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(targetPoint, 0.5f);
+        Gizmos.DrawLine(CarRb.position, targetPoint);
     }
 }
