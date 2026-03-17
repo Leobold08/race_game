@@ -46,7 +46,6 @@ public class SelectionMenuLoading : MonoBehaviour
             "obscure" => loadTextsData["obscure"],
             _ => new string[] { "THIS IS NOT SUPPOSED TO SHOW UP" },
         };
-        Debug.Log($"{loadTextRarity}, {texts.Length}");
         randomIndex = UnityEngine.Random.Range(0, texts.Length);
         loadText_text.text = texts[randomIndex];
     }

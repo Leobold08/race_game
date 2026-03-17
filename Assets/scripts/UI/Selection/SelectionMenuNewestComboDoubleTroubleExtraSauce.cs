@@ -153,6 +153,7 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
         PlayerPrefs.SetInt(AICarsAmountDropdown.name, AICarsAmountDropdown.value + 1);
         PlayerPrefs.SetInt(AIDifficultyDropdown.name, AIDifficultyDropdown.value);
         PlayerPrefs.SetInt(reverseRaceToggle.name, reverseRaceToggle.isOn ? 1 : 0);
+        PlayerPrefs.SetInt("SpawnAI", selectedGamemode == Gamemode.AI ? 1 : 0);
         PlayerPrefs.Save();
     }
 
@@ -263,7 +264,7 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
     {
         temp_AIUnavailablePopup.SetActive(false);
         //hack 2
-        if (selectedGamemode == Gamemode.AI && savedMapBaseName == "canyon") temp_AIUnavailablePopup.SetActive(true);
+        // if (selectedGamemode == Gamemode.AI && savedMapBaseName == "canyon") temp_AIUnavailablePopup.SetActive(true);
         //vitun paskanen hack
         if (canSelectCar)
         {
@@ -363,7 +364,7 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
     public void StartGame()
     {
         //nopee hackki taas...
-        if (selectedGamemode == Gamemode.AI && savedMapBaseName == "canyon") return;
+        //if (selectedGamemode == Gamemode.AI && savedMapBaseName == "canyon") return;
 
         detailsPanel.SetActive(false);
         PlayerPrefs.SetString("SelectedCar", availableCars[index].name);
@@ -376,13 +377,8 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
         loadingLoop.Play();
         schizophrenia = UnityEngine.Random.Range(3.5f, 6.5f);
 
-        LeanTween.value(loadingImg, loadingImg.GetComponent<RectTransform>().anchoredPosition.y, 0.0f, 1f)
-        .setOnUpdate((float val) =>
-        {
-            loadingImg.GetComponent<RectTransform>().anchoredPosition
-            = new Vector2(loadingImg.GetComponent<RectTransform>().anchoredPosition.x, val);
-        })
-        .setEaseInOutCubic();
+        LeanTween.value(loadingImg, loadingImg.GetComponent<RectTransform>().anchoredPosition.y, 0.0f, 1f).setOnUpdate((float val) =>
+        { loadingImg.GetComponent<RectTransform>().anchoredPosition = new Vector2(loadingImg.GetComponent<RectTransform>().anchoredPosition.x, val); }).setEaseInOutCubic();
 
         Controls.Disable();
         Debug.Log("you will now wait for: " + schizophrenia + " seconds");
