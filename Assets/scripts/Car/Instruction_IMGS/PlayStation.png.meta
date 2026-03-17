@@ -110,116 +110,6 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: gdb-playstation-2_38
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 592
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b2860f6287294b44a89c7ee1c18192ec
-      internalID: 2017337585
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_39
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 592
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 571ded0e0b0443f43981ec57e0f50146
-      internalID: -1696113080
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_40
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 592
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2552a51b819b8294ca4a06f2461f3caa
-      internalID: 1006193034
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_41
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 592
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6519d97992dbd264093a6cdb6c344bb4
-      internalID: -1775144423
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_42
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 592
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 458bf7620b3af484099ab9824e7f57c6
-      internalID: -320909440
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: gdb-playstation-2_60
       rect:
         serializedVersion: 2
@@ -242,183 +132,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gdb-playstation-2_61
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 576
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a464cb7b7023786459fd851f642381ef
-      internalID: 512688450
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_62
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 576
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7cb3da3d9e44dd14f879c0f4860ed2a9
-      internalID: 1485719401
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_63
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 576
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 40b097e29619d5045b192740a05e588f
-      internalID: -926626026
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_64
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 576
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cac6091f8156d6d4482f33d7288725bf
-      internalID: -2061552366
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_65
-      rect:
-        serializedVersion: 2
-        x: 197
-        y: 569
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 54b0b2620506bf6499ab8379f2bffd51
-      internalID: 2023197723
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_67
-      rect:
-        serializedVersion: 2
-        x: 215
-        y: 569
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3df42750d4278c64c8b52cfff8d2a25a
-      internalID: 756101417
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_68
-      rect:
-        serializedVersion: 2
-        x: 233
-        y: 569
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 29bc2efeb2c40c447a5c237e9d2df178
-      internalID: -2053738821
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_69
-      rect:
-        serializedVersion: 2
-        x: 261
-        y: 569
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5c8c8667213ef4941b70567888b85491
-      internalID: -324657914
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_83
+      name: Button South
       rect:
         serializedVersion: 2
         x: 16
@@ -435,94 +149,6 @@ TextureImporter:
       bones: []
       spriteID: f2b4eccfe19ebbd458b0adbbdc660a90
       internalID: -406646559
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_84
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 560
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ae418d9059dd5814b8770e698a10f9ef
-      internalID: 233232808
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_85
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 560
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2bd4d685dc6935c4182a1457609e7bc7
-      internalID: -1696048044
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_86
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 560
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8702f1ebcd6b97d4e8f00f9f0dd76d1e
-      internalID: -1441665822
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_87
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 560
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e7c24e8a2c8cb794cabd3357e04c65e7
-      internalID: -294703466
       vertices: []
       indices: 
       edges: []
@@ -550,293 +176,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gdb-playstation-2_107
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 544
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c01c3197c22dd8043939a57955f0c49b
-      internalID: 630830290
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_108
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 544
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5ab3cb1787d104c4e97b0b88311b3b23
-      internalID: -1440085108
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_109
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 544
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8c3e86b913a6dee4fa4ebd14b3b8b492
-      internalID: 1431772761
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_110
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 544
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 59c6afe02ca250a418fd04d2a3c167c3
-      internalID: 1497955588
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_111
-      rect:
-        serializedVersion: 2
-        x: 197
-        y: 551
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 20d88d7cd60ddb24eaa180e5210232a7
-      internalID: -1442209933
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_120
-      rect:
-        serializedVersion: 2
-        x: 368
-        y: 544
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cf27a7ed805a9074dbf95527c2a302fe
-      internalID: 1140825625
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_121
-      rect:
-        serializedVersion: 2
-        x: 384
-        y: 544
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: be48f50264adf264bb6e3d51f4266b5d
-      internalID: 447975449
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_122
-      rect:
-        serializedVersion: 2
-        x: 400
-        y: 544
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0db019ec9befc94479833dd0bf8b073a
-      internalID: -890278431
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_123
-      rect:
-        serializedVersion: 2
-        x: 416
-        y: 544
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aff46407f60655e4a8c935c389203cf9
-      internalID: 1745978767
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_144
-      rect:
-        serializedVersion: 2
-        x: 368
-        y: 528
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7da83e0a5ae0158419d5fa390ad19345
-      internalID: -1250681189
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_145
-      rect:
-        serializedVersion: 2
-        x: 384
-        y: 528
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: af935aa04b73a96488a3389b23d4a7b1
-      internalID: -764564420
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_146
-      rect:
-        serializedVersion: 2
-        x: 400
-        y: 528
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f120c898db0694e4e8514f9a0c0fdecd
-      internalID: 1651739320
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_147
-      rect:
-        serializedVersion: 2
-        x: 416
-        y: 528
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a708aa6f120c05c4dac117a3f5e6e2e3
-      internalID: -1581262259
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_166
+      name: Left Shoulder
       rect:
         serializedVersion: 2
         x: 336
@@ -858,95 +198,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gdb-playstation-2_167
-      rect:
-        serializedVersion: 2
-        x: 368
-        y: 512
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e7ab19bcf23867849adf7090b46b0e1e
-      internalID: 1218555303
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_168
-      rect:
-        serializedVersion: 2
-        x: 384
-        y: 512
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e4da67d02120b134e924e453aae7611a
-      internalID: -1398378712
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_169
-      rect:
-        serializedVersion: 2
-        x: 400
-        y: 512
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c3ed0b719913e6f4c970a57b5709e7db
-      internalID: -546592548
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_170
-      rect:
-        serializedVersion: 2
-        x: 416
-        y: 512
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 111e91eb68cda2749ad80046be9c07fd
-      internalID: 220303189
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_191
+      name: Right Shoulder
       rect:
         serializedVersion: 2
         x: 336
@@ -968,139 +220,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gdb-playstation-2_192
-      rect:
-        serializedVersion: 2
-        x: 368
-        y: 496
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1f31856d43c9ad749844d9af1d49fadd
-      internalID: -193342947
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_193
-      rect:
-        serializedVersion: 2
-        x: 384
-        y: 496
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b3e3b564937968a40a83b80e5c814994
-      internalID: -102479469
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_194
-      rect:
-        serializedVersion: 2
-        x: 400
-        y: 496
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a065f792223ee92469fcfc8a49457ede
-      internalID: 1983206314
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_195
-      rect:
-        serializedVersion: 2
-        x: 416
-        y: 496
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5c595c5263b123140b0298129eb523b6
-      internalID: 1064691030
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_196
-      rect:
-        serializedVersion: 2
-        x: 144
-        y: 480
-        width: 32
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4349ef319f3305e4b80d3acc29d68e3d
-      internalID: 632331928
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_203
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 480
-        width: 32
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 79a6c4dc9d2914041bbb8929e15b34bc
-      internalID: 1330931233
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_259
+      name: D-PadLeft
       rect:
         serializedVersion: 2
         x: 336
@@ -1122,142 +242,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gdb-playstation-2_260
+      name: A
       rect:
         serializedVersion: 2
-        x: 368
-        y: 432
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4ecd2a23b8c98a347a7f96612ce3be5c
-      internalID: -67733530
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_261
-      rect:
-        serializedVersion: 2
-        x: 384
-        y: 432
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f153175752257384da02b20de18e9f89
-      internalID: 309802857
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_262
-      rect:
-        serializedVersion: 2
-        x: 400
-        y: 432
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ac2b1aa84990c1043b03fb6ea5684367
-      internalID: 1410647123
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_263
-      rect:
-        serializedVersion: 2
-        x: 416
-        y: 432
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: daa6dca88ec6af246acb3ec226bd120c
-      internalID: 1061138285
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_90
-      rect:
-        serializedVersion: 2
-        x: 215
-        y: 551
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 94805750f605f594abe5f8e3ddce4ea9
-      internalID: -644525008
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_91
-      rect:
-        serializedVersion: 2
-        x: 233
-        y: 551
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2f4fdfbe78e033f4590b98a51756c406
-      internalID: 1561332703
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_93
-      rect:
-        serializedVersion: 2
-        x: 261
+        x: 197
         y: 551
         width: 18
         height: 18
@@ -1276,32 +264,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gdb-playstation-2_94
+      name: D
       rect:
         serializedVersion: 2
-        x: 297
-        y: 533
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1f0b4f83dd1ea8f468abdfa8a0e8fded
-      internalID: 957485167
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_95
-      rect:
-        serializedVersion: 2
-        x: 297
+        x: 233
         y: 551
         width: 18
         height: 18
@@ -1320,117 +286,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gdb-playstation-2_114
-      rect:
-        serializedVersion: 2
-        x: 233
-        y: 533
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ee6a1891523b9254a9b6ad93fc3264ce
-      internalID: -585768673
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_116
-      rect:
-        serializedVersion: 2
-        x: 261
-        y: 533
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f34f7486f0dbe614b8bf83d5d03a9df7
-      internalID: -1683143793
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_117
-      rect:
-        serializedVersion: 2
-        x: 279
-        y: 533
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4fb13a28d3ebadb4c9e9166f4d0fbc36
-      internalID: 1400512931
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_136
-      rect:
-        serializedVersion: 2
-        x: 197
-        y: 533
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 70335b972ee0ad644a16addca839602a
-      internalID: 299479531
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_137
-      rect:
-        serializedVersion: 2
-        x: 215
-        y: 533
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 01a4e145aa4502547adb24d870009c7b
-      internalID: -1733874640
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_143
+      name: RT
       rect:
         serializedVersion: 2
         x: 336
@@ -1452,77 +308,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gdb-playstation-2_198
+      name: PlayStation_0
       rect:
         serializedVersion: 2
-        x: 192
-        y: 480
-        width: 32
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 07787df4424f0f349bd28b2806dcbb43
-      internalID: 1091945449
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_201
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 480
-        width: 32
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 446d008609758d94b82d4cdc8080277a
-      internalID: 1111522055
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_205
-      rect:
-        serializedVersion: 2
-        x: 288
-        y: 480
-        width: 32
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1f97f8818f0a0b64292aabb508fc7e8c
-      internalID: -1604844888
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_0
-      rect:
-        serializedVersion: 2
-        x: 279
-        y: 569
+        x: 215
+        y: 551
         width: 18
         height: 18
       alignment: 0
@@ -1533,30 +323,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb4c34bc99e60214c9977bf2d70bc73b
-      internalID: -168660867
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-playstation-2_1
-      rect:
-        serializedVersion: 2
-        x: 297
-        y: 569
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c59b3e337e177704aa3f7ba3d131a10e
-      internalID: 513415883
+      spriteID: 374a3a902cde68b46b05f338d0a0a14d
+      internalID: -261203210
       vertices: []
       indices: 
       edges: []
@@ -1577,6 +345,14 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":15.0,"y":15.0},"gridSpriteSize":{"x":16.0,"y":16.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
+      A: -2016765366
+      Button South: -406646559
+      D: -779725147
+      D-PadLeft: -237978224
+      Left Shoulder: 76476857
+      PlayStation_0: -261203210
+      RT: -916886079
+      Right Shoulder: 1777479317
       gdb-playstation-2_0: -168660867
       gdb-playstation-2_1: 513415883
       gdb-playstation-2_10: -1557239613
@@ -1627,7 +403,6 @@ TextureImporter:
       gdb-playstation-2_140: -2033367465
       gdb-playstation-2_141: -1009545068
       gdb-playstation-2_142: -999620379
-      gdb-playstation-2_143: -916886079
       gdb-playstation-2_144: -1250681189
       gdb-playstation-2_145: -764564420
       gdb-playstation-2_146: 1651739320
@@ -1652,7 +427,6 @@ TextureImporter:
       gdb-playstation-2_163: -892005825
       gdb-playstation-2_164: -333778906
       gdb-playstation-2_165: 1342334125
-      gdb-playstation-2_166: 76476857
       gdb-playstation-2_167: 1218555303
       gdb-playstation-2_168: -1398378712
       gdb-playstation-2_169: -546592548
@@ -1680,7 +454,6 @@ TextureImporter:
       gdb-playstation-2_189: 1140142200
       gdb-playstation-2_19: 1109949353
       gdb-playstation-2_190: -140624463
-      gdb-playstation-2_191: 1777479317
       gdb-playstation-2_192: -193342947
       gdb-playstation-2_193: -102479469
       gdb-playstation-2_194: 1983206314
@@ -1755,7 +528,6 @@ TextureImporter:
       gdb-playstation-2_256: 439132884
       gdb-playstation-2_257: -1545742313
       gdb-playstation-2_258: -692451484
-      gdb-playstation-2_259: -237978224
       gdb-playstation-2_26: 1962446467
       gdb-playstation-2_260: -67733530
       gdb-playstation-2_261: 309802857
@@ -2251,7 +1023,6 @@ TextureImporter:
       gdb-playstation-2_80: -2112732425
       gdb-playstation-2_81: -329667845
       gdb-playstation-2_82: -1957863174
-      gdb-playstation-2_83: -406646559
       gdb-playstation-2_84: 233232808
       gdb-playstation-2_85: -1696048044
       gdb-playstation-2_86: -1441665822
@@ -2262,9 +1033,7 @@ TextureImporter:
       gdb-playstation-2_90: -644525008
       gdb-playstation-2_91: 1561332703
       gdb-playstation-2_92: 233701091
-      gdb-playstation-2_93: -2016765366
       gdb-playstation-2_94: 957485167
-      gdb-playstation-2_95: -779725147
       gdb-playstation-2_96: 1756489140
       gdb-playstation-2_97: 47274747
       gdb-playstation-2_98: 610463208

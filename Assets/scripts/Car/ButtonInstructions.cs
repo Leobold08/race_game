@@ -3,11 +3,22 @@ using TMPro;
 using UnityEngine.InputSystem;
 using System;
 using System.Collections.Generic;
+using System.Text;
+using System.Globalization;
 
 public class ButtonInstructions : MonoBehaviour
 {
     private TextMeshProUGUI InstructionText;
     private Waitbeforestart WaitBeforeStart;
+
+    [Header("Instruction Icons")]
+    [SerializeField] private TMP_SpriteAsset keyboardSpriteAsset;
+    [SerializeField] private TMP_SpriteAsset xboxSpriteAsset;
+    [SerializeField] private TMP_SpriteAsset playStationSpriteAsset;
+    [SerializeField] private float spriteScalePercent = 720f;
+    [SerializeField] private float spriteVerticalOffsetEm = 0.86f;
+    [SerializeField] private float spriteHorizontalNudgeEm = 1.1f;
+    [SerializeField] private bool logSpriteResolution;
 
     private CarInputActions InputActions;
     private List<TutorialStep> TutorialSteps;
@@ -15,6 +26,10 @@ public class ButtonInstructions : MonoBehaviour
     private int currentStep = 0;
     private bool tutorialComplete;
     private InputDevice lastUsedDevice;
+
+
+    //this is bcs fuck this shit
+
 
     public event Action OnTutorialComplete;
 
@@ -32,12 +47,17 @@ public class ButtonInstructions : MonoBehaviour
         [NonSerialized] public float HoldTimer; // per-step timer
     }
 
+    [Obsolete]
     private void Awake()
     {
         Time.timeScale = 0f;
 
         if (InstructionText == null)
             InstructionText = GetComponent<TextMeshProUGUI>();
+
+        InstructionText.alignment = TextAlignmentOptions.Center;
+        InstructionText.enableWordWrapping = false;
+        InstructionText.overflowMode = TextOverflowModes.Overflow;
 
         WaitBeforeStart = FindFirstObjectByType<Waitbeforestart>();
         WaitBeforeStart.enabled = false;
@@ -52,7 +72,7 @@ public class ButtonInstructions : MonoBehaviour
             new TutorialStep{ Instruction="Steer right with {button}", ActionName="Move", CompositePart="right", RequiredDirection=Vector2.right, HoldTime=0.3f },
             new TutorialStep{ Instruction="Hold {button} to drift", ActionName="Drift", RequiresHold=true, HoldTime=2f },
             new TutorialStep{ Instruction="Hold {button} to use turbo", ActionName="Turbo", RequiresHold=true, HoldTime=2f },
-            //sloppy? yes, will i fix it? no why wont i fix it? idk you tell me, most likely reason for me not fixing it? im lazy and tired
+            //sloppy? yes, will i fix it? no why wont i fix it? idk you tell me, most likely reason for me not fixing it? im lazy and tired 
             new TutorialStep{ 
                 Instruction="Hold {combo} to turbo while drifting", 
                 RequiresHold=true, 
@@ -170,7 +190,7 @@ public class ButtonInstructions : MonoBehaviour
 
         if (!string.IsNullOrEmpty(step.ActionName) && CachedActions.TryGetValue(step.ActionName, out var action))
         {
-            InstructionText.text = step.Instruction.Replace("{button}", GetBindingDisplay(action, step.CompositePart));
+            InstructionText.text = step.Instruction.Replace("{button}", FormatBindingDisplay(GetBindingDisplay(action, step.CompositePart)));
             step.HoldTimer = 0f;
             action.performed -= OnActionPerformed;
             action.performed += OnActionPerformed;
@@ -241,7 +261,7 @@ public class ButtonInstructions : MonoBehaviour
 
         if (!string.IsNullOrEmpty(step.ActionName) && CachedActions.TryGetValue(step.ActionName, out var action))
         {
-            InstructionText.text = step.Instruction.Replace("{button}", GetBindingDisplay(action, step.CompositePart));
+            InstructionText.text = step.Instruction.Replace("{button}", FormatBindingDisplay(GetBindingDisplay(action, step.CompositePart)));
         }
         else if (step.RequiredComboActions != null)
         {
@@ -307,8 +327,140 @@ public class ButtonInstructions : MonoBehaviour
         foreach (var name in ActionNames)
         {
             if (CachedActions.TryGetValue(name, out var action))
-                displays.Add(GetBindingDisplay(action));
+                displays.Add(FormatBindingDisplay(GetBindingDisplay(action)));
         }
         return string.Join(" + ", displays);
     }
+
+    private string FormatBindingDisplay(string display)
+    {
+        if (string.IsNullOrEmpty(display)) return "";
+
+        var spriteAsset = GetSpriteAssetForDevice();
+        string spriteName = display;
+        string resolvedSpriteName = FindSpriteName(spriteAsset, spriteName);
+        if (!string.IsNullOrEmpty(resolvedSpriteName))
+        {
+            InstructionText.spriteAsset = spriteAsset;
+            string sizeTag = spriteScalePercent != 100f
+                ? $"<size={spriteScalePercent.ToString(CultureInfo.InvariantCulture)}%>"
+                : string.Empty;
+            string sizeCloseTag = spriteScalePercent != 100f ? "</size>" : string.Empty;
+
+            // Keep large icons inline without launching them above the text line.
+            float scaleLiftEm = Mathf.Max(0f, (spriteScalePercent - 100f) / 1000f);
+            float effectiveOffsetEm = Mathf.Max(-1f, spriteVerticalOffsetEm + scaleLiftEm);
+
+            string offsetTag = effectiveOffsetEm != 0f
+                ? $"<voffset={effectiveOffsetEm.ToString(CultureInfo.InvariantCulture)}em>"
+                : string.Empty;
+            string offsetCloseTag = effectiveOffsetEm != 0f ? "</voffset>" : string.Empty;
+
+            string horizontalNudgeTag = spriteHorizontalNudgeEm != 0f
+                ? $"<space={spriteHorizontalNudgeEm.ToString(CultureInfo.InvariantCulture)}em>"
+                : string.Empty;
+
+            return $"{offsetTag}{horizontalNudgeTag}{sizeTag}<sprite name=\"{resolvedSpriteName}\">{sizeCloseTag}{offsetCloseTag}";
+        }
+
+        if (logSpriteResolution)
+            DebugMissingSprite(display, spriteName, spriteAsset);
+
+        return display;
+    }
+
+
+
+    private string FindSpriteName(TMP_SpriteAsset spriteAsset, string spriteName)
+    {
+        if (spriteAsset == null || string.IsNullOrEmpty(spriteName)) return null;
+
+        if (spriteAsset.GetSpriteIndexFromName(spriteName) != -1)
+            return spriteName;
+
+        string normalized = NormalizeSpriteName(spriteName);
+        foreach (var spriteCharacter in spriteAsset.spriteCharacterTable)
+        {
+            if (spriteCharacter == null) continue;
+
+            if (string.Equals(spriteCharacter.name, spriteName, StringComparison.OrdinalIgnoreCase))
+                return spriteCharacter.name;
+
+            if (NormalizeSpriteName(spriteCharacter.name) == normalized)
+                return spriteCharacter.name;
+        }
+
+        return null;
+    }
+
+    private string NormalizeSpriteName(string value)
+    {
+        if (string.IsNullOrEmpty(value)) return string.Empty;
+
+        var builder = new StringBuilder(value.Length);
+        foreach (char ch in value)
+        {
+            if (char.IsLetterOrDigit(ch))
+                builder.Append(char.ToLowerInvariant(ch));
+        }
+
+        return builder.ToString();
+    }
+
+    private void DebugMissingSprite(string display, string spriteName, TMP_SpriteAsset spriteAsset)
+    {
+        if (spriteAsset == null)
+        {
+            Debug.LogWarning($"[ButtonInstructions] No sprite asset assigned. Display='{display}', Resolved='{spriteName}'.", this);
+            return;
+        }
+
+        var names = new List<string>();
+        int count = 0;
+        foreach (var spriteCharacter in spriteAsset.spriteCharacterTable)
+        {
+            if (spriteCharacter == null || string.IsNullOrEmpty(spriteCharacter.name)) continue;
+
+            names.Add(spriteCharacter.name);
+            count++;
+            if (count >= 30) break;
+        }
+
+        string sample = names.Count > 0 ? string.Join(", ", names) : "(none)";
+        Debug.LogWarning(
+            $"[ButtonInstructions] Missing sprite. Display='{display}', Resolved='{spriteName}', Asset='{spriteAsset.name}'. Sample names: {sample}",
+            this
+        );
+    }
+
+    private TMP_SpriteAsset GetSpriteAssetForDevice()
+    {
+        if (lastUsedDevice is Gamepad)
+        {
+            if (DeviceNameContains(lastUsedDevice, "playstation") || DeviceNameContains(lastUsedDevice, "wireless controller"))
+                return playStationSpriteAsset ?? xboxSpriteAsset ?? keyboardSpriteAsset;
+
+            if (DeviceNameContains(lastUsedDevice, "xbox"))
+                return xboxSpriteAsset ?? playStationSpriteAsset ?? keyboardSpriteAsset;
+
+            return xboxSpriteAsset ?? playStationSpriteAsset ?? keyboardSpriteAsset;
+        }
+
+        if (lastUsedDevice is Keyboard || lastUsedDevice is Mouse)
+            return keyboardSpriteAsset ?? xboxSpriteAsset ?? playStationSpriteAsset;
+
+        return keyboardSpriteAsset ?? xboxSpriteAsset ?? playStationSpriteAsset;
+    }
+
+    private bool DeviceNameContains(InputDevice device, string value)
+    {
+        if (device == null || string.IsNullOrEmpty(value)) return false;
+
+        string displayName = device.displayName ?? string.Empty;
+        string productName = device.description.product ?? string.Empty;
+
+        return displayName.IndexOf(value, StringComparison.OrdinalIgnoreCase) >= 0
+            || productName.IndexOf(value, StringComparison.OrdinalIgnoreCase) >= 0;
+    }
+
 }
