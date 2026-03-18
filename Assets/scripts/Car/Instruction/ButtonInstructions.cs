@@ -5,16 +5,18 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Globalization;
+using UnityEditor;
 
 public class ButtonInstructions : MonoBehaviour
 {
-    private TextMeshProUGUI InstructionText;
+    [SerializeField] private TextMeshProUGUI InstructionText;
+    [SerializeField] private TextMeshProUGUI ProgressText;
     private Waitbeforestart WaitBeforeStart;
 
     [Header("Instruction Icons")]
     [SerializeField] private TMP_SpriteAsset keyboardSpriteAsset;
-    [SerializeField] private TMP_SpriteAsset xboxSpriteAsset;
     [SerializeField] private TMP_SpriteAsset playStationSpriteAsset;
+    [SerializeField] private TMP_SpriteAsset xboxSpriteAsset;
     [SerializeField] private float spriteScalePercent = 720f;
     [SerializeField] private float spriteVerticalOffsetEm = 0.86f;
     [SerializeField] private float spriteHorizontalNudgeEm = 1.1f;
@@ -52,8 +54,7 @@ public class ButtonInstructions : MonoBehaviour
     {
         Time.timeScale = 0f;
 
-        if (InstructionText == null)
-            InstructionText = GetComponent<TextMeshProUGUI>();
+        
 
         InstructionText.alignment = TextAlignmentOptions.Center;
         InstructionText.enableWordWrapping = false;
@@ -81,6 +82,8 @@ public class ButtonInstructions : MonoBehaviour
             },
             new TutorialStep{ Instruction="Press {button} to respawn", ActionName="Respawn" }
         };
+
+        //ProgressText.text = $"1/{TutorialSteps.Count}";
     }
 
     private void OnEnable()
@@ -186,6 +189,8 @@ public class ButtonInstructions : MonoBehaviour
     {
         if (currentStep >= TutorialSteps.Count) return;
 
+        ProgressText.text = $"{currentStep + 1}/{TutorialSteps.Count}";
+
         var step = TutorialSteps[currentStep];
 
         if (!string.IsNullOrEmpty(step.ActionName) && CachedActions.TryGetValue(step.ActionName, out var action))
@@ -232,7 +237,9 @@ public class ButtonInstructions : MonoBehaviour
         if (currentStep >= TutorialSteps.Count)
         {
             CompleteTutorial();
+            InstructionText.enabled = false;
             return;
+            
         }
         StartStep();
     }
