@@ -13,17 +13,14 @@ public class MainMenu : MonoBehaviour
 
     void Awake()
     {
-        OptionScript = GetComponentInChildren<optionScript>();
-        OptionScript.CacheUIElements();
-        OptionScript.InitializeSliderValues();
-        OptionScript.InitializeToggleValues();
-
-        OptionScript.gameObject.SetActive(false);
-        if (playConfirmPanel != null) playConfirmPanel.SetActive(false);
+        Time.timeScale = 1;
     }
-
     void Start()
     {
+        OptionScript = GetComponentInChildren<optionScript>();
+        OptionScript.gameObject.SetActive(false);
+        if (playConfirmPanel != null) playConfirmPanel.SetActive(false);
+
         LeanTween.moveLocalY(fullMenu, 0.0f, 1.5f).setEase(LeanTweenType.easeOutBounce).setOnStart(() => { menuMusic.Play(); });
     }
 
