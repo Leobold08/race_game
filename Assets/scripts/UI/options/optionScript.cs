@@ -2,13 +2,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.Audio;
 
 public class optionScript : MonoBehaviour
 {
     public Material pixelCount;
     private const float DefaultPixelValue = 320f;
     private const float PixelMultiplier = 64f;
+    private const float DefaultVolume = 0.6f;
     private List<OptionComponent> OptionsList;
+    [SerializeField] private AudioMixer main;
 
     void Awake()
     {
@@ -19,6 +22,7 @@ public class optionScript : MonoBehaviour
         }
         OptionsList = GetComponentsInChildren<OptionComponent>().ToList();
         InitializeOptions();
+        InitializeVolumeSliders();
     }
 
     public void InitializeOptions()
@@ -29,6 +33,17 @@ public class optionScript : MonoBehaviour
             else if (Option.gameObject.TryGetComponent(out Slider slider)) InitSpecificSliderValue(slider);
         }
         foreach (var colorChanger in FindObjectsByType<PlayerCarColors>(FindObjectsSortMode.None))colorChanger.LightsState(3, true);
+    }
+    //täst vois tehä paremman myöhemmi koska mikä vitun järki tässä on
+    private void InitializeVolumeSliders()
+    {
+        //kaikki sliderit joiden valuelle pitää olla vastaava AudioMixerGroup
+        List<AudioSlider> audioSliders = GetComponentsInChildren<AudioSlider>().ToList();
+        //kaikki audio mixer groupit jotka on master volumen ryhmiä
+        List<AudioMixerGroup> mixerGroups = main.FindMatchingGroups(string.Empty).ToList();
+        foreach (var group in mixerGroups) Debug.Log(group);
+
+        foreach (var i in audioSliders) i.volumeSlider.onValueChanged.AddListener((value) => { main.SetFloat(i.volumeSlider.name, Mathf.Log10(i.volumeSlider.value) * 20); });
     }
 
     private void InitSpecificToggleValue(Toggle toggle)
