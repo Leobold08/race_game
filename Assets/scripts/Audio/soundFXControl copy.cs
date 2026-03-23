@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class soundFXControlcopy : MonoBehaviour
+public class SFXManager : MonoBehaviour
 {
     CarInputActions Controls;
     //säilyttää KAIKKI äänet, paitsi ne, joita käytetään interactableiden kanssa
@@ -53,8 +53,7 @@ public class soundFXControlcopy : MonoBehaviour
         GameObject menu = GameObject.Find("menu");
         optionScript optionScript = menu.GetComponentInChildren<optionScript>(true);
 
-        GameObject[] pausedSoundList = soundList
-        .Where((s, i) => i != 4).ToArray();
+        GameObject[] pausedSoundList = soundList.Where((s, i) => i != 4).ToArray();
 
         foreach (GameObject sound in pausedSoundList)
         {
