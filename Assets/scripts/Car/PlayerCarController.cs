@@ -212,7 +212,7 @@ public class PlayerCarController : BaseCarController
         if (IsTurboActive)
             Maxspeed = Mathf.Lerp(Maxspeed, BaseSpeed + Turbesped, Time.deltaTime * 0.5f);
         else
-            Maxspeed = Mathf.Lerp(Maxspeed, DriftMaxSpeed, Time.deltaTime * 0.03f);
+            Maxspeed = Mathf.Lerp(Maxspeed, DriftMaxSpeed, Time.deltaTime * 0.2f);
 
         
         if (Mathf.Abs(SteerInput) > 0.1f)
@@ -421,7 +421,7 @@ public class PlayerCarController : BaseCarController
         if (driftmultiplier < 4f) return;
 
         float turbe = Mathf.InverseLerp(4f, 10f, driftmultiplier);
-        float TurbeStrength = Mathf.Lerp(1f, 5f, turbe);
+        float TurbeStrength = Mathf.Lerp(1f, 3f, turbe);
         float Duration = 3.5f;
 
         if (TurbeBoost != null)
@@ -430,30 +430,37 @@ public class PlayerCarController : BaseCarController
         TurbeBoost = StartCoroutine(BoostCoroutine(TurbeStrength, Duration));
     }
 
-    internal IEnumerator BoostCoroutine(float TurbeStrength, float Duration)
+    internal IEnumerator BoostCoroutine(float turboStrength, float durationOverride = -1f)
     {
-        float originalspeed = Maxspeed;
 
-        float boostedMax = Mathf.Max(BaseSpeed + Turbesped, originalspeed + TurbeStrength);
+        float GetCurrentBaseSpeed() => IsDrifting
+            ? (IsTurboActive ? BaseSpeed + Turbesped : DriftMaxSpeed)
+            : (IsTurboActive ? BaseSpeed + Turbesped : BaseSpeed);
 
-        float duration = Mathf.Lerp(2.5f, 4.5f, Mathf.InverseLerp(2f, 5f, TurbeStrength));
+        float originalSpeed = GetCurrentBaseSpeed();
+        float boostedMax = Mathf.Max(BaseSpeed + Turbesped, originalSpeed + turboStrength);
+
+
+        float duration = durationOverride > 0f
+            ? durationOverride
+            : Mathf.Lerp(2.5f, 4.5f, Mathf.InverseLerp(2f, 5f, turboStrength));
+
         float timer = 0f;
+
         while (timer < duration)
         {
             timer += Time.deltaTime;
-            float time = timer / duration;
-            float smooth = Mathf.SmoothStep(0f, 1f, time);
+            float smooth = Mathf.SmoothStep(0f, 1f, timer / duration);
 
-            float force = TurbeStrength * (1f - smooth) * Time.deltaTime;
-            force = Mathf.Min(force, 0.5f); 
-
+            float force = Mathf.Min(turboStrength * (1f - smooth) * Time.deltaTime, 0.5f);
             CarRb.AddForce(transform.forward * force, ForceMode.VelocityChange);
 
-            Maxspeed = Mathf.Lerp(boostedMax, originalspeed, smooth);
+
+            Maxspeed = Mathf.Lerp(boostedMax, GetCurrentBaseSpeed(), smooth);
+
             yield return null;
         }
-
-        Maxspeed = originalspeed;
+        Maxspeed = GetCurrentBaseSpeed();
         TurbeBoost = null;
     }
 }
