@@ -63,9 +63,7 @@ public class Waitbeforestart : MonoBehaviour
                 Color c = img.color;
                 c.a = alpha;
                 img.color = c;
-            })
-            .setIgnoreTimeScale(true)
-            .setEaseLinear();
+            }).setIgnoreTimeScale(true).setEaseLinear();
             yield return new WaitForSecondsRealtime(1f);
         }
 
@@ -82,11 +80,10 @@ public class Waitbeforestart : MonoBehaviour
             Color c = img.color;
             c.a = alpha;
             img.color = c;
-        })
-        .setIgnoreTimeScale(true)
-        .setEaseLinear();
-        yield return new WaitForSecondsRealtime(2f);
-
-        foreach (GameObject img in countGraphics) img.SetActive(false);
+        }).setIgnoreTimeScale(true).setEaseLinear().setOnComplete(() =>
+        {
+            foreach (GameObject img in countGraphics) img.SetActive(false);
+            Destroy(this);
+        });
     }
 }

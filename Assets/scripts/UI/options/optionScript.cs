@@ -9,7 +9,6 @@ public class optionScript : MonoBehaviour
     public Material pixelCount;
     private const float DefaultPixelValue = 320f;
     private const float PixelMultiplier = 64f;
-    private const float DefaultVolume = 0.6f;
     private List<OptionComponent> OptionsList;
     [SerializeField] private AudioMixer main;
 
@@ -23,6 +22,12 @@ public class optionScript : MonoBehaviour
         OptionsList = GetComponentsInChildren<OptionComponent>().ToList();
         InitializeOptions();
         InitializeVolumeSliders();
+    }
+
+    void Start()
+    {
+        //vois koittaa välttää tämmöstä awake > start juttua
+        gameObject.SetActive(false);
     }
 
     public void InitializeOptions()
@@ -41,7 +46,6 @@ public class optionScript : MonoBehaviour
         List<AudioSlider> audioSliders = GetComponentsInChildren<AudioSlider>().ToList();
         //kaikki audio mixer groupit jotka on master volumen ryhmiä
         List<AudioMixerGroup> mixerGroups = main.FindMatchingGroups(string.Empty).ToList();
-        foreach (var group in mixerGroups) Debug.Log(group);
 
         foreach (var i in audioSliders) i.volumeSlider.onValueChanged.AddListener((value) => { main.SetFloat(i.volumeSlider.name, Mathf.Log10(i.volumeSlider.value) * 20); });
     }

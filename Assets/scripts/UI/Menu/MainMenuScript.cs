@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    private optionScript OptionScript;
     public GameObject fullMenu;
     [SerializeField] private AudioSource menuMusic;
     private int musictweenIDstart = -1;
@@ -16,9 +15,7 @@ public class MainMenu : MonoBehaviour
         Time.timeScale = 1;
     }
     void Start()
-    {
-        OptionScript = GetComponentInChildren<optionScript>();
-        OptionScript.gameObject.SetActive(false);
+    {  
         if (playConfirmPanel != null) playConfirmPanel.SetActive(false);
 
         LeanTween.moveLocalY(fullMenu, 0.0f, 1.5f).setEase(LeanTweenType.easeOutBounce).setOnStart(() => { menuMusic.Play(); });
