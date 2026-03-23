@@ -1,6 +1,5 @@
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class soundFXControl : MonoBehaviour
@@ -13,7 +12,6 @@ public class soundFXControl : MonoBehaviour
     public GameObject[] soundButtonsList;
     public GameObject[] soundSlidersList;
     public GameObject[] soundTogglesList;
-    public RacerScript racerScript;
 
     abstract class soundFXAttributes<T> where T : Component
     {
@@ -79,7 +77,6 @@ public class soundFXControl : MonoBehaviour
     void Awake()
     {
         Controls = new CarInputActions();
-        racerScript = FindFirstObjectByType<RacerScript>();
     }
 
     private void OnEnable()

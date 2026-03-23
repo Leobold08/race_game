@@ -86,12 +86,10 @@ public class PauseMenu : MonoBehaviour
     }
     public void QuitGame()
     {
-        SetPausedState(false);
         SceneManager.LoadSceneAsync("MainMenu");
     }
     public void RestartGame()
     {
-        SetPausedState(false);
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
     }
 }

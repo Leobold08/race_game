@@ -11,15 +11,11 @@ public class AudioSlider : MonoBehaviour
     {
         volumeSlider = GetComponent<Slider>();
         volumeSlider.value = PlayerPrefs.GetFloat("audio_value");
+        volumeSlider.onValueChanged.AddListener((value) => { AudioListener.volume = volumeSlider.value; });
         if (!PlayerPrefs.HasKey("audio_value"))
         {
             PlayerPrefs.SetFloat("audio_value", DefaultVolume);
             Debug.Log("audio_value not found; set to default: " + DefaultVolume);
         }
-    }
-
-    public void SetVolume()
-    {
-        AudioListener.volume = volumeSlider.value;
     }
 }

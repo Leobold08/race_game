@@ -196,10 +196,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c587f60c2692f0488af124d023f80bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Optionspanel: {fileID: 4447528910841764756}
   pauseMenuObjects:
   - {fileID: 6628541172485080053}
-  playButton: {fileID: 0}
   racerScript: {fileID: 0}
   fullMenu: {fileID: 0}
 --- !u!1 &191596636955508915
@@ -670,6 +668,8 @@ GameObject:
   - component: {fileID: 7606337320714326850}
   - component: {fileID: 7619745064807321182}
   - component: {fileID: 8819196712334076898}
+  - component: {fileID: 4919903304426880684}
+  - component: {fileID: 7552141137437753905}
   m_Layer: 5
   m_Name: audio
   m_TagString: Untagged
@@ -748,31 +748,7 @@ MonoBehaviour:
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7235799923018272578}
-        m_TargetAssemblyTypeName: optionScript, Assembly-CSharp
-        m_MethodName: UpdateSliderPreference
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: audio
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8115813495693976893}
-        m_TargetAssemblyTypeName: AudioSlider, Assembly-CSharp
-        m_MethodName: SetVolume
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &8819196712334076898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -802,6 +778,30 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &4919903304426880684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394871850909746017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 890792bafa1a36b42b1fb5055f926939, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OptionComponent
+--- !u!114 &7552141137437753905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394871850909746017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eede637e947b634e9c70ad12cdab33d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioSlider
 --- !u!1 &437479484485846126
 GameObject:
   m_ObjectHideFlags: 0
@@ -4909,6 +4909,7 @@ GameObject:
   - component: {fileID: 2114430116627827318}
   - component: {fileID: 5001962535245233617}
   - component: {fileID: 4600515604512707558}
+  - component: {fileID: 6508117722760323319}
   m_Layer: 5
   m_Name: pixel
   m_TagString: Untagged
@@ -4988,19 +4989,7 @@ MonoBehaviour:
   m_Value: 5
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7235799923018272578}
-        m_TargetAssemblyTypeName: optionScript, Assembly-CSharp
-        m_MethodName: UpdateSliderPreference
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: pixel
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &4600515604512707558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5030,6 +5019,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &6508117722760323319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4025710044679028503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 890792bafa1a36b42b1fb5055f926939, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OptionComponent
 --- !u!1 &4156051881292212665
 GameObject:
   m_ObjectHideFlags: 0
@@ -5530,7 +5531,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5510088316915151052}
   - component: {fileID: 7235799923018272578}
-  - component: {fileID: 8115813495693976893}
   m_Layer: 5
   m_Name: Optionspanel
   m_TagString: Untagged
@@ -5574,23 +5574,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pixelCount: {fileID: 2100000, guid: 7a29e55765b13f14e9e4cdef3bd67bfc, type: 2}
-  optionTestRef: {fileID: 7689440579184139098}
-  pixelRef: {fileID: 5001962535245233617}
-  audioRef: {fileID: 7619745064807321182}
-  LabelPARef: {fileID: 2391090615939316653}
---- !u!114 &8115813495693976893
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4447528910841764756}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2eede637e947b634e9c70ad12cdab33d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  volumeSlider: {fileID: 7619745064807321182}
 --- !u!1 &4528182524473525034
 GameObject:
   m_ObjectHideFlags: 0
@@ -9824,6 +9807,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4925209130649720089}
   - component: {fileID: 7689440579184139098}
+  - component: {fileID: 1788058451377549832}
   m_Layer: 5
   m_Name: optionTest
   m_TagString: Untagged
@@ -9898,20 +9882,20 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7235799923018272578}
-        m_TargetAssemblyTypeName: optionScript, Assembly-CSharp
-        m_MethodName: UpdateTogglePreference
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: optionTest
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_IsOn: 1
+--- !u!114 &1788058451377549832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9187949332835438109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 890792bafa1a36b42b1fb5055f926939, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OptionComponent
 --- !u!1 &9200743451663428443
 GameObject:
   m_ObjectHideFlags: 0
