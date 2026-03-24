@@ -181,7 +181,7 @@ public class BaseCarController : MonoBehaviour
     protected void ApplySpeedLimit(float speed)
     {
         // 3.6 is to convert from m/s to km/h and vice versa
-        if (CarRb.linearVelocity.magnitude * 3.6f > speed) CarRb.linearVelocity = speed / 3.6f * CarRb.linearVelocity.normalized;
+        if (CarRb.linearVelocity.magnitude > speed) CarRb.linearVelocity = speed * CarRb.linearVelocity.normalized;
     }
 
 
