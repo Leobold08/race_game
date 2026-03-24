@@ -1,13 +1,15 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SFXManager : MonoBehaviour
 {
-    //säilyttää KAIKKI äänet, paitsi ne, joita käytetään interactableiden kanssa
+    //säilyttää KAIKKI äänet, PAITSI ne, joita käytetään interactableiden kanssa
     [SerializeField] private List<AudioSource> soundList;
-    //kaikki äänet, joita käytetään interactablea käyttäessä
     [SerializeField] private List<AudioSource> interactableSounds;
     [SerializeField] private List<GameObject> interactables;
     [SerializeField] private AudioSource gamePaused;
@@ -28,13 +30,43 @@ public class SFXManager : MonoBehaviour
     void Start()
     {
         soundList = GetComponentsInChildren<AudioSource>().Where(a => a.CompareTag("soundFX")).ToList();
-        //TODO: muuttaa hiukan paremmaks, mutta tarpeeks hyvä atm
         foreach (var i in interactables)
         {
-            if (i.TryGetComponent(out Button button)) button.onClick.AddListener(() => { interactableSounds[0].Play(); });
-            else if (i.TryGetComponent(out Toggle toggle)) toggle.onValueChanged.AddListener((value) => { interactableSounds[1].Play(); });
-            else if (i.TryGetComponent(out Slider slider)) slider.onValueChanged.AddListener((value) => { interactableSounds[2].Play(); });
+            Selectable tester = GetInteractableComponent(i);
+            
+            if (tester is Button button) button.onClick.AddListener(() => { interactableSounds[0].Play(); });
+            else if (tester is Toggle toggle) toggle.onValueChanged.AddListener((value) => { interactableSounds[1].Play(); });
+            else if (tester is Slider slider) slider.onValueChanged.AddListener((value) => { interactableSounds[2].Play(); });
+            else if (tester is TMP_Dropdown dropdown) dropdown.onValueChanged.AddListener((value) => { interactableSounds[3].Play(); });
         }
+    }
+
+    //TODO: muuttaa hiukan paremmaks, mutta tarpeeks hyvä atm
+    //TryGetComponent suoraan objektissa; jos ei löydä, ettii seuraavasta sisäsestä objektista.
+    //voi aiheuttaa hieman paskasta toimintaa mutta tbf emme ole idiootteja
+
+    /// <param name="obj"></param>
+    /// <returns>Selectable component (e.g. Button, Toggle, Slider or Dropdown)</returns>
+    /// <exception cref="NullReferenceException"></exception>
+    private Selectable GetInteractableComponent(GameObject obj)
+    {
+        if (obj.TryGetComponent(out Button button)) return button;
+        else if (obj.TryGetComponent(out Toggle toggle)) return toggle;
+        else if (obj.TryGetComponent(out Slider slider)) return slider;
+        else if (obj.TryGetComponent(out TMP_Dropdown dropdown)) return dropdown;
+
+        List<Transform> objList = new(obj.GetComponentsInChildren<Transform>());
+        Debug.Log($"no Selectable component found from {obj}, attempting to find from object's hierarchy");
+
+        foreach (var i in objList)
+        {
+            if (i.gameObject.TryGetComponent(out Button buttonFromObj)) return buttonFromObj;
+            else if (i.gameObject.TryGetComponent(out Toggle toggleFromObj)) return toggleFromObj;
+            else if (i.gameObject.TryGetComponent(out Slider sliderFromObj)) return sliderFromObj;
+            else if (i.gameObject.TryGetComponent(out TMP_Dropdown dropdownFromObj)) return dropdownFromObj;
+        }
+
+        throw new NullReferenceException($"no Selectable component found on {obj} or its hierarchy!");
     }
 
     public void PauseStateHandler()

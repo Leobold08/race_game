@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Audio;
-using System.Security.Cryptography;
 
 public class optionScript : MonoBehaviour
 {
@@ -50,6 +49,8 @@ public class optionScript : MonoBehaviour
             main.SetFloat(i.volumeSlider.name, Mathf.Log10(PlayerPrefs.GetFloat($"{i.volumeSlider.name}_value")) * 20);
             i.volumeSlider.onValueChanged.AddListener((value) => { main.SetFloat(i.volumeSlider.name, Mathf.Log10(i.volumeSlider.value) * 20); });
         }
+        GameObject audioCategory = transform.Find("Container/Audio").gameObject;
+        audioCategory.SetActive(false);
     }
 
     private void InitSpecificToggleValue(Toggle toggle)
