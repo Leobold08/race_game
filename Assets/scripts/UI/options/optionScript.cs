@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Audio;
+using UnityEditor.Build.Pipeline;
 
 public class optionScript : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class optionScript : MonoBehaviour
     private const float PixelMultiplier = 64f;
     private List<OptionComponent> OptionsList;
     [SerializeField] private AudioMixer main;
+    public AudioMixerGroup[] AllMixerGroups { get { return main.FindMatchingGroups(string.Empty); } }
 
     void Awake()
     {
@@ -20,7 +22,7 @@ public class optionScript : MonoBehaviour
             Debug.Log("pixel_value not found; set to default: " + DefaultPixelValue);
         }
         OptionsList = GetComponentsInChildren<OptionComponent>().ToList();
-        InitializeOptions();
+        if (OptionsList.Count != 0) InitializeOptions();
     }
 
     void Start()
@@ -42,15 +44,16 @@ public class optionScript : MonoBehaviour
     //täst vois tehä paremman myöhemmi koska mikä vitun järki tässä on
     private void InitializeVolumeSliders()
     {
-        List<AudioSlider> audioSliders = GetComponentsInChildren<AudioSlider>().ToList();
+        //foreach (var i in AllMixerGroups) main.SetFloat($"{i.name}_value", Mathf.Log10(PlayerPrefs.GetFloat($"{i}_value")) * 20);
 
+        List<AudioSlider> audioSliders = GetComponentsInChildren<AudioSlider>().ToList();
         foreach (var i in audioSliders)
         {
             main.SetFloat(i.volumeSlider.name, Mathf.Log10(PlayerPrefs.GetFloat($"{i.volumeSlider.name}_value")) * 20);
             i.volumeSlider.onValueChanged.AddListener((value) => { main.SetFloat(i.volumeSlider.name, Mathf.Log10(i.volumeSlider.value) * 20); });
         }
         GameObject audioCategory = transform.Find("Container/Audio").gameObject;
-        audioCategory.SetActive(false);
+        if (audioCategory != null) audioCategory.SetActive(false);
     }
 
     private void InitSpecificToggleValue(Toggle toggle)

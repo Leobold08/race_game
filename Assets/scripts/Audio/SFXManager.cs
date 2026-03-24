@@ -37,7 +37,7 @@ public class SFXManager : MonoBehaviour
             if (tester is Button button) button.onClick.AddListener(() => { interactableSounds[0].Play(); });
             else if (tester is Toggle toggle) toggle.onValueChanged.AddListener((value) => { interactableSounds[1].Play(); });
             else if (tester is Slider slider) slider.onValueChanged.AddListener((value) => { interactableSounds[2].Play(); });
-            else if (tester is TMP_Dropdown dropdown) dropdown.onValueChanged.AddListener((value) => { interactableSounds[3].Play(); });
+            else if (tester is TMP_Dropdown dropdown) dropdown.onValueChanged.AddListener((value) => { interactableSounds[0].Play(); });
         }
     }
 
