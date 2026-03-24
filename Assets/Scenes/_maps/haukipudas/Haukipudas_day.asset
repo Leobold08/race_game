@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
   m_Name: LiftGammaGain
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.LiftGammaGain
-  active: 0
+  active: 1
   lift:
-    m_OverrideState: 0
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
-  gamma:
     m_OverrideState: 1
-    m_Value: {x: 0.01314497, y: 0, z: 1, w: 0}
+    m_Value: {x: 1, y: 1, z: 1, w: 0.0045188204}
+  gamma:
+    m_OverrideState: 0
+    m_Value: {x: 0.9852094, y: 0.98376656, z: 1, w: 0.08133754}
   gain:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
+    m_Value: {x: 1, y: 1, z: 1, w: 0.35246265}
 --- !u!114 &-5718385258487272030
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -34,19 +34,69 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea62842ddb6960488930897ba9ce398, type: 3}
   m_Name: Dithering
   m_EditorClassIdentifier: Assembly-CSharp::PSX.Dithering
-  active: 1
+  active: 0
   patternIndex:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: -176
   ditherThreshold:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 512
   ditherStrength:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
   ditherScale:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 2
+--- !u!114 &-5500551215387691049
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b2db86121404754db890f4c8dfe81b2, type: 3}
+  m_Name: Bloom
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.Bloom
+  active: 0
+  skipIterations:
+    m_OverrideState: 0
+    m_Value: 1
+  threshold:
+    m_OverrideState: 1
+    m_Value: 6.52
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0
+  scatter:
+    m_OverrideState: 1
+    m_Value: 0.7
+  clamp:
+    m_OverrideState: 1
+    m_Value: 65472
+  tint:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  highQualityFiltering:
+    m_OverrideState: 1
+    m_Value: 0
+  filter:
+    m_OverrideState: 1
+    m_Value: 0
+  downscale:
+    m_OverrideState: 0
+    m_Value: 0
+  maxIterations:
+    m_OverrideState: 0
+    m_Value: 6
+  dirtTexture:
+    m_OverrideState: 1
+    m_Value: {fileID: 0}
+    dimension: 1
+  dirtIntensity:
+    m_OverrideState: 1
+    m_Value: 0
 --- !u!114 &-2609462923403319739
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -134,6 +184,7 @@ MonoBehaviour:
   - {fileID: -5718385258487272030}
   - {fileID: 6491491715094631791}
   - {fileID: -2609462923403319739}
+  - {fileID: -5500551215387691049}
 --- !u!114 &2572525754003886388
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -191,7 +242,7 @@ MonoBehaviour:
     m_Value: 1
   maxSteps:
     m_OverrideState: 0
-    m_Value: 128
+    m_Value: 218
   blurIterations:
     m_OverrideState: 0
     m_Value: 2
