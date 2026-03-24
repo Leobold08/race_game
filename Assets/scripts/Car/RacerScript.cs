@@ -228,7 +228,7 @@ public class RacerScript : MonoBehaviour
     public void StartRace()
     {
         racestarted = true;
-        if (GameManager.instance.sceneSelected != "tutorial") musicControl.StartMusicTracks();
         startTimer = true;
+        musicControl.StartMusicTracks();
     }
 }

@@ -3,23 +3,17 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Audio;
+using TMPro;
 
 public class OptionScript : MonoBehaviour
 {
     public Material pixelCount;
-    private const float DefaultPixelValue = 320f;
-    private const float PixelMultiplier = 64f;
     private List<OptionComponent> OptionsList;
     [SerializeField] private AudioMixer main;
     public AudioMixerGroup[] AllMixerGroups { get { return main.FindMatchingGroups(string.Empty); } }
 
     void Awake()
     {
-        if (!PlayerPrefs.HasKey("pixel_value"))
-        {
-            pixelCount.SetFloat("_pixelcount", DefaultPixelValue);
-            Debug.Log("pixel_value not found; set to default: " + DefaultPixelValue);
-        }
         OptionsList = GetComponentsInChildren<OptionComponent>().ToList();
         if (OptionsList.Count != 0) InitializeOptions();
     }
@@ -35,27 +29,25 @@ public class OptionScript : MonoBehaviour
     {
         foreach (var Option in OptionsList)
         {
-            if (Option.gameObject.TryGetComponent(out Toggle toggle)) InitSpecificToggleValue(toggle);
-            else if (Option.gameObject.TryGetComponent(out Slider slider)) InitSpecificSliderValue(slider);
+            if (Option.gameObject.TryGetComponent(out Toggle toggle)) InitSpecificOptionValue(toggle);
+            else if (Option.gameObject.TryGetComponent(out Slider slider)) InitSpecificOptionValue(slider);
+            else if (Option.gameObject.TryGetComponent(out TMP_Dropdown dropdown)) InitSpecificOptionValue(dropdown);
         }
-        foreach (var colorChanger in FindObjectsByType<PlayerCarColors>(FindObjectsSortMode.None))colorChanger.LightsState(3, true);
     }
-    //täst vois tehä paremman myöhemmi koska mikä vitun järki tässä on
     private void InitializeVolumeSliders()
     {
-        //foreach (var i in AllMixerGroups) main.SetFloat($"{i.name}_value", Mathf.Log10(PlayerPrefs.GetFloat($"{i}_value")) * 20);
+        //MISTER BARBER DID I NOT TELL YOU TO REMOVE EVERYTHING???
+        foreach (var i in AllMixerGroups) main.SetFloat($"{i}_value", Mathf.Log10(PlayerPrefs.GetFloat($"{i}_value_value")) * 20);
 
         List<AudioSlider> audioSliders = GetComponentsInChildren<AudioSlider>().ToList();
-        foreach (var i in audioSliders)
-        {
-            main.SetFloat(i.volumeSlider.name, Mathf.Log10(PlayerPrefs.GetFloat($"{i.volumeSlider.name}_value")) * 20);
-            i.volumeSlider.onValueChanged.AddListener((value) => { main.SetFloat(i.volumeSlider.name, Mathf.Log10(i.volumeSlider.value) * 20); });
-        }
+        foreach (var i in audioSliders) { i.volumeSlider.onValueChanged.AddListener((value) => { main.SetFloat(i.volumeSlider.name, Mathf.Log10(i.volumeSlider.value) * 20); }); }
+        if (audioSliders.Count == 0) return;
+
         GameObject audioCategory = transform.Find("Container/Audio").gameObject;
         if (audioCategory != null) audioCategory.SetActive(false);
     }
 
-    private void InitSpecificToggleValue(Toggle toggle)
+    private void InitSpecificOptionValue(Toggle toggle)
     {
         var valueName = $"{toggle.name}_value";
         toggle.isOn = PlayerPrefs.GetInt(valueName) == 1;
@@ -65,16 +57,12 @@ public class OptionScript : MonoBehaviour
         {
             PlayerPrefs.SetInt(valueName, value ? 1 : 0);
             Debug.Log($"changed: {toggle.name}, with value of {toggle.isOn}");
-
-            //Long before time had a name, the first Gitjutsu master created "hacking the fuck out of this script"
-            if (toggle.name == "optionTest") foreach (var colorChanger in FindObjectsByType<PlayerCarColors>(FindObjectsSortMode.None)) colorChanger.LightsState(3, true);
         });
     }
-    private void InitSpecificSliderValue(Slider slider)
+    private void InitSpecificOptionValue(Slider slider)
     {
         var valueName = $"{slider.name}_value";
         slider.value = PlayerPrefs.GetFloat(valueName);
-        Debug.Log(PlayerPrefs.HasKey(valueName));
         Debug.Log($"toggle {slider} init; value: {slider.value}");
         
         slider.onValueChanged.AddListener((value) =>
@@ -82,7 +70,19 @@ public class OptionScript : MonoBehaviour
             PlayerPrefs.SetFloat(valueName, value);
             Debug.Log($"changed: {slider.name}, with value of {slider.value}");
 
-            if (slider.name == "pixel") pixelCount.SetFloat("_pixelcount", slider.value * PixelMultiplier);
+            if (slider.name == "pixel") pixelCount.SetFloat("_pixelcount", slider.value * 64f);
+        });
+    }
+    private void InitSpecificOptionValue(TMP_Dropdown dropdown)
+    {
+        var valueName = $"{dropdown.name}_value";
+        dropdown.value = PlayerPrefs.GetInt(valueName);
+        Debug.Log($"toggle {dropdown} init; value: {dropdown.value}");
+        
+        dropdown.onValueChanged.AddListener((value) =>
+        {
+            PlayerPrefs.SetInt(valueName, value);
+            Debug.Log($"changed: {dropdown.name}, with value of {dropdown.value}");
         });
     }
 
