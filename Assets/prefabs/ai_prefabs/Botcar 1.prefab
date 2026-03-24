@@ -1049,9 +1049,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bfe7bf0717e3094096be35665d584e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColorChangerAI
-  pointLight: {fileID: 3371394255748310501}
-  right: {fileID: 7606487385863759937}
-  left: {fileID: 5079768978144600480}
   duration: 3
 --- !u!1 &5644659112388404549
 GameObject:
@@ -1135,9 +1132,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NewAiCarController
   MaxAcceleration: 700
   BrakeAcceleration: 500
-  TurnSensitivty: 30
-  TurnSensitivtyAtHighSpeed: 17.5
-  TurnSensitivtyAtLowSpeed: 30
+  TurnSensitivity: 0.05
+  TurnSensitivityAtHighSpeed: 17.5
+  TurnSensitivityAtLowSpeed: 30
   Deceleration: 1
   Maxspeed: 100
   GravityMultiplier: 1.5
@@ -1167,14 +1164,17 @@ MonoBehaviour:
   MoveInput: 0
   SteerInput: 0
   Turbesped: 60
+  TurbeChargeSped: 80
   BaseSpeed: 180
   Grassmaxspeed: 50
   DriftMaxSpeed: 140
   TurbeAmount: 100
   TurbeMax: 100
   Turbepush: 15
+  turbechargepush: 20
   TurbeReduce: 10
   TurbeRegen: 10
+  TurbeWaitTime: 2
   waypointThreshold: 10
   angleThreshold: 35
   leftTurnRadius: 10
@@ -1187,6 +1187,7 @@ MonoBehaviour:
   curveTolerance: 2
   avoidanceBuffer: 5
   avoidanceLateralOffset: 2
+  maxAvoidanceOffset: 4
   boostMultiplier: 1.25
   aiCarManager: {fileID: 0}
 --- !u!1 &6333829925512713852

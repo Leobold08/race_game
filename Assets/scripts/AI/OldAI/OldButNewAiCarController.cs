@@ -250,7 +250,7 @@ public class BetterNewAiCarController : MonoBehaviour
             avoidanceOffset += steerDirection * avoidanceLateralOffset * avoidance;
         }
 
-        foreach (var other in aiCarManager.AiCars)
+        foreach (var other in GameManager.instance.spawnedCars)
         {
             if (other == this) continue;
 
