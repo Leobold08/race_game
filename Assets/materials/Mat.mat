@@ -170,7 +170,7 @@ Material:
     - _AddPrecomputedVelocity: 0
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _AmbientStrength: 0.35
+    - _AmbientStrength: 0.2
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
@@ -215,7 +215,7 @@ Material:
     - _Tile1: 128
     - _Tile2: 128
     - _Tile3: 128
-    - _VertexSnap: 10
+    - _VertexSnap: 7
     - _WorkflowMode: 1
     - _XRMotionVectorsPass: 1
     - _ZWrite: 1

@@ -240,6 +240,7 @@ GameObject:
   - component: {fileID: 1198998757389060233}
   - component: {fileID: 3207018467508837424}
   - component: {fileID: 6701611598347881364}
+  - component: {fileID: 811229043295655329}
   m_Layer: 0
   m_Name: right light
   m_TagString: rl
@@ -356,6 +357,21 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!114 &811229043295655329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3298979759836470329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c8bca95f7c947b4db5fb152a0d693d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.cqf.urpvolumetricfog.runtime::VolumetricAdditionalLight
+  anisotropy: 0.25
+  scattering: 1
+  radius: 0.2
 --- !u!1 &3337392136992938668
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,6 +383,7 @@ GameObject:
   - component: {fileID: 3320107584298825475}
   - component: {fileID: 6764521142728198793}
   - component: {fileID: 3577619231438001444}
+  - component: {fileID: 1173042359662581443}
   m_Layer: 0
   m_Name: underlight
   m_TagString: pl
@@ -398,13 +415,13 @@ Light:
   m_GameObject: {fileID: 3337392136992938668}
   m_Enabled: 1
   serializedVersion: 12
-  m_Type: 2
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 10
-  m_Range: 10
-  m_SpotAngle: 30
-  m_InnerSpotAngle: 21.80208
-  m_CookieSize2D: {x: 10, y: 10}
+  m_Type: 0
+  m_Color: {r: 1, g: 0.92483133, b: 0.6556604, a: 1}
+  m_Intensity: 68.9
+  m_Range: 22.1
+  m_SpotAngle: 86.84268
+  m_InnerSpotAngle: 42.42787
+  m_CookieSize2D: {x: 0.5, y: 0.5}
   m_Shadows:
     m_Type: 0
     m_Resolution: -1
@@ -439,13 +456,13 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 21.4
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 1, y: 2.6710811e-38, z: 5.77e-43, w: 8.3e-44}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
@@ -483,6 +500,21 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!114 &1173042359662581443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3337392136992938668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c8bca95f7c947b4db5fb152a0d693d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.cqf.urpvolumetricfog.runtime::VolumetricAdditionalLight
+  anisotropy: 0.226
+  scattering: 1
+  radius: 0.2
 --- !u!1 &3338431213801426912
 GameObject:
   m_ObjectHideFlags: 0
@@ -998,6 +1030,7 @@ GameObject:
   - component: {fileID: 2388776567114710465}
   - component: {fileID: 4003007383999011117}
   - component: {fileID: 9179553003886281546}
+  - component: {fileID: 1412033199192710742}
   m_Layer: 0
   m_Name: left light
   m_TagString: ll
@@ -1030,12 +1063,12 @@ Light:
   m_Enabled: 1
   serializedVersion: 12
   m_Type: 0
-  m_Color: {r: 0.49803925, g: 0.49803925, b: 0.49803925, a: 1}
-  m_Intensity: 10000
-  m_Range: 100
-  m_SpotAngle: 30
-  m_InnerSpotAngle: 21.80208
-  m_CookieSize2D: {x: 10, y: 10}
+  m_Color: {r: 1, g: 0.92483133, b: 0.6556604, a: 1}
+  m_Intensity: 68.9
+  m_Range: 22.1
+  m_SpotAngle: 86.84268
+  m_InnerSpotAngle: 42.42787
+  m_CookieSize2D: {x: 0.5, y: 0.5}
   m_Shadows:
     m_Type: 0
     m_Resolution: -1
@@ -1070,13 +1103,13 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 100
+  m_BounceIntensity: 21.4
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 1, y: 2.6710811e-38, z: 5.77e-43, w: 8.3e-44}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
@@ -1114,6 +1147,21 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!114 &1412033199192710742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6124003809440024522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c8bca95f7c947b4db5fb152a0d693d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.cqf.urpvolumetricfog.runtime::VolumetricAdditionalLight
+  anisotropy: 0.226
+  scattering: 1
+  radius: 0.2
 --- !u!1 &6334048508725160481
 GameObject:
   m_ObjectHideFlags: 0
@@ -1198,9 +1246,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxAcceleration: 1000
   BrakeAcceleration: 150
-  TurnSensitivty: 1
-  TurnSensitivtyAtHighSpeed: 16.5
-  TurnSensitivtyAtLowSpeed: 30
+  TurnSensitivity: 1
+  TurnSensitivityAtHighSpeed: 17.5
+  TurnSensitivityAtLowSpeed: 30
   Deceleration: 1
   Maxspeed: 210
   GravityMultiplier: 1.5
@@ -1220,7 +1268,10 @@ MonoBehaviour:
   turbechargepush: 20
   TurbeReduce: 20
   TurbeRegen: 15
-  turbeChargeAmount: 3
+  TurbeWaitTime: 2
+  selectedTurboType: 0
+  LastNonWheelInputTime: 0
+  LastWheelInputTime: 0
 --- !u!114 &8984414616937260121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1233,11 +1284,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 718c68663d4dc28408fcc839dde75394, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winMenu: {fileID: 0}
-  Minimap: {fileID: 0}
   laptime: 0
-  besttime: 0
   racestarted: 0
+  raceFinished: 0
   startFinishLine: {fileID: 0}
   checkpoints:
   - {fileID: 0}
@@ -1252,8 +1301,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  raceFinished: 0
-  endButtons: []
+  currentLap: 1
   otherStuff: []
 --- !u!114 &273639920665147954
 MonoBehaviour:
@@ -1267,9 +1315,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf77673f73d573c489fdc8dfb2a2c314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointLight: {fileID: 0}
-  right: {fileID: 0}
-  left: {fileID: 0}
   duration: 3
   lights: {fileID: 0}
 --- !u!1 &6464818183039503655
