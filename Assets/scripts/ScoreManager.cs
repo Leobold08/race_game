@@ -46,7 +46,7 @@ public class ScoreManager : MonoBehaviour
     {
         carController = FindFirstObjectByType<PlayerCarController>();
         racerScript  = FindFirstObjectByType<RacerScript>();
-        multCounter  ??= FindFirstObjectByType<MultCounter>();
+        multCounter  ??= FindFirstObjectByType<MultCounter>(FindObjectsInactive.Include);
     }
 
     void Update()
@@ -92,10 +92,11 @@ public class ScoreManager : MonoBehaviour
         isOnGrass = grassContact;
         if (isOnGrass && isDriftingActive && driftCompoundMultiplier > 1.01f)
         {
+            multCounter ??= FindFirstObjectByType<MultCounter>(FindObjectsInactive.Include);
             touchedGrassWhileDrifting = true;
             Debug.Log($"[ScoreManager] Grass hit - mult: x{driftCompoundMultiplier:F2}, time: {driftTime:F2}s");
-            multCounter.UpdateMultiplierText(1f);
-            driftMultLost.Play();
+            multCounter?.UpdateMultiplierText(1f);
+            if (driftMultLost != null) driftMultLost.Play();
         }
     }
 
