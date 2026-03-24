@@ -5,13 +5,15 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Globalization;
-using UnityEditor;
+using UnityEngine.Animations;
+using UnityEditor.Animations;
 
 public class ButtonInstructions : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI InstructionText;
     [SerializeField] private TextMeshProUGUI ProgressText;
     private Waitbeforestart WaitBeforeStart;
+    public Transform parent;
 
     [Header("Instruction Icons")]
     [SerializeField] private TMP_SpriteAsset keyboardSpriteAsset;
@@ -44,10 +46,15 @@ public class ButtonInstructions : MonoBehaviour
         public bool RequiresHold;
         public float HoldTime = 0.3f;
         public Vector2 RequiredDirection;
-        public string[] RequiredComboActions; // for multiple button combos
+        public string[] RequiredComboActions;
 
-        [NonSerialized] public float HoldTimer; // per-step timer
+        [NonSerialized] public float HoldTimer; 
+        
+        public int FirstIndex = 9;
+        public int SecondIndex = 10;
+        
     }
+    
 
     [Obsolete]
     private void Awake()
@@ -57,7 +64,7 @@ public class ButtonInstructions : MonoBehaviour
         
 
         InstructionText.alignment = TextAlignmentOptions.Center;
-        InstructionText.enableWordWrapping = false;
+        InstructionText.enableWordWrapping = true;
         InstructionText.overflowMode = TextOverflowModes.Overflow;
 
         WaitBeforeStart = FindFirstObjectByType<Waitbeforestart>();
@@ -82,6 +89,24 @@ public class ButtonInstructions : MonoBehaviour
             },
             new TutorialStep{ Instruction="Press {button} to respawn", ActionName="Respawn" }
         };
+
+    int keepA = 0, keepB = 0;
+    if (TutorialSteps != null && currentStep >= 0 && currentStep < TutorialSteps.Count)
+    {
+        keepA = TutorialSteps[currentStep].FirstIndex;
+        keepB = TutorialSteps[currentStep].SecondIndex;
+    }
+
+    for (int i = 0; i < parent.childCount; i++)
+    {
+        Transform child = parent.GetChild(i);
+        var cg = child.GetComponent<CanvasGroup>() ?? child.gameObject.AddComponent<CanvasGroup>();
+
+        bool keep = (i == keepA || i == keepB);
+        cg.alpha = keep ? 1f : 0f;
+        cg.interactable = keep;
+        cg.blocksRaycasts = keep;
+    }
 
         //ProgressText.text = $"1/{TutorialSteps.Count}";
     }
@@ -122,7 +147,7 @@ public class ButtonInstructions : MonoBehaviour
 
         var step = TutorialSteps[currentStep];
 
-        //just so it can do the combo check
+        //just so it can do the combo check bcs its annoying
         if (step.RequiredComboActions != null && step.RequiredComboActions.Length > 0)
         {
             bool allPressed = true;
@@ -144,7 +169,7 @@ public class ButtonInstructions : MonoBehaviour
             return;
         }
 
-        // Directional hold
+        
         if (step.RequiredDirection != Vector2.zero && CachedActions.TryGetValue(step.ActionName, out var dirAction))
         {
             Vector2 input = dirAction.ReadValue<Vector2>();
@@ -162,7 +187,7 @@ public class ButtonInstructions : MonoBehaviour
             return;
         }
 
-        // Single button hold
+        
         if (step.RequiresHold && !string.IsNullOrEmpty(step.ActionName) && CachedActions.TryGetValue(step.ActionName, out var holdAction))
         {
             if (holdAction.IsPressed())
@@ -214,7 +239,7 @@ public class ButtonInstructions : MonoBehaviour
 
         var step = TutorialSteps[currentStep];
 
-        // Only trigger immediate advance for non-hold, non-directional steps
+
         if (!step.RequiresHold && step.RequiredDirection == Vector2.zero && step.RequiredComboActions == null)
         {
             bool pressed = ctx.ReadValue<float>() > 0.5f;
@@ -236,8 +261,7 @@ public class ButtonInstructions : MonoBehaviour
         currentStep++;
         if (currentStep >= TutorialSteps.Count)
         {
-            CompleteTutorial();
-            InstructionText.enabled = false;
+            CompleteTutorial();            
             return;
             
         }
@@ -254,7 +278,28 @@ public class ButtonInstructions : MonoBehaviour
         InputActions.CarControls.Get().actionTriggered -= OnAnyActionTriggered;
         InputActions.CarControls.Disable();
 
-        InstructionText.text = "Ready to race!";
+        if (parent != null)
+        {
+            for (int i = 0; i < parent.childCount; i++)
+            {
+                var child = parent.GetChild(i);
+                if (child == null) continue;
+                var cg = child.GetComponent<CanvasGroup>();
+                if (cg != null)
+                {
+                    cg.alpha = 1f;
+                    cg.interactable = true;
+                    cg.blocksRaycasts = true;
+                }
+                else
+                {
+                    child.gameObject.SetActive(true); // fallback if no CanvasGroup
+                }
+            }
+        }
+            InstructionText.enabled = false;
+         ProgressText.enabled = false;
+
         if (WaitBeforeStart != null) WaitBeforeStart.enabled = true;
         Time.timeScale = 1f;
         OnTutorialComplete?.Invoke();
@@ -349,13 +394,22 @@ public class ButtonInstructions : MonoBehaviour
         if (!string.IsNullOrEmpty(resolvedSpriteName))
         {
             InstructionText.spriteAsset = spriteAsset;
-            string sizeTag = spriteScalePercent != 100f
-                ? $"<size={spriteScalePercent.ToString(CultureInfo.InvariantCulture)}%>"
-                : string.Empty;
-            string sizeCloseTag = spriteScalePercent != 100f ? "</size>" : string.Empty;
 
-            // Keep large icons inline without launching them above the text line.
-            float scaleLiftEm = Mathf.Max(0f, (spriteScalePercent - 100f) / 1000f);
+            float scalePercent = spriteScalePercent;
+            float horizontalNudge = spriteHorizontalNudgeEm;
+            if (string.Equals(resolvedSpriteName, "space", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(resolvedSpriteName, "spacebar", StringComparison.OrdinalIgnoreCase))
+            {
+                scalePercent = Mathf.Min(scalePercent, 500f);
+                horizontalNudge = Mathf.Min(horizontalNudge, 0.5f);
+            }
+
+            string sizeTag = scalePercent != 100f
+                ? $"<size={scalePercent.ToString(CultureInfo.InvariantCulture)}%>"
+                : string.Empty;
+            string sizeCloseTag = scalePercent != 100f ? "</size>" : string.Empty;
+
+            float scaleLiftEm = Mathf.Max(0f, (scalePercent - 100f) / 1000f);
             float effectiveOffsetEm = Mathf.Max(-1f, spriteVerticalOffsetEm + scaleLiftEm);
 
             string offsetTag = effectiveOffsetEm != 0f
@@ -363,11 +417,12 @@ public class ButtonInstructions : MonoBehaviour
                 : string.Empty;
             string offsetCloseTag = effectiveOffsetEm != 0f ? "</voffset>" : string.Empty;
 
-            string horizontalNudgeTag = spriteHorizontalNudgeEm != 0f
-                ? $"<space={spriteHorizontalNudgeEm.ToString(CultureInfo.InvariantCulture)}em>"
+            string horizontalNudgeTag = horizontalNudge != 0f
+                ? $"<space={horizontalNudge.ToString(CultureInfo.InvariantCulture)}em>"
                 : string.Empty;
 
-            return $"{offsetTag}{horizontalNudgeTag}{sizeTag}<sprite name=\"{resolvedSpriteName}\">{sizeCloseTag}{offsetCloseTag}";
+      
+            return $"{offsetTag}{horizontalNudgeTag}{sizeTag}<sprite name=\"{resolvedSpriteName}\">{sizeCloseTag}{horizontalNudgeTag}{offsetCloseTag}";
         }
 
         if (logSpriteResolution)
@@ -469,5 +524,4 @@ public class ButtonInstructions : MonoBehaviour
         return displayName.IndexOf(value, StringComparison.OrdinalIgnoreCase) >= 0
             || productName.IndexOf(value, StringComparison.OrdinalIgnoreCase) >= 0;
     }
-
 }
