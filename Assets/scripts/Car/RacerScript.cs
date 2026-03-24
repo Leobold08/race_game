@@ -29,7 +29,6 @@ public class RacerScript : MonoBehaviour
 
     private Transform respawnPoint;
     private musicControl musicControl;
-    private soundFXControl soundControl;
 
     public GameObject[] otherStuff;
     private GameObject finalLapImg;
@@ -42,7 +41,6 @@ public class RacerScript : MonoBehaviour
         Controls = new CarInputActions();
         Controls.Enable();
         musicControl = FindAnyObjectByType<musicControl>();
-        soundControl = FindAnyObjectByType<soundFXControl>();
         carController = GetComponent<PlayerCarController>();
         winmenu = FindAnyObjectByType<winmenu>(FindObjectsInactive.Include);
     }

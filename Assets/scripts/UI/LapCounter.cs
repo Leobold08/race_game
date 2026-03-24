@@ -58,12 +58,11 @@ public class LapCounter : MonoBehaviour
             // Only update if this digit has changed
             if (prevLapString.Length != digitCount || prevLapString[i] != digitChar)
             {
-                soundFXControl soundControl = FindFirstObjectByType<soundFXControl>(FindObjectsInactive.Exclude);
+                SFXManager SFXMngr = FindFirstObjectByType<SFXManager>(FindObjectsInactive.Exclude);
                 //how can this be so ass
                 if (digit >= 0 && digit <= 9 && numberSprites != null && numberSprites.Length > digit)
                     digitImages[i].sprite = numberSprites[digit];
-                    if (digit != 1)
-                        soundControl.soundList[5].GetComponent<AudioSource>().Play();
+                    if (digit != 1) SFXMngr.nextLap.Play();
             }
         }
     }

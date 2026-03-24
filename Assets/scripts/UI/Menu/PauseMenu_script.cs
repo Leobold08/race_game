@@ -54,10 +54,10 @@ public class PauseMenu : MonoBehaviour
         fullMenu.SetActive(!fullMenu.activeSelf);
         LeanTween.cancel(fullMenu);
         musicControl musicCtrl = FindFirstObjectByType<musicControl>();
-        soundFXControl soundFXctrl = FindFirstObjectByType<soundFXControl>();
+        SFXManager SFXMngr = FindFirstObjectByType<SFXManager>();
         Time.timeScale = fullMenu.activeSelf ? 0 : 1;
         if (musicCtrl != null) musicCtrl.PausedMusicHandler();
-        if (soundFXctrl != null && racerScript.racestarted) soundFXctrl.PauseStateHandler();
+        if (SFXMngr != null && racerScript.racestarted) SFXMngr.PauseStateHandler();
 
         if (!fullMenu.activeSelf) return;
 

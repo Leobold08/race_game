@@ -1134,7 +1134,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3675658127957144972, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_Name
-      value: MasterVolume
+      value: Master_value
       objectReference: {fileID: 0}
     - target: {fileID: 3984966180586235624, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_Enabled
@@ -2540,7 +2540,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3675658127957144972, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_Name
-      value: MusicVolume
+      value: Music_value
       objectReference: {fileID: 0}
     - target: {fileID: 3984966180586235624, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_Enabled

@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Audio;
+using System.Security.Cryptography;
 
 public class optionScript : MonoBehaviour
 {
@@ -21,12 +22,12 @@ public class optionScript : MonoBehaviour
         }
         OptionsList = GetComponentsInChildren<OptionComponent>().ToList();
         InitializeOptions();
-        InitializeVolumeSliders();
     }
 
     void Start()
     {
-        //vois koittaa välttää tämmöstä awake > start juttua
+        //vois koittaa välttää tämmöstä awake > start juttua. hauska juttu myös VOLUME EI PIDÄ AWAKEN KÄYTÖSTÄ
+        InitializeVolumeSliders();
         gameObject.SetActive(false);
     }
 
@@ -42,12 +43,13 @@ public class optionScript : MonoBehaviour
     //täst vois tehä paremman myöhemmi koska mikä vitun järki tässä on
     private void InitializeVolumeSliders()
     {
-        //kaikki sliderit joiden valuelle pitää olla vastaava AudioMixerGroup
         List<AudioSlider> audioSliders = GetComponentsInChildren<AudioSlider>().ToList();
-        //kaikki audio mixer groupit jotka on master volumen ryhmiä
-        List<AudioMixerGroup> mixerGroups = main.FindMatchingGroups(string.Empty).ToList();
 
-        foreach (var i in audioSliders) i.volumeSlider.onValueChanged.AddListener((value) => { main.SetFloat(i.volumeSlider.name, Mathf.Log10(i.volumeSlider.value) * 20); });
+        foreach (var i in audioSliders)
+        {
+            main.SetFloat(i.volumeSlider.name, Mathf.Log10(PlayerPrefs.GetFloat($"{i.volumeSlider.name}_value")) * 20);
+            i.volumeSlider.onValueChanged.AddListener((value) => { main.SetFloat(i.volumeSlider.name, Mathf.Log10(i.volumeSlider.value) * 20); });
+        }
     }
 
     private void InitSpecificToggleValue(Toggle toggle)
@@ -69,6 +71,7 @@ public class optionScript : MonoBehaviour
     {
         var valueName = $"{slider.name}_value";
         slider.value = PlayerPrefs.GetFloat(valueName);
+        Debug.Log(PlayerPrefs.HasKey(valueName));
         Debug.Log($"toggle {slider} init; value: {slider.value}");
         
         slider.onValueChanged.AddListener((value) =>
