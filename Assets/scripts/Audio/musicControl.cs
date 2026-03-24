@@ -77,11 +77,6 @@ public class musicControl : MonoBehaviour
         FadeTracks();
     }
 
-    private void Update()
-    {
-        Debug.Log($"current music state: {CurrentMusState}; is drifting: {carController.IsDrifting}; is using turbo: {carController.IsTurboActive}");
-    }
-
     private void FadeTracks()
     {
         //tarkistaa staten ku funktio alkaa, ei tarvi muualla

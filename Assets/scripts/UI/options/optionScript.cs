@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.Audio;
+using System.Security.Cryptography;
 
 public class optionScript : MonoBehaviour
 {
@@ -9,6 +11,7 @@ public class optionScript : MonoBehaviour
     private const float DefaultPixelValue = 320f;
     private const float PixelMultiplier = 64f;
     private List<OptionComponent> OptionsList;
+    [SerializeField] private AudioMixer main;
 
     void Awake()
     {
@@ -21,6 +24,13 @@ public class optionScript : MonoBehaviour
         InitializeOptions();
     }
 
+    void Start()
+    {
+        //vois koittaa välttää tämmöstä awake > start juttua. hauska juttu myös VOLUME EI PIDÄ AWAKEN KÄYTÖSTÄ
+        InitializeVolumeSliders();
+        gameObject.SetActive(false);
+    }
+
     public void InitializeOptions()
     {
         foreach (var Option in OptionsList)
@@ -29,6 +39,17 @@ public class optionScript : MonoBehaviour
             else if (Option.gameObject.TryGetComponent(out Slider slider)) InitSpecificSliderValue(slider);
         }
         foreach (var colorChanger in FindObjectsByType<PlayerCarColors>(FindObjectsSortMode.None))colorChanger.LightsState(3, true);
+    }
+    //täst vois tehä paremman myöhemmi koska mikä vitun järki tässä on
+    private void InitializeVolumeSliders()
+    {
+        List<AudioSlider> audioSliders = GetComponentsInChildren<AudioSlider>().ToList();
+
+        foreach (var i in audioSliders)
+        {
+            main.SetFloat(i.volumeSlider.name, Mathf.Log10(PlayerPrefs.GetFloat($"{i.volumeSlider.name}_value")) * 20);
+            i.volumeSlider.onValueChanged.AddListener((value) => { main.SetFloat(i.volumeSlider.name, Mathf.Log10(i.volumeSlider.value) * 20); });
+        }
     }
 
     private void InitSpecificToggleValue(Toggle toggle)
@@ -50,6 +71,7 @@ public class optionScript : MonoBehaviour
     {
         var valueName = $"{slider.name}_value";
         slider.value = PlayerPrefs.GetFloat(valueName);
+        Debug.Log(PlayerPrefs.HasKey(valueName));
         Debug.Log($"toggle {slider} init; value: {slider.value}");
         
         slider.onValueChanged.AddListener((value) =>
