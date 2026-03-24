@@ -42,6 +42,7 @@ Shader "Custom/PSXTerrainLitShadow"
 
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
             #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
+            #pragma multi_compile _ _CLUSTER_LIGHT_LOOP
             #pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
             #pragma multi_compile_fragment _ _SHADOWS_SOFT
             #pragma multi_compile_fog
@@ -83,6 +84,7 @@ Shader "Custom/PSXTerrainLitShadow"
                 float3 normalWS : TEXCOORD2;
                 float3 positionWS : TEXCOORD3;
                 float fogFactor : TEXCOORD4;
+                half3 vertexLighting : TEXCOORD5;
                 UNITY_VERTEX_INPUT_INSTANCE_ID
                 UNITY_VERTEX_OUTPUT_STEREO
             };
@@ -107,12 +109,16 @@ Shader "Custom/PSXTerrainLitShadow"
                 output.controlUV = input.controlUV;
                 output.fogFactor = ComputeFogFactor(positionInputs.positionCS.z);
 
+                // Support URP additional-lights-per-vertex mode.
+                output.vertexLighting = VertexLighting(positionInputs.positionWS, normalInputs.normalWS);
+
                 return output;
             }
 
             half4 frag(Varyings input) : SV_Target
             {
                 UNITY_SETUP_INSTANCE_ID(input);
+                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
 
                 float4 control = SAMPLE_TEXTURE2D(_Control, sampler_Control, input.controlUV);
 
@@ -128,8 +134,19 @@ Shader "Custom/PSXTerrainLitShadow"
                     col3.rgb * control.a;
 
                 half3 normalWS = normalize(input.normalWS);
-                float4 shadowCoord = TransformWorldToShadowCoord(input.positionWS);
-                Light mainLight = GetMainLight(shadowCoord);
+                InputData inputData = (InputData)0;
+                inputData.positionWS = input.positionWS;
+                inputData.normalWS = normalWS;
+                inputData.viewDirectionWS = GetWorldSpaceNormalizeViewDir(input.positionWS);
+                inputData.normalizedScreenSpaceUV = GetNormalizedScreenSpaceUV(input.positionCS);
+                inputData.shadowCoord = TransformWorldToShadowCoord(input.positionWS);
+
+                AmbientOcclusionFactor aoFactor;
+                aoFactor.directAmbientOcclusion = 1.0h;
+                aoFactor.indirectAmbientOcclusion = 1.0h;
+
+                half4 shadowMask = CalculateShadowMask(inputData);
+                Light mainLight = GetMainLight(inputData, shadowMask, aoFactor);
 
                 half nl = saturate(dot(normalWS, mainLight.direction));
                 half mainShadow = lerp(1.0h, mainLight.shadowAttenuation, _ShadowStrength);
@@ -137,13 +154,26 @@ Shader "Custom/PSXTerrainLitShadow"
 
                 half3 addDiffuse = 0;
                 #if defined(_ADDITIONAL_LIGHTS)
-                uint lightCount = GetAdditionalLightsCount();
-                for (uint i = 0u; i < lightCount; i++)
+                #if USE_CLUSTER_LIGHT_LOOP
+                [loop] for (uint lightIndex = 0u; lightIndex < min(URP_FP_DIRECTIONAL_LIGHTS_COUNT, MAX_VISIBLE_LIGHTS); lightIndex++)
                 {
-                    Light light = GetAdditionalLight(i, input.positionWS);
+                    CLUSTER_LIGHT_LOOP_SUBTRACTIVE_LIGHT_CHECK
+                    Light light = GetAdditionalLight(lightIndex, inputData, shadowMask, aoFactor);
                     half addNl = saturate(dot(normalWS, light.direction));
                     addDiffuse += albedo * light.color * (addNl * light.distanceAttenuation * light.shadowAttenuation);
                 }
+                #endif
+
+                uint lightCount = GetAdditionalLightsCount();
+                LIGHT_LOOP_BEGIN(lightCount)
+                    Light light = GetAdditionalLight(lightIndex, inputData, shadowMask, aoFactor);
+                    half addNl = saturate(dot(normalWS, light.direction));
+                    addDiffuse += albedo * light.color * (addNl * light.distanceAttenuation * light.shadowAttenuation);
+                LIGHT_LOOP_END
+                #endif
+
+                #if defined(_ADDITIONAL_LIGHTS_VERTEX)
+                addDiffuse += albedo * input.vertexLighting;
                 #endif
 
                 half3 ambient = albedo * SampleSH(normalWS) * _AmbientStrength;
