@@ -27,7 +27,7 @@ public class CameraFollow : MonoBehaviour
         carController = GameManager.instance.CurrentCar.GetComponentInChildren<PlayerCarController>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         FollowTarget();
     }

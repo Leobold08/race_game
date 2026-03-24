@@ -80,11 +80,7 @@ public class RacerScript : MonoBehaviour
     {
         if (!racestarted || raceFinished) return;
         HandleReset();
-    }
-    void FixedUpdate()
-    {
-        if (!racestarted || raceFinished) return;
-        laptime += Time.fixedDeltaTime;
+        laptime += Time.deltaTime;
     }
 
     void OnTriggerEnter(Collider trigger)
