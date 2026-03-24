@@ -108,10 +108,6 @@ public static class BezierMath
         float s = (a + b + c) / 2f;
         float area = Mathf.Sqrt(s * (s - a) * (s - b) * (s - c));
 
-        Debug.Log("a:" + a + " b: " + b + " c: " + c);
-        Debug.Log("area: " + area);
-        Debug.Log("radius: " + a * b * c / (4 * area));
-
         return a * b * c / (4 * area);
     }
 }
