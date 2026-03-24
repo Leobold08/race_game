@@ -160,7 +160,8 @@ public class BaseCarController : MonoBehaviour
         }
 
 
-        ScoreManager.instance.SetOnGrass(wheelsOnGrass >= 2);
+        if (ScoreManager.instance != null)
+            ScoreManager.instance.SetOnGrass(wheelsOnGrass >= 2);
     }
 
     protected virtual bool IsOnGrass()
