@@ -30,7 +30,6 @@ public class RacerScript : MonoBehaviour
     private Transform respawnPoint;
     private musicControl musicControl;
 
-    public GameObject[] otherStuff;
     private GameObject finalLapImg;
 
     private PlayerCarController carController;

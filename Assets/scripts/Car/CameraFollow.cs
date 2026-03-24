@@ -16,10 +16,6 @@ public class CameraFollow : MonoBehaviour
     private PlayerCarController carController;
     float normalFOV = 60;
     float ZoomFOV = 70;
-    public float smoothTime = 0.3f;
-    public bool setTutorialValues = false;
-
-
 
     private void Start()
     {
@@ -27,7 +23,7 @@ public class CameraFollow : MonoBehaviour
         carController = GameManager.instance.CurrentCar.GetComponentInChildren<PlayerCarController>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         FollowTarget();
     }
@@ -36,23 +32,13 @@ public class CameraFollow : MonoBehaviour
     {
         HandleMovement();
         HandleRotation();
-        Cam.fieldOfView = Mathf.Lerp(
-            Cam.fieldOfView, 
-            Mathf.Lerp(
-                normalFOV, 
-                ZoomFOV, 
-                Mathf.Clamp01(carController.GetSpeed() / carController.GetMaxSpeed())
-            ),
-            Time.deltaTime * moveSmoothness
-        );
+        Cam.fieldOfView = Mathf.Lerp(Cam.fieldOfView, Mathf.Lerp(normalFOV, ZoomFOV, Mathf.Clamp01(carController.GetSpeed() / carController.GetMaxSpeed())), Time.deltaTime * moveSmoothness);
     }
 
     void HandleMovement()
     {
         Vector3 targetPos = carTarget.TransformPoint(moveOffset); 
-    
-        transform.position = Vector3.Lerp(transform.position, targetPos, moveSmoothness * Time.deltaTime);
-
+        transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * moveSmoothness);
     }
     void HandleRotation()
     {

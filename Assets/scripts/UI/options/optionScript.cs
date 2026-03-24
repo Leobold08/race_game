@@ -3,9 +3,8 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Audio;
-using UnityEditor.Build.Pipeline;
 
-public class optionScript : MonoBehaviour
+public class OptionScript : MonoBehaviour
 {
     public Material pixelCount;
     private const float DefaultPixelValue = 320f;
