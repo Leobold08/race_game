@@ -40,21 +40,14 @@ public class BezierBaker : MonoBehaviour
             .Where(t => t != path).Select(t => t.position)
             .ToArray()
         );
-        BakeRadi();
     }
     [ContextMenu("Use Road Spline as path")]
     void BakeSpline()
     {
         Transform splineTransform = SplineContainer.GetComponent<Transform>();
-        bakedPoints = BezierMath.ComputeBezierPoints(
-            bezierCurveResolution,
-            sampleSize,
-            timeOut,
-            SplineContainer[0].Select(point => 
+        bakedPoints = SplineContainer[0].Select(point => 
                 splineTransform.rotation * new Vector3(point.Position.x, point.Position.y, point.Position.z) + splineTransform.position
-                ).ToArray()
-        );
-        BakeRadi();
+                ).ToArray();
     }
 
     [ContextMenu("Bake radi for curves")]

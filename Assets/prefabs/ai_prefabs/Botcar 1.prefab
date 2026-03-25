@@ -1187,7 +1187,10 @@ MonoBehaviour:
   curveTolerance: 2
   avoidanceBuffer: 5
   avoidanceLateralOffset: 2
-  maxAvoidanceOffset: 4
+  maxAvoidanceOffset: 8
+  objectAvoidanceBeams: 10
+  avoidanceBeamLenght: 20
+  beamAngle: 67.5
   boostMultiplier: 1.25
   aiCarManager: {fileID: 0}
 --- !u!1 &6333829925512713852
