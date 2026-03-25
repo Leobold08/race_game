@@ -35,13 +35,19 @@ public class OptionCategories : MonoBehaviour
     private void ChangeCategoryManual(bool change)
     {
         if (index > CategoryButtonList.Count - 1 || index < 0) return;
-        if (change) CategoryButtonList[index + 1].Select();
-        else CategoryButtonList[index - 1].Select();
+        try
+        {
+            if (change) CategoryButtonList[index + 1].Select();
+            else CategoryButtonList[index - 1].Select();
+        }
+        catch
+        {
+            Debug.Log("You prehistoric pancake, you pigeon pistachio, you absconded acolyte, you corrupted crisis. You think you can index me, you don't know that I invented indexing");
+        }
     }
-    
+
     public void ChangeCategory()
     {
-        //THINK FAST CHUCKLENUTS
         int previousButtonIndex = index;
         int currentButtonIndex = CategoryButtonList.IndexOf(EventSystem.current.currentSelectedGameObject.GetComponent<Button>());
         if (previousButtonIndex == currentButtonIndex) return;
