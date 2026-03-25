@@ -53,11 +53,6 @@ public class PlayerCarController : BaseCarController
         if (CarRb == null)
             CarRb = GetComponent<Rigidbody>();
         CarRb.centerOfMass = _CenterofMass;
-        if (GameManager.instance.sceneSelected != "tutorial")
-        {
-            CanDrift = true;
-            CanUseTurbo = true;
-        }
         racerScript = FindAnyObjectByType<RacerScript>();
 
 
@@ -88,8 +83,6 @@ public class PlayerCarController : BaseCarController
             CurrentControlScheme = "Keyboard";
         else if (device is Gamepad)
             CurrentControlScheme = "Gamepad";
-
-        LastNonWheelInputTime = Time.time;
         if (LGM != null)
         {
             LGM.useLogitechWheel = false;
@@ -200,7 +193,7 @@ public class PlayerCarController : BaseCarController
         OnGrass();
         HandleTurbo();
 
-        ApplySpeedLimit(Maxspeed);
+        ApplySpeedLimit(Maxspeed / 3.6f);
         WheelEffects(IsDrifting);
     }
 
@@ -212,7 +205,7 @@ public class PlayerCarController : BaseCarController
         if (IsTurboActive)
             Maxspeed = Mathf.Lerp(Maxspeed, BaseSpeed + Turbesped, Time.deltaTime * 0.5f);
         else
-            Maxspeed = Mathf.Lerp(Maxspeed, DriftMaxSpeed, Time.deltaTime * 0.2f);
+            Maxspeed = Mathf.Lerp(Maxspeed, DriftMaxSpeed, Time.deltaTime * 0.4f);
 
         
         if (Mathf.Abs(SteerInput) > 0.1f)
@@ -232,7 +225,6 @@ public class PlayerCarController : BaseCarController
         float nonWheelMove = Mathf.Abs(SteerInput) + Mathf.Abs(Controls.CarControls.MoveForward.ReadValue<float>()) + Mathf.Abs(Controls.CarControls.MoveBackward.ReadValue<float>());
         if (nonWheelMove > 0.001f || Controls.CarControls.Drift.IsPressed() || Controls.CarControls.Brake.IsPressed())
         {
-            LastNonWheelInputTime = Time.time;
             if (LGM != null)
             {
                 LGM.useLogitechWheel = false;
@@ -240,7 +232,6 @@ public class PlayerCarController : BaseCarController
                 LGM.StopAllForceFeedback();
             }
         }
-        
         
         if (Controls.CarControls.MoveForward.IsPressed())
             MoveInput = Controls.CarControls.MoveForward.ReadValue<float>();

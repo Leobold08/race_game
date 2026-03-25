@@ -13,14 +13,22 @@ public class ButtonInstructions : MonoBehaviour
     [SerializeField] private TextMeshProUGUI ProgressText;
     [SerializeField] private Transform parent;
 
-    [Header("Sprite Assets")]
-    [SerializeField] private TMP_SpriteAsset keyboardSpriteAsset;
-    [SerializeField] private TMP_SpriteAsset playStationSpriteAsset;
-    [SerializeField] private TMP_SpriteAsset xboxSpriteAsset;
-    [SerializeField] private float spriteScalePercent = 720f;
-    [SerializeField] private float spriteVerticalOffsetEm = 0.86f;
-    [SerializeField] private float spriteHorizontalNudgeEm = 1.1f;
-    [SerializeField] private bool logSpriteResolution;
+    [SerializeField] private UnityEngine.UI.Image ButtonImages;
+
+    
+
+    [SerializeField] private bool useImageObjects = true;
+
+    [Serializable]
+    private class NamedSprite
+    {
+        public string name;
+        public Sprite sprite;
+    }
+
+    [SerializeField] private List<NamedSprite> keyboardNamedSprites = new();
+    [SerializeField] private List<NamedSprite> playStationNamedSprites = new();
+    [SerializeField] private List<NamedSprite> xboxNamedSprites = new();
 
     private CarInputActions inputActions;
     private List<TutorialStep> tutorialSteps;
@@ -59,11 +67,37 @@ public class ButtonInstructions : MonoBehaviour
 
         waitBeforeStart = FindFirstObjectByType<Waitbeforestart>();
         if (waitBeforeStart) waitBeforeStart.enabled = false;
+        AutoPopulateSprites();
 
         inputActions = new CarInputActions();
         InitializeTutorialSteps();
         CacheActions();
         HideOtherChildren();
+    }
+
+    private void AutoPopulateSprites()
+    {
+        if (keyboardNamedSprites == null || keyboardNamedSprites.Count == 0)
+            PopulateFromResources("Buttons/Keyboard", keyboardNamedSprites);
+
+        if (xboxNamedSprites == null || xboxNamedSprites.Count == 0)
+            PopulateFromResources("Buttons/Xbox", xboxNamedSprites);
+
+        if (playStationNamedSprites == null || playStationNamedSprites.Count == 0)
+            PopulateFromResources("Buttons/PlayStation", playStationNamedSprites);
+    }
+
+    //loads the resources folders sprites and checks from there if the needed sprites are there
+    private void PopulateFromResources(string path, List<NamedSprite> list)
+    {
+        var sprites = Resources.LoadAll<Sprite>(path);
+        if (sprites == null || sprites.Length == 0) return;
+
+        list.Clear();
+        foreach (var sprite in sprites)
+        {
+            list.Add(new NamedSprite { name = sprite.name, sprite = sprite });
+        }
     }
 
     private void OnEnable()
@@ -111,14 +145,14 @@ public class ButtonInstructions : MonoBehaviour
     {
         tutorialSteps = new List<TutorialStep>
         {
-            new TutorialStep{ Instruction="Hold {button} to accelerate", ActionName="MoveForward", RequiresHold=true, HoldTime=2f },
-            new TutorialStep{ Instruction="Hold {button} to brake", ActionName="Brake", RequiresHold=true, HoldTime=2f },
-            new TutorialStep{ Instruction="Steer left with {button}", ActionName="Move", CompositePart="left", RequiredDirection=Vector2.left, HoldTime=0.3f },
-            new TutorialStep{ Instruction="Steer right with {button}", ActionName="Move", CompositePart="right", RequiredDirection=Vector2.right, HoldTime=0.3f },
-            new TutorialStep{ Instruction="Hold {button} to drift", ActionName="Drift", RequiresHold=true, HoldTime=2f },
-            new TutorialStep{ Instruction="Hold {button} to use turbo", ActionName="Turbo", RequiresHold=true, HoldTime=2f },
-            new TutorialStep{ Instruction="Hold {combo} to turbo while drifting", RequiresHold=true, HoldTime=2f, RequiredComboActions=new string[]{"Drift", "Turbo"} },
-            new TutorialStep{ Instruction="Press {button} to respawn", ActionName="Respawn" }
+            new TutorialStep{ Instruction="{button}: drive forward", ActionName="MoveForward", RequiresHold=true, HoldTime=2f },
+            new TutorialStep{ Instruction="{button}: brake", ActionName="Brake", RequiresHold=true, HoldTime=2f },
+            new TutorialStep{ Instruction="{button}: Steer left", ActionName="Move", CompositePart="left", RequiredDirection=Vector2.left, HoldTime=0.3f },
+            new TutorialStep{ Instruction="{button}: Steer right", ActionName="Move", CompositePart="right", RequiredDirection=Vector2.right, HoldTime=0.3f },
+            new TutorialStep{ Instruction="{button}: drift", ActionName="Drift", RequiresHold=true, HoldTime=2f },
+            new TutorialStep{ Instruction=" {button}: turbo", ActionName="Turbo", RequiresHold=true, HoldTime=2f },
+            new TutorialStep{ Instruction="{combo}: turbo while drifting", RequiresHold=true, HoldTime=2f, RequiredComboActions=new string[]{"Drift", "Turbo"} },
+            new TutorialStep{ Instruction="{button}: respawn", ActionName="Respawn" }
         };
     }
 
@@ -388,66 +422,80 @@ public class ButtonInstructions : MonoBehaviour
         foreach (var name in ActionNames)
         {
             if (cachedActions.TryGetValue(name, out var action))
-                displays.Add(FormatBindingDisplay(GetBindingDisplay(action)));
+            {
+                var d = FormatBindingDisplay(GetBindingDisplay(action));
+                if (!string.IsNullOrEmpty(d)) displays.Add(d);
+            }
         }
+
         return string.Join(" + ", displays);
     }
 
     private string FormatBindingDisplay(string display)
     {
-        if (string.IsNullOrEmpty(display)) return "";
+        if (string.IsNullOrEmpty(display)) return string.Empty;
 
-        var spriteAsset = GetSpriteAssetForDevice();
-        string resolvedSpriteName = FindSpriteName(spriteAsset, display);
-
-        if (!string.IsNullOrEmpty(resolvedSpriteName))
+        if (useImageObjects && ButtonImages != null)
         {
-            InstructionText.spriteAsset = spriteAsset;
-
-            float scalePercent = spriteScalePercent;
-            float horizontalNudge = spriteHorizontalNudgeEm;
-            if (string.Equals(resolvedSpriteName, "space", StringComparison.OrdinalIgnoreCase) ||
-                string.Equals(resolvedSpriteName, "spacebar", StringComparison.OrdinalIgnoreCase))
+            var sprite = GetNamedSpriteForDevice(display);
+            if (sprite != null)
             {
-                scalePercent = Mathf.Min(scalePercent, 500f);
-                horizontalNudge = Mathf.Min(horizontalNudge, 0.5f);
+                ButtonImages.sprite = sprite;
+                ButtonImages.enabled = true;
+                return string.Empty;
             }
+            else
+            {
 
-            string sizeTag = scalePercent != 100f ? $"<size={scalePercent.ToString(CultureInfo.InvariantCulture)}%>" : string.Empty;
-            string sizeCloseTag = scalePercent != 100f ? "</size>" : string.Empty;
-
-            float scaleLiftEm = Mathf.Max(0f, (scalePercent - 100f) / 1000f);
-            float effectiveOffsetEm = Mathf.Max(-1f, spriteVerticalOffsetEm + scaleLiftEm);
-
-            string offsetTag = effectiveOffsetEm != 0f ? $"<voffset={effectiveOffsetEm.ToString(CultureInfo.InvariantCulture)}em>" : string.Empty;
-            string offsetCloseTag = effectiveOffsetEm != 0f ? "</voffset>" : string.Empty;
-
-            string horizontalNudgeTag = horizontalNudge != 0f ? $"<space={horizontalNudge.ToString(CultureInfo.InvariantCulture)}em>" : string.Empty;
-
-            return $"{offsetTag}{horizontalNudgeTag}{sizeTag}<sprite name=\"{resolvedSpriteName}\">{sizeCloseTag}{horizontalNudgeTag}{offsetCloseTag}";
+                if (ButtonImages.sprite == null)
+                    ButtonImages.enabled = false;
+            }
         }
-
-        if (logSpriteResolution)
-            DebugMissingSprite(display, display, spriteAsset);
 
         return display;
     }
-
-    private string FindSpriteName(TMP_SpriteAsset spriteAsset, string spriteName)
+    private Sprite GetNamedSpriteForDevice(string spriteName)
     {
-        if (spriteAsset == null || string.IsNullOrEmpty(spriteName)) return null;
+        if (string.IsNullOrEmpty(spriteName)) return null;
 
-        if (spriteAsset.GetSpriteIndexFromName(spriteName) != -1)
-            return spriteName;
+        var normalized = NormalizeSpriteName(spriteName);
 
-        string normalized = NormalizeSpriteName(spriteName);
-        foreach (var spriteCharacter in spriteAsset.spriteCharacterTable)
+        List<NamedSprite> primary = null;
+        if (lastUsedDevice is Gamepad)
         {
-            if (spriteCharacter == null) continue;
-            if (string.Equals(spriteCharacter.name, spriteName, StringComparison.OrdinalIgnoreCase)) return spriteCharacter.name;
-            if (NormalizeSpriteName(spriteCharacter.name) == normalized) return spriteCharacter.name;
+            if (DeviceNameContains(lastUsedDevice, "playstation") || DeviceNameContains(lastUsedDevice, "wireless controller"))
+                primary = playStationNamedSprites.Count > 0 ? playStationNamedSprites : (xboxNamedSprites.Count > 0 ? xboxNamedSprites : keyboardNamedSprites);
+            else if (DeviceNameContains(lastUsedDevice, "xbox"))
+                primary = xboxNamedSprites.Count > 0 ? xboxNamedSprites : (playStationNamedSprites.Count > 0 ? playStationNamedSprites : keyboardNamedSprites);
+            else
+                primary = xboxNamedSprites.Count > 0 ? xboxNamedSprites : (playStationNamedSprites.Count > 0 ? playStationNamedSprites : keyboardNamedSprites);
+        }
+        else
+        {
+            primary = keyboardNamedSprites.Count > 0 ? keyboardNamedSprites : (xboxNamedSprites.Count > 0 ? xboxNamedSprites : playStationNamedSprites);
         }
 
+        Sprite found = FindSpriteInList(primary, normalized);
+        if (found != null) return found;
+
+        // fallback search in other lists
+        found = FindSpriteInList(keyboardNamedSprites, normalized);
+        if (found != null) return found;
+        found = FindSpriteInList(xboxNamedSprites, normalized);
+        if (found != null) return found;
+        found = FindSpriteInList(playStationNamedSprites, normalized);
+        return found;
+    }
+
+    private Sprite FindSpriteInList(List<NamedSprite> list, string normalized)
+    {
+        if (list == null) return null;
+        foreach (var ns in list)
+        {
+            if (ns == null || ns.sprite == null || string.IsNullOrEmpty(ns.name)) continue;
+            if (string.Equals(ns.name, normalized, StringComparison.OrdinalIgnoreCase)) return ns.sprite;
+            if (NormalizeSpriteName(ns.name) == normalized) return ns.sprite;
+        }
         return null;
     }
 
@@ -464,45 +512,7 @@ public class ButtonInstructions : MonoBehaviour
         return builder.ToString();
     }
 
-    private void DebugMissingSprite(string display, string spriteName, TMP_SpriteAsset spriteAsset)
-    {
-        if (spriteAsset == null)
-        {
-            Debug.LogWarning($"[ButtonInstructions] No sprite asset assigned. Display='{display}', Resolved='{spriteName}'.", this);
-            return;
-        }
 
-        var names = new List<string>();
-        int count = 0;
-        foreach (var spriteCharacter in spriteAsset.spriteCharacterTable)
-        {
-            if (spriteCharacter == null || string.IsNullOrEmpty(spriteCharacter.name)) continue;
-            names.Add(spriteCharacter.name);
-            count++;
-            if (count >= 30) break;
-        }
-
-        string sample = names.Count > 0 ? string.Join(", ", names) : "(none)";
-        Debug.LogWarning($"[ButtonInstructions] Missing sprite. Display='{display}', Resolved='{spriteName}', Asset='{spriteAsset.name}'. Sample names: {sample}", this);
-    }
-
-    private TMP_SpriteAsset GetSpriteAssetForDevice()
-    {
-        if (lastUsedDevice is Gamepad)
-        {
-            if (DeviceNameContains(lastUsedDevice, "playstation") || DeviceNameContains(lastUsedDevice, "wireless controller"))
-                return playStationSpriteAsset ?? xboxSpriteAsset ?? keyboardSpriteAsset;
-            if (DeviceNameContains(lastUsedDevice, "xbox"))
-                return xboxSpriteAsset ?? playStationSpriteAsset ?? keyboardSpriteAsset;
-
-            return xboxSpriteAsset ?? playStationSpriteAsset ?? keyboardSpriteAsset;
-        }
-
-        if (lastUsedDevice is Keyboard || lastUsedDevice is Mouse)
-            return keyboardSpriteAsset ?? xboxSpriteAsset ?? playStationSpriteAsset;
-
-        return keyboardSpriteAsset ?? xboxSpriteAsset ?? playStationSpriteAsset;
-    }
 
     private bool DeviceNameContains(InputDevice device, string value)
     {

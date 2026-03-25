@@ -44,7 +44,7 @@ public class Credits : MonoBehaviour
             "- car controller\n- save data system\n- wheel support\n- score system",
             "- all music and sound effects\n- selection menus\n- some graphics assets\n- bug fixing",
             "- lap and time system",
-            "- AI car code\n- user input check system",
+            "- AI cars\n- user input check system",
             "- car textures\n- ideas",
         };
     }
