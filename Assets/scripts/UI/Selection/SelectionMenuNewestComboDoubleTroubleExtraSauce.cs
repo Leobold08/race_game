@@ -72,14 +72,12 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
     scoreMultText, turbeBoostText, turbeAmountText;
     [SerializeField] private Text lockedPopup;
     private bool canSelectCar;
-    //tämä saa olla ensimmäinen ja AINOA kerta kun teen näin
-    [SerializeField] private AudioSource selectSound;
-    //rip minä lol
     [SerializeField] private AudioSource carTypeSwitchSound;
-
-    [SerializeField] private GameObject temp_AIUnavailablePopup;
-
+    [SerializeField] private AudioSource uiAdvanceSound;
+    [SerializeField] private AudioSource uiCancelSound;
+    [SerializeField] private AudioSource uiStartRaceSound;
     
+
 
     //4. setuppaa map selectionin kuva juttu [ehkä]
 
@@ -213,6 +211,7 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
             turbeAmountText.text = $"Turbo amount: {activeCarStats.turbeAmount}";
 
             //DO YOU SUCK?
+            //TODO: early return?
             if (unlockedSkins.Contains(activeCarStats.carName))
             {
                 lockedPopup.color = new(1f, 1f, 1f, 0f);
@@ -262,14 +261,10 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
 
     public void AttemptNext()
     {
-        temp_AIUnavailablePopup.SetActive(false);
-        //hack 2
-        // if (selectedGamemode == Gamemode.AI && savedMapBaseName == "canyon") temp_AIUnavailablePopup.SetActive(true);
         //vitun paskanen hack
         if (canSelectCar)
         {
             startButton.SetActive(true);
-            selectSound.Play();
             Next();
             return;
         }
@@ -281,6 +276,7 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
         availableSelectionMenus[selectionIndex].SetActive(true);
         availableSelectionMenus[selectionIndex - 1].SetActive(false);
         ThePanelThing();
+        uiAdvanceSound.Play();
 
         carStatsContainer.SetActive(false);
         GameObject firstSelected = GameObject.FindGameObjectWithTag("firstSelectable");
@@ -305,7 +301,6 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
     }
     public void Back()
     {
-        temp_AIUnavailablePopup.SetActive(false);
         //normal back
         if (selectionIndex != 0)
         {
@@ -313,6 +308,7 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
             availableSelectionMenus[selectionIndex].SetActive(true);
             availableSelectionMenus[selectionIndex + 1].SetActive(false);
             ThePanelThing();
+            uiCancelSound.Play();
             
             carStatsContainer.SetActive(false);
             GameObject firstSelected = GameObject.FindGameObjectWithTag("firstSelectable");
@@ -363,13 +359,11 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
     //tarkistan myöhemmin voiko tätä välttää... vitun coroutinet
     public void StartGame()
     {
-        //nopee hackki taas...
-        //if (selectedGamemode == Gamemode.AI && savedMapBaseName == "canyon") return;
-
         detailsPanel.SetActive(false);
         PlayerPrefs.SetString("SelectedCar", availableCars[index].name);
         PlayerPrefs.Save();
         SetMapToLoad();
+        uiStartRaceSound.Play();
         StartCoroutine(LoadSelectedMap());
     }
     private IEnumerator LoadSelectedMap()
@@ -377,8 +371,7 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
         loadingLoop.Play();
         schizophrenia = UnityEngine.Random.Range(3.5f, 6.5f);
 
-        LeanTween.value(loadingImg, loadingImg.GetComponent<RectTransform>().anchoredPosition.y, 0.0f, 1f).setOnUpdate((float val) =>
-        { loadingImg.GetComponent<RectTransform>().anchoredPosition = new Vector2(loadingImg.GetComponent<RectTransform>().anchoredPosition.x, val); }).setEaseInOutCubic();
+        LeanTween.value(loadingImg, loadingImg.GetComponent<RectTransform>().anchoredPosition.y, 0.0f, 1f).setOnUpdate((float val) => { loadingImg.GetComponent<RectTransform>().anchoredPosition = new Vector2(loadingImg.GetComponent<RectTransform>().anchoredPosition.x, val); }).setEaseInOutCubic();
 
         Controls.Disable();
         Debug.Log("you will now wait for: " + schizophrenia + " seconds");

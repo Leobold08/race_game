@@ -17,13 +17,9 @@ public class Waitbeforestart : MonoBehaviour
     void Start()
     {
         LogitechLedController.Clear();
-        if (GameManager.instance.sceneSelected != "tutorial")
-        {
-            SetupCountdown();
-            StartCoroutine(ShowS1AfterDelay());
-            Time.timeScale = 0f;
-        }
-        else StartCoroutine(NoCountdown());
+        SetupCountdown();
+        StartCoroutine(ShowS1AfterDelay());
+        Time.timeScale = 0f;
     }
 
     void SetupCountdown()
@@ -38,13 +34,6 @@ public class Waitbeforestart : MonoBehaviour
         countSounds.Add(GameObject.Find("countGo").GetComponent<AudioSource>());
         
         foreach (GameObject img in countGraphics) img.SetActive(false);
-    }
-
-    IEnumerator NoCountdown()
-    {
-        yield return null;
-        LogitechLedController.Clear();
-        racerScript.StartRace();
     }
 
     IEnumerator ShowS1AfterDelay()
@@ -66,12 +55,11 @@ public class Waitbeforestart : MonoBehaviour
             }).setIgnoreTimeScale(true).setEaseLinear();
             yield return new WaitForSecondsRealtime(1f);
         }
-
         countGraphics[3].SetActive(true);
         countSounds[3].Play();
+        LogitechLedController.Clear();
         Time.timeScale = 1f;
         racerScript.StartRace();
-        LogitechLedController.Clear();
 
         LeanTween.value(countGraphics[3].GetComponent<RawImage>().color.a, 0.0f, 2f)
         .setOnUpdate((float alpha) =>

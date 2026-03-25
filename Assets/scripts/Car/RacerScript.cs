@@ -30,7 +30,6 @@ public class RacerScript : MonoBehaviour
     private Transform respawnPoint;
     private musicControl musicControl;
 
-    public GameObject[] otherStuff;
     private GameObject finalLapImg;
 
     private PlayerCarController carController;
@@ -80,11 +79,7 @@ public class RacerScript : MonoBehaviour
     {
         if (!racestarted || raceFinished) return;
         HandleReset();
-    }
-    void FixedUpdate()
-    {
-        if (!racestarted || raceFinished) return;
-        laptime += Time.fixedDeltaTime;
+        laptime += Time.deltaTime;
     }
 
     void OnTriggerEnter(Collider trigger)
@@ -233,7 +228,7 @@ public class RacerScript : MonoBehaviour
     public void StartRace()
     {
         racestarted = true;
-        if (GameManager.instance.sceneSelected != "tutorial") musicControl.StartMusicTracks();
         startTimer = true;
+        musicControl.StartMusicTracks();
     }
 }
