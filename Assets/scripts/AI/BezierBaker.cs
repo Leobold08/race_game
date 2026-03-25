@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using UnityEditor.EditorTools;
@@ -14,6 +15,7 @@ public class BezierBaker : MonoBehaviour
     [Header("Path Settings")]
     [Tooltip("Parent transform containing cachedPoints for the AI path.")]
     public Transform path;
+    private Vector3[] newPath;
     [Range(1, 100)]
     [SerializeField] private int bezierCurveResolution = 10;
     [Tooltip("How many points to sample for each bezier curve")]
@@ -23,12 +25,14 @@ public class BezierBaker : MonoBehaviour
     [Range(1, 100)]
     [SerializeField] private int timeOut = 10;
     [SerializeField] private SplineContainer SplineContainer;
-    [SerializeField] private Vector3[] cachedPoints;
-    [ContextMenu("Bake Bezier Curve")]
+    [SerializeField] private Vector3[] bakedPoints;
+    [SerializeField] private float[] curveRadi;
+
+    [ContextMenu("Bake using preset path")]
     void Bake()
     {
         if (path == null) return;
-        cachedPoints = BezierMath.ComputeBezierPoints(
+        bakedPoints = BezierMath.ComputeBezierPoints(
             bezierCurveResolution, 
             sampleSize, 
             timeOut, 
@@ -37,36 +41,60 @@ public class BezierBaker : MonoBehaviour
             .Where(t => t != path).Select(t => t.position)
             .ToArray()
         );
+        BakeRadi();
     }
-    [ContextMenu("Use Road Spline")]
-    void SplinePoint()
+    [ContextMenu("Use Road Spline as path")]
+    void BakeSpline()
     {
         Transform splineTransform = SplineContainer.GetComponent<Transform>();
-        cachedPoints = SplineContainer[0].Select(point => 
-            splineTransform.rotation * new Vector3(point.Position.x, point.Position.y, point.Position.z) + splineTransform.position
-        ).ToArray();
+        bakedPoints = BezierMath.ComputeBezierPoints(
+            bezierCurveResolution,
+            sampleSize,
+            timeOut,
+            SplineContainer[0].Select(point => 
+                splineTransform.rotation * new Vector3(point.Position.x, point.Position.y, point.Position.z) + splineTransform.position
+                ).ToArray()
+        );
+        BakeRadi();
+    }
+
+    [ContextMenu("Bake radi for curves")]
+    void BakeRadi()
+    {
+        if (bakedPoints == null)
+        {
+            Debug.Log("Please bake the points first.");
+            return;
+        }
+
+        List<float> radi = new();
+        for (int i = 0; i < bakedPoints.Length; i++)
+        {
+            radi.Add(BezierMath.GetRadius(bakedPoints[i], bakedPoints[(i + 1) % bakedPoints.Length], bakedPoints[(i + 2) % bakedPoints.Length]));
+        }
     }
 
     public Vector3[] GetCachedPoints()
     {
-        if (cachedPoints.Length == 0 || cachedPoints[0] == Vector3.zero)
+        if (bakedPoints.Length == 0 || bakedPoints[0] == Vector3.zero)
         {
             Bake();
         }
-        return cachedPoints;
+        return bakedPoints;
     }
 
     #if UNITY_EDITOR
     void OnDrawGizmos()
     {
-        if (cachedPoints.Count() <= 1) return;
+        if (bakedPoints.Count() <= 1) return;
 
-        for (int i = 0; i < cachedPoints.Count(); i++)
+        for (int i = 0; i < bakedPoints.Count(); i++)
         {
-            Gizmos.DrawSphere(cachedPoints[i], 0.2f);
-            Gizmos.DrawLine(cachedPoints[i], cachedPoints[(i+1) % cachedPoints.Count()]);
+            Gizmos.DrawSphere(bakedPoints[i], 0.2f);
+            Gizmos.DrawLine(bakedPoints[i], bakedPoints[(i+1) % bakedPoints.Count()]);
         }
     }
 
 #endif
 }
+
