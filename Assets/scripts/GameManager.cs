@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
 #if UNITY_EDITOR
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             if (racerscript.raceFinished) return;
             racerscript.EndRace();

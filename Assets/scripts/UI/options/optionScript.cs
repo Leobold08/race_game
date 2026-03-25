@@ -41,9 +41,9 @@ public class OptionScript : MonoBehaviour
 
         List<AudioSlider> audioSliders = GetComponentsInChildren<AudioSlider>().ToList();
         foreach (var i in audioSliders) { i.volumeSlider.onValueChanged.AddListener((value) => { main.SetFloat(i.volumeSlider.name, Mathf.Log10(i.volumeSlider.value) * 20); }); }
-        if (audioSliders.Count == 0) return;
+        if (audioSliders.Count == 0 || transform.Find("Container/Audio_2") == null) return;
 
-        GameObject audioCategory = transform.Find("Container/Audio").gameObject;
+        GameObject audioCategory = transform.Find("Container/Audio_2").gameObject;
         if (audioCategory != null) audioCategory.SetActive(false);
     }
 
@@ -99,5 +99,10 @@ public class OptionScript : MonoBehaviour
         gameObject.transform.localScale = preTweenScale;
 
         LeanTween.scaleY(gameObject, 1.0f, 0.5f).setIgnoreTimeScale(true).setEaseOutQuart();
+    }
+
+    public void SetOptionCategory()
+    {
+
     }
 }
