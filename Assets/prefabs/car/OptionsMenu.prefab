@@ -86,7 +86,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.61635214, g: 0.61635214, b: 0.61635214, a: 1}
+  m_Color: {r: 0.627451, g: 0.627451, b: 0.627451, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -94,7 +94,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: c92274b840f68a8489b40362408406d4, type: 3}
-  m_Type: 0
+  m_Type: 2
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 0.2
+  m_PixelsPerUnitMultiplier: 2
 --- !u!114 &7960098019969352917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,8 +250,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 516d48cb6f712d845a680b8e0b110066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OptionCategories
-  CategoryContents: []
-  CategoryButtonList: []
 --- !u!1 &6313446948026339875
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,6 +723,10 @@ PrefabInstance:
     - target: {fileID: 1502793971549959369, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
       propertyPath: m_Name
       value: options_generalButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1502793971549959369, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
+      propertyPath: m_TagString
+      value: SFXInteractable
       objectReference: {fileID: 0}
     - target: {fileID: 1756011281811333056, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
       propertyPath: m_Navigation.m_Mode
@@ -1262,7 +1264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3502247979030978816, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3502247979030978816, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1270,7 +1272,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3502247979030978816, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3502247979030978816, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1471,7 +1473,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1756011281811333056, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
       propertyPath: m_Navigation.m_Mode
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1756011281811333056, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
       propertyPath: m_Colors.m_NormalColor.a
@@ -1485,6 +1487,10 @@ PrefabInstance:
       propertyPath: m_Colors.m_PressedColor.r
       value: 0.65882355
       objectReference: {fileID: 0}
+    - target: {fileID: 1756011281811333056, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 3991215654473046855}
     - target: {fileID: 1756011281811333056, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
       propertyPath: m_Colors.m_SelectedColor.b
       value: 1
@@ -1831,6 +1837,22 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls: []
+  - eventID: 11
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3576096650015553796}
+          m_TargetAssemblyTypeName: OptionCategories, Assembly-CSharp
+          m_MethodName: ThisStupidFuckingThingIHadToDoThatBreaksAllKnownPrecautionsAndPrinciplesOfProgramming
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &5373564283856390058 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1756011281811333056, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
@@ -2201,6 +2223,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: options_audioButton
       objectReference: {fileID: 0}
+    - target: {fileID: 1502793971549959369, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
+      propertyPath: m_TagString
+      value: SFXInteractable
+      objectReference: {fileID: 0}
     - target: {fileID: 1756011281811333056, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
       propertyPath: m_Navigation.m_Mode
       value: 4
@@ -2423,7 +2449,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4072036967274402716, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4072036967274402716, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
       propertyPath: m_AnchorMin.x
@@ -2431,7 +2457,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4072036967274402716, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4072036967274402716, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2483,7 +2509,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4072036967274402716, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 238.5
       objectReference: {fileID: 0}
     - target: {fileID: 4072036967274402716, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2729,7 +2755,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3502247979030978816, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3502247979030978816, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_AnchorMin.x
@@ -2737,7 +2763,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3502247979030978816, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3502247979030978816, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2793,7 +2819,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3502247979030978816, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -45
       objectReference: {fileID: 0}
     - target: {fileID: 3502247979030978816, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

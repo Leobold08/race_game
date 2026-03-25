@@ -222,6 +222,7 @@ public class RacerScript : MonoBehaviour
 
         carController.StopDrifting();
         carController.CanDrift = false; 
+        carController.CanUseTurbo = false;
         winmenu.OnRaceEnd();
     }
 

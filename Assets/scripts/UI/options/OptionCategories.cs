@@ -6,8 +6,9 @@ using UnityEngine.UI;
 
 public class OptionCategories : MonoBehaviour
 {
-    public List<Transform> CategoryContents;
-    public List<Button> CategoryButtonList;
+    private List<Transform> CategoryContents;
+    private List<Button> CategoryButtonList;
+    private GameObject currentlySelected => EventSystem.current.currentSelectedGameObject;
     int index = 0;
     CarInputActions Controls;
 
@@ -49,7 +50,7 @@ public class OptionCategories : MonoBehaviour
     public void ChangeCategory()
     {
         int previousButtonIndex = index;
-        int currentButtonIndex = CategoryButtonList.IndexOf(EventSystem.current.currentSelectedGameObject.GetComponent<Button>());
+        int currentButtonIndex = CategoryButtonList.IndexOf(currentlySelected.GetComponent<Button>());
         if (previousButtonIndex == currentButtonIndex) return;
         index = previousButtonIndex > currentButtonIndex ? index -= 1 : index += 1 ;
         Debug.Log($"index: {index}, prev: {previousButtonIndex}, cur: {currentButtonIndex}");
