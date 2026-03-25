@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Splines.Examples;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class OptionCategories : MonoBehaviour
@@ -9,7 +11,8 @@ public class OptionCategories : MonoBehaviour
     private List<Transform> CategoryContents;
     private List<Button> CategoryButtonList;
     private GameObject currentlySelected => EventSystem.current.currentSelectedGameObject;
-    int index = 0;
+    private int index = 0;
+    private Transform currentCategory => CategoryContents[index];
     CarInputActions Controls;
 
     void Awake()
@@ -57,5 +60,14 @@ public class OptionCategories : MonoBehaviour
 
         CategoryContents[previousButtonIndex].gameObject.SetActive(false);
         CategoryContents[currentButtonIndex].gameObject.SetActive(true);
+    }
+
+    //TODO: parempi tapa ylös liikkumisen tarkistamiseen (OnMove callback todennäkösesti)
+    public void SelectNearestOption()
+    {
+        if (Controls.CarControls.Move.ReadValue<Vector2>().y <= 0f) return;
+
+        Selectable nearestOption = currentCategory.GetChild(currentCategory.childCount - 1).GetComponentInChildren<Selectable>();
+        nearestOption.Select();
     }
 }

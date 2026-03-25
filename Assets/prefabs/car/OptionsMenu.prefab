@@ -40,7 +40,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -40, y: -40}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5899427511491126002
 CanvasRenderer:
@@ -68,7 +68,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: -1
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 3
@@ -86,14 +86,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.627451, g: 0.627451, b: 0.627451, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c92274b840f68a8489b40362408406d4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5b3df352d7146e647b7b75aa98b1b3ed, type: 3}
   m_Type: 2
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 2
+  m_PixelsPerUnitMultiplier: 0.3
 --- !u!114 &7960098019969352917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,7 +395,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 784701705037222670, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_Navigation.m_Mode
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 784701705037222670, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_Colors.m_PressedColor.b
@@ -410,6 +410,10 @@ PrefabInstance:
       value: 0.3019608
       objectReference: {fileID: 0}
     - target: {fileID: 784701705037222670, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 7072002494309233276}
+    - target: {fileID: 784701705037222670, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_Colors.m_SelectedColor.b
       value: 0.61960787
       objectReference: {fileID: 0}
@@ -421,6 +425,10 @@ PrefabInstance:
       propertyPath: m_Colors.m_SelectedColor.r
       value: 0.7607843
       objectReference: {fileID: 0}
+    - target: {fileID: 784701705037222670, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 5373564283856390058}
     - target: {fileID: 784701705037222670, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_Colors.m_HighlightedColor.b
       value: 0.61960787
@@ -1264,7 +1272,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3502247979030978816, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3502247979030978816, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1272,7 +1280,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3502247979030978816, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3502247979030978816, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1473,7 +1481,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1756011281811333056, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
       propertyPath: m_Navigation.m_Mode
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1756011281811333056, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
       propertyPath: m_Colors.m_NormalColor.a
@@ -1843,7 +1851,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 3576096650015553796}
           m_TargetAssemblyTypeName: OptionCategories, Assembly-CSharp
-          m_MethodName: ThisStupidFuckingThingIHadToDoThatBreaksAllKnownPrecautionsAndPrinciplesOfProgramming
+          m_MethodName: SelectNearestOption
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -2449,7 +2457,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4072036967274402716, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4072036967274402716, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
       propertyPath: m_AnchorMin.x
@@ -2457,7 +2465,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4072036967274402716, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4072036967274402716, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2509,7 +2517,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4072036967274402716, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 238.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4072036967274402716, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2755,7 +2763,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3502247979030978816, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3502247979030978816, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_AnchorMin.x
@@ -2763,7 +2771,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3502247979030978816, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3502247979030978816, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2819,7 +2827,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3502247979030978816, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3502247979030978816, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2940,3 +2948,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 890792bafa1a36b42b1fb5055f926939, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OptionComponent
+--- !u!114 &7072002494309233276 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 784701705037222670, guid: af6a5bb298a3c264c9a31cad06ca95e8, type: 3}
+  m_PrefabInstance: {fileID: 7550037143118766450}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6612851402461992190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
