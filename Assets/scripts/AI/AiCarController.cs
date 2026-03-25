@@ -204,9 +204,9 @@ public class AiCarController : BaseCarController
         //         {
         //             int sign = Math.Sign(i);
         //             if (sign == 0) sign = -1;
-        //             localPosition.x += (Math.Abs(i) - objectAvoidanceBeams / 2f) * sign;
+        //             localPosition.x += (Math.Abs(i) - objectAvoidanceBeams / 2f + avoidanceLateralOffset) * sign;
         //             hitObjects.Add(go);
-        //             Debug.Log($"doing {(Math.Abs(i) - objectAvoidanceBeams / 2f) * sign}");
+        //             Debug.Log($"doing {(Math.Abs(i) - objectAvoidanceBeams / 2f + avoidanceLateralOffset) * sign}");
         //         }
         //     }
         // }
