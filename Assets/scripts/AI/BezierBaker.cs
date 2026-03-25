@@ -15,7 +15,6 @@ public class BezierBaker : MonoBehaviour
     [Header("Path Settings")]
     [Tooltip("Parent transform containing cachedPoints for the AI path.")]
     public Transform path;
-    private Vector3[] newPath;
     [Range(1, 100)]
     [SerializeField] private int bezierCurveResolution = 10;
     [Tooltip("How many points to sample for each bezier curve")]
@@ -72,15 +71,25 @@ public class BezierBaker : MonoBehaviour
         {
             radi.Add(BezierMath.GetRadius(bakedPoints[i], bakedPoints[(i + 1) % bakedPoints.Length], bakedPoints[(i + 2) % bakedPoints.Length]));
         }
+        curveRadi = radi.ToArray();
     }
 
     public Vector3[] GetCachedPoints()
     {
         if (bakedPoints.Length == 0 || bakedPoints[0] == Vector3.zero)
         {
-            Bake();
+            Debug.Log("Baked points are empty");
         }
         return bakedPoints;
+    }
+
+    public float[] GetPointRadi()
+    {
+        if (curveRadi.Length == 0)
+        {
+            Debug.Log("Radi are empty");
+        }
+        return curveRadi;
     }
 
     #if UNITY_EDITOR

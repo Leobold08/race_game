@@ -130,7 +130,7 @@ public class AiCarController : BaseCarController
         if (Vector3.Distance(CarRb.position, aiCarManager.Waypoints[currentWaypointIndex]) < waypointThreshold)
         {
             currentWaypointIndex = (currentWaypointIndex + 1) % waypointSize;
-            speedLimit = Mathf.Min(Mathf.Sqrt(Maxspeed * BezierMath.GetRadius(targetPoint, aiCarManager.Waypoints[(currentWaypointIndex + 1) % waypointSize], aiCarManager.Waypoints[(currentWaypointIndex + 2) % waypointSize])), Maxspeed) / 3.6f;
+            speedLimit = Mathf.Min(Mathf.Sqrt(Maxspeed * aiCarManager.PointRadi[currentWaypointIndex]), Maxspeed) / 3.6f;
         }
         targetPoint = aiCarManager.Waypoints[currentWaypointIndex];
 
