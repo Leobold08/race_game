@@ -152,7 +152,7 @@ public class AiCarController : BaseCarController
         }
 
         AvoidObstacles();
-        //ApplyDriveInputs();
+        ApplyDriveInputs();
         ApplySpeedLimit(speedLimit);
     }
 
