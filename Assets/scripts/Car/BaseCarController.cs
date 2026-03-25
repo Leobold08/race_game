@@ -65,8 +65,8 @@ public class BaseCarController : MonoBehaviour
     [SerializeField] protected float TurbeWaitTime = 2.0f;
     protected Coroutine TurbeRegeneration = null;
 
-    [NonSerialized] public bool CanDrift = false;
-    [NonSerialized] public bool CanUseTurbo = false;
+    [NonSerialized] public bool CanDrift = true;
+    [NonSerialized] public bool CanUseTurbo = true;
     protected Collider carCollider;
     public float CarWidth { get; protected set; }
     public float CarLength { get; protected set; }
@@ -182,7 +182,7 @@ public class BaseCarController : MonoBehaviour
     protected void ApplySpeedLimit(float speed)
     {
         // 3.6 is to convert from m/s to km/h and vice versa
-        if (CarRb.linearVelocity.magnitude > speed) CarRb.linearVelocity = speed * CarRb.linearVelocity.normalized;
+        if (CarRb.linearVelocity.magnitude  > speed) CarRb.linearVelocity = speed * CarRb.linearVelocity.normalized;
     }
 
 

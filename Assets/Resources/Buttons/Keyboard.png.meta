@@ -132,7 +132,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: w
+      name: BottomAssFuckery
       rect:
         serializedVersion: 2
         x: 80
@@ -323,6 +323,7 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":16.0,"y":16.0},"gridSpriteSize":{"x":16.0,"y":16.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":1,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
+      BottomAssFuckery: -1370896756
       Control: 974030542
       Shift: -1015577009
       Space: -51075137
@@ -956,7 +957,6 @@ TextureImporter:
       gdb-keyboard-2_99: -94512929
       r: -926676129
       s: -1110515193
-      w: -1370896756
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
