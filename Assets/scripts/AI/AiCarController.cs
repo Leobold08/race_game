@@ -92,8 +92,8 @@ public class AiCarController : BaseCarController
         objectLayerMask = LayerMask.NameToLayer("roadObjects");
 
         waypointSize = aiCarManager.Waypoints.Count();
-        targetPoint = aiCarManager.Waypoints[0].Item1;
-        speedLimit = Mathf.Min(Mathf.Sqrt(Maxspeed * BezierMath.GetRadius(targetPoint, aiCarManager.Waypoints[(currentWaypointIndex + 1) % waypointSize].Item1, aiCarManager.Waypoints[(currentWaypointIndex + 2) % waypointSize].Item1)), Maxspeed);
+        targetPoint = aiCarManager.Waypoints[0].position;
+        speedLimit = Mathf.Min(Mathf.Sqrt(Maxspeed * BezierMath.GetRadius(targetPoint, aiCarManager.Waypoints[(currentWaypointIndex + 1) % waypointSize].position, aiCarManager.Waypoints[(currentWaypointIndex + 2) % waypointSize].position)), Maxspeed);
         
         base.Start();
 
@@ -110,7 +110,7 @@ public class AiCarController : BaseCarController
         {
             currentWaypointIndex = (currentWaypointIndex + 1) % waypointSize;
             speedLimit = Mathf.Clamp(Mathf.Sqrt(Maxspeed * aiCarManager.PointRadi[currentWaypointIndex]), Maxspeed * minSlowdown, Maxspeed) / 3.6f;
-            targetPoint = aiCarManager.Waypoints[currentWaypointIndex].Item1;
+            targetPoint = aiCarManager.Waypoints[currentWaypointIndex].position;
         }
 
 
@@ -167,6 +167,7 @@ public class AiCarController : BaseCarController
     private void AvoidObstacles()
     {
         Vector3 offsetPosition = targetPoint;
+        float offsetX = offsetPosition.x;
 
         HashSet<GameObject> hitObjects = new();
         for (int i = objectAvoidanceBeams / -2; i <= objectAvoidanceBeams / 2; i++)
@@ -181,8 +182,10 @@ public class AiCarController : BaseCarController
                 if (carController != null || go.layer == objectLayerMask)
                 {
                     int sign = i < 1 ? -1 : 1; // Not sign because 0 would scuff it up
-                    // Debug.Log($"doing {(Math.Abs(i) - objectAvoidanceBeams / 2f) * sign}, hit with beam #{i + objectAvoidanceBeams / 2}, local pos is {localPosition.x} and target pos is {localTarget.x}, distance is {Vector3.Distance(aiCarManager.Waypoints[currentWaypointIndex].Item1, localPosition)}");
-                    offsetPosition += aiCarManager.Waypoints[currentWaypointIndex].Item2 * ((Math.Abs(i) - objectAvoidanceBeams / 2f) * sign * Vector3.right);
+                    // Debug.Log($"doing {(Math.Abs(i) - objectAvoidanceBeams / 2f) * sign}, hit with beam #{i + objectAvoidanceBeams / 2}, local pos is {localPosition.x} and target pos is {localTarget.x}, distance is {Vector3.Distance(aiCarManager.Waypoints[currentWaypointIndex].position, localPosition)}");
+                    float offset = (Math.Abs(i) - objectAvoidanceBeams / 2f) * sign;
+                    offsetX += offset;
+                    offsetPosition += aiCarManager.Waypoints[currentWaypointIndex].rotation * (offset * Vector3.right);
                     hitObjects.Add(go);
                 }
             }
@@ -218,7 +221,7 @@ public class AiCarController : BaseCarController
         //     }
         // }
         
-        if (Vector3.Distance(offsetPosition, targetPoint) > maxAvoidanceOffset) offsetPosition = aiCarManager.Waypoints[currentWaypointIndex].Item2 * (maxAvoidanceOffset * Vector3.right);
+        if (Vector3.Distance(offsetPosition, targetPoint) > maxAvoidanceOffset) offsetPosition = aiCarManager.Waypoints[currentWaypointIndex].rotation * (maxAvoidanceOffset * Mathf.Sign(offsetX) * Vector3.right);
         targetPoint += offsetPosition;
     }
 
