@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -24,14 +25,16 @@ public class BezierBaker : MonoBehaviour
     [Range(1, 100)]
     [SerializeField] private int timeOut = 10;
     [SerializeField] private SplineContainer SplineContainer;
-    [SerializeField] private Vector3[] bakedPoints;
+    [SerializeField] private List<Tuple<Vector3, Quaternion>> bakedPoints;
     [SerializeField] private float[] curveRadi;
 
-    [ContextMenu("Bake using preset path")]
+    [ContextMenu("Bake using preset path (Dont use)")]
     void Bake()
     {
         if (path == null) return;
-        bakedPoints = BezierMath.ComputeBezierPoints(
+
+        // Linq didnt wanna work so you get a foreach
+        foreach (Vector3 p in BezierMath.ComputeBezierPoints(
             bezierCurveResolution, 
             sampleSize, 
             timeOut, 
@@ -39,15 +42,20 @@ public class BezierBaker : MonoBehaviour
             .GetComponentsInChildren<Transform>()
             .Where(t => t != path).Select(t => t.position)
             .ToArray()
-        );
+        ))
+        {
+            bakedPoints.Add(new(p, Quaternion.identity));
+        }
     }
+
     [ContextMenu("Use Road Spline as path")]
     void BakeSpline()
     {
         Transform splineTransform = SplineContainer.GetComponent<Transform>();
-        bakedPoints = SplineContainer[0].Select(point => 
-                splineTransform.rotation * new Vector3(point.Position.x, point.Position.y, point.Position.z) + splineTransform.position
-                ).ToArray();
+        foreach (BezierKnot knot in SplineContainer[0])
+        {
+            bakedPoints.Add(new(splineTransform.rotation * knot.Position + splineTransform.position, knot.Rotation));
+        }
     }
 
     [ContextMenu("Bake radi for curves")]
@@ -60,20 +68,20 @@ public class BezierBaker : MonoBehaviour
         }
 
         List<float> radi = new();
-        for (int i = 0; i < bakedPoints.Length; i++)
+        for (int i = 0; i < bakedPoints.Count(); i++)
         {
-            radi.Add(BezierMath.GetRadius(bakedPoints[i], bakedPoints[(i + 1) % bakedPoints.Length], bakedPoints[(i + 2) % bakedPoints.Length]));
+            radi.Add(BezierMath.GetRadius(bakedPoints[i].Item1, bakedPoints[(i + 1) % bakedPoints.Count()].Item1, bakedPoints[(i + 2) % bakedPoints.Count()].Item1));
         }
         curveRadi = radi.ToArray();
     }
 
-    public Vector3[] GetCachedPoints()
+    public Tuple<Vector3, Quaternion>[] GetCachedPoints()
     {
-        if (bakedPoints.Length == 0 || bakedPoints[0] == Vector3.zero)
+        if (bakedPoints.Count() == 0 || bakedPoints[0].Item1 == Vector3.zero)
         {
             Debug.Log("Baked points are empty");
         }
-        return bakedPoints;
+        return bakedPoints.ToArray();
     }
 
     public float[] GetPointRadi()
@@ -92,8 +100,8 @@ public class BezierBaker : MonoBehaviour
 
         for (int i = 0; i < bakedPoints.Count(); i++)
         {
-            Gizmos.DrawSphere(bakedPoints[i], 0.2f);
-            Gizmos.DrawLine(bakedPoints[i], bakedPoints[(i+1) % bakedPoints.Count()]);
+            Gizmos.DrawSphere(bakedPoints[i].Item1, 0.2f);
+            Gizmos.DrawLine(bakedPoints[i].Item1, bakedPoints[(i+1) % bakedPoints.Count()].Item1);
         }
     }
 

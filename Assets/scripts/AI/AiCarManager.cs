@@ -16,7 +16,7 @@ public class AiCarManager : MonoBehaviour
     [SerializeField] private byte spawnedAiCarCount = 0;
     [SerializeField] private AiCarController[] AiCarPrefabs;
     private AIDifficulty difficulty;
-    public Vector3[] Waypoints { get; private set; }
+    public Tuple<Vector3, Quaternion>[] Waypoints { get; private set; }
     public float[] PointRadi { get; private set; }
     public enum AIDifficulty { Beginner, Intermediate, Hard } 
  
