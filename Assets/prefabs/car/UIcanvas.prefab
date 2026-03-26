@@ -365,7 +365,7 @@ MonoBehaviour:
   progressText: {fileID: 6279429143160606539}
   buttonImage: {fileID: 9055812687259915364}
   comboImageSpacing: 56
-  parent: {fileID: 0}
+  parent: {fileID: 6324283417373672364}
   useImageObjects: 1
   keyboardNamedSprites: []
   playStationNamedSprites: []
@@ -684,7 +684,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 1150829692, guid: ca4c284043ed2ea4d8d3371628d424c4, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
