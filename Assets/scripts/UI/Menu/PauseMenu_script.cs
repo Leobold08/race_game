@@ -61,8 +61,8 @@ public class PauseMenu : MonoBehaviour
 
         if (!fullMenu.activeSelf) return;
 
-        fullMenu.transform.localPosition = new Vector3(0.0f, 470.0f, 0.0f);
-        LeanTween.moveLocalY(fullMenu, 0.0f, 0.4f).setEaseInOutCirc().setIgnoreTimeScale(true);
+        fullMenu.transform.localPosition = new(-400.0f, 0.0f, 0.0f);
+        LeanTween.moveLocalX(fullMenu, 0.0f, 0.4f).setEaseInOutCirc().setIgnoreTimeScale(true);
         firstSelected.Select();
     }
 

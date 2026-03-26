@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 using System.Linq;
 using System;
 using System.Collections.Generic;
-using Mono.Cecil.Cil;
 
 
 
@@ -40,6 +39,7 @@ public class GameManager : MonoBehaviour
     
     [Header("auto")]
     public float carSpeed;
+
     void Awake()
     {
         instance = this;

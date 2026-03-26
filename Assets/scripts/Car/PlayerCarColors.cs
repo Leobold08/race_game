@@ -27,8 +27,8 @@ public class PlayerCarColors : MonoBehaviour
             else if (child.CompareTag("ll")) left = child;
         }
 
-        Controls.CarControls.lights.performed += ctx => LightsState(1, false);
-        Controls.CarControls.underglow.performed += ctx => LightsState(2, false);
+        Controls.CarControls.lights.performed += ctx => LightsState(1);
+        Controls.CarControls.underglow.performed += ctx => LightsState(2);
     }
 
     private void OnDisable()
@@ -50,18 +50,9 @@ public class PlayerCarColors : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     /// <param name="shouldSet">jos funktio kutsutaan, pitäskö sen muuttaa valot asetuksen mukaiseksi?</param>
-    public void LightsState(int lightSelected, bool shouldSet = false)
+    public void LightsState(int lightSelected)
     {
-        bool lightsOptionEnabled = PlayerPrefs.GetInt("optionTest_value") == 1;
-
-        if (shouldSet)
-        {
-            left.enabled = lightsOptionEnabled;
-            right.enabled = lightsOptionEnabled;
-            pointLight.enabled = lightsOptionEnabled;
-            return;
-        }
-        if (!lightsOptionEnabled || GameManager.instance.isPaused) return;
+        if (GameManager.instance.isPaused) return;
 
         switch (lightSelected)
         {
