@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class SFXManager : MonoBehaviour
 {
     //säilyttää KAIKKI äänet, PAITSI ne, joita käytetään interactableiden kanssa
     [SerializeField] private List<AudioSource> soundList;
-    [SerializeField] private List<AudioSource> interactableSounds;
+    [SerializeField] protected List<AudioSource> interactableSounds;
     [SerializeField] private List<GameObject> interactables;
     [SerializeField] private AudioSource gamePaused;
     [SerializeField] private AudioSource pausedTrack;
@@ -36,7 +37,12 @@ public class SFXManager : MonoBehaviour
             if (tester is Button button) button.onClick.AddListener(() => { interactableSounds[0].Play(); });
             else if (tester is Toggle toggle) toggle.onValueChanged.AddListener((value) => { interactableSounds[1].Play(); });
             else if (tester is Slider slider) slider.onValueChanged.AddListener((value) => { interactableSounds[2].Play(); });
-            else if (tester is TMP_Dropdown dropdown) dropdown.onValueChanged.AddListener((value) => { interactableSounds[0].Play(); });
+            else if (tester is TMP_Dropdown dropdown)
+            {
+                DropdownOpenSFX openSFX = dropdown.gameObject.AddComponent<DropdownOpenSFX>();
+                openSFX.dropdownOpen = interactableSounds[3];
+                //TODO: dropdown SFX jollai muulla event paskalla
+            }
         }
     }
 
