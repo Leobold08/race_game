@@ -26,7 +26,7 @@ public class SFXManager : MonoBehaviour
         interactables = GameObject.FindGameObjectsWithTag("SFXInteractable").ToList();
     }
 
-    void Start()
+    void Awake()
     {
         soundList = GetComponentsInChildren<AudioSource>().Where(a => a.CompareTag("soundFX")).ToList();
         foreach (var i in interactables)
@@ -55,7 +55,6 @@ public class SFXManager : MonoBehaviour
         else if (obj.TryGetComponent(out TMP_Dropdown dropdown)) return dropdown;
 
         List<Transform> objList = new(obj.GetComponentsInChildren<Transform>());
-        Debug.Log($"no Selectable component found from {obj}, attempting to find from object's hierarchy");
 
         foreach (var i in objList)
         {

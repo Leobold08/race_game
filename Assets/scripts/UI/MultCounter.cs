@@ -80,8 +80,8 @@ public class MultCounter : MonoBehaviour
         updateTimer += Time.deltaTime;
         if (updateTimer < 0.1f) return;
         updateTimer = 0f;
-        //if you delete the parentheses, the multcounter fire animation wont work correctly, why? i dont know
-        int idx = mult <= 1f ? 0 : (mult >= 7f ? 9 : Mathf.RoundToInt(((mult - 1f) / 6f) * 9));
+        //if you delete the parentheses, the multcounter fire animation wont work correctly, why? i dont know most likely a mathematical issue
+        int idx = mult <= 1f ? 0 : (mult >= 7f ? 9 : Mathf.RoundToInt((mult - 1f) * 9));
         displayImage.sprite = numberSprites[idx];
     }
 
