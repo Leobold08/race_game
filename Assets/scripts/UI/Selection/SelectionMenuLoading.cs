@@ -33,9 +33,9 @@ public class SelectionMenuLoading : MonoBehaviour
         string loadTextRarity;
         int randomIndex;
 
-        if (chance <= 2) loadTextRarity = "obscure";
-        else if (chance <= 8) loadTextRarity = "rare";
-        else if (chance <= 26) loadTextRarity = "uncommon";
+        if (chance <= 4) loadTextRarity = "obscure";
+        else if (chance <= 10) loadTextRarity = "rare";
+        else if (chance <= 30) loadTextRarity = "uncommon";
         else loadTextRarity = "general";
 
         string[] texts = loadTextRarity switch

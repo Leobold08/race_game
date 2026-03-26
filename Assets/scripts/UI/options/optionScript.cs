@@ -100,9 +100,4 @@ public class OptionScript : MonoBehaviour
 
         LeanTween.scaleY(gameObject, 1.0f, 0.5f).setIgnoreTimeScale(true).setEaseOutQuart();
     }
-
-    public void SetOptionCategory()
-    {
-
-    }
 }
