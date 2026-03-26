@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
-using TMPro;
 using UnityEngine.SceneManagement;
 
 public class RacerScript : MonoBehaviour
@@ -215,7 +214,6 @@ public class RacerScript : MonoBehaviour
         for (int i = 0; i < checkpointStates.Length; i++) checkpointStates[i] = false;
         musicControl.StopMusicTracks(true);
         if (GameManager.instance.CarUI != null) GameManager.instance.CarUI.SetActive(false);
-        //pitää korjata (?)
         if (startFinishLine != null) startFinishLine.gameObject.SetActive(false);
         raceFinished = true;
         startTimer = false;
@@ -224,6 +222,7 @@ public class RacerScript : MonoBehaviour
         carController.CanDrift = false; 
         carController.CanUseTurbo = false;
         winmenu.OnRaceEnd();
+        Destroy(FindFirstObjectByType<OptionCategories>(FindObjectsInactive.Include));
     }
 
     public void StartRace()

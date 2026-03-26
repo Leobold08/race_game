@@ -1,14 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MainMenuCarRotation : MonoBehaviour
 {
-    private Rigidbody car;
+    [SerializeField] private List<Rigidbody> car;
 
     void Start()
     {
-        car = gameObject.GetComponent<Rigidbody>();
-        Vector3 startRotation = car.transform.eulerAngles;
-
-        LeanTween.value(gameObject, (Vector3 val) => { car.transform.eulerAngles = val; }, startRotation, new Vector3(0.0f, 360.0f, 0.0f), 8.0f).setLoopClamp();
+        Vector3 startRotation = car[0].transform.eulerAngles;
+        foreach (var i in car) LeanTween.value(gameObject, (Vector3 val) => { i.transform.eulerAngles = val; }, startRotation, new(0.0f, startRotation.y + 360f, 0.0f), 8.0f).setLoopClamp();
     }
 }
