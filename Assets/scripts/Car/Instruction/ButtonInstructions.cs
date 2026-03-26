@@ -14,14 +14,14 @@ public class ButtonInstructions : MonoBehaviour
     [SerializeField] private Transform parent;
 
     [SerializeField] private UnityEngine.UI.Image ButtonImages;
-    [SerializeField] private float comboImageSpacing = 4f;
-    [SerializeField] private float imageToTextGap = 6f;
-    [SerializeField] private float imageScaleMultiplier = 1.15f;
+    [SerializeField] private float comboImageSpacing = -22.7f;
+    [SerializeField] private float imageToTextGap = -34f;
+    [SerializeField] private float imageScaleMultiplier = 1f;
     [SerializeField] private float imageVerticalOffset = 0f;
-    [SerializeField] private float maxIconAspect = 1.35f;
+    [SerializeField] private float maxIconAspect = 4.16f;
     [SerializeField] private float minIconAspect = 1f;
-    [SerializeField] private float comboIconScaleMultiplier = 0.9f;
-    [SerializeField] private float maxComboGroupWidth = 110f;
+    [SerializeField] private float comboIconScaleMultiplier = 0.58f;
+    [SerializeField] private float maxComboGroupWidth = 261f;
 
     
 
@@ -686,10 +686,25 @@ public class ButtonInstructions : MonoBehaviour
         if (normalizedCandidate == normalizedBinding)
             return true;
 
-        // Left/Right variants should match generic key art (e.g. leftshift -> shift).
+        // Only collapse left/right for keyboard-like modifiers (e.g. leftshift -> shift).
+        if (!ShouldCollapseLeftRight(normalizedCandidate) && !ShouldCollapseLeftRight(normalizedBinding))
+            return false;
+
         var candidateNoSide = RemoveSidePrefix(normalizedCandidate);
         var bindingNoSide = RemoveSidePrefix(normalizedBinding);
         return candidateNoSide == bindingNoSide;
+    }
+
+    private bool ShouldCollapseLeftRight(string value)
+    {
+        if (string.IsNullOrEmpty(value)) return false;
+
+        return value.EndsWith("shift", StringComparison.Ordinal)
+            || value.EndsWith("control", StringComparison.Ordinal)
+            || value.EndsWith("alt", StringComparison.Ordinal)
+            || value.EndsWith("meta", StringComparison.Ordinal)
+            || value.EndsWith("command", StringComparison.Ordinal)
+            || value.EndsWith("windows", StringComparison.Ordinal);
     }
 
     private string NormalizeBindingAlias(string value)
@@ -730,8 +745,6 @@ public class ButtonInstructions : MonoBehaviour
         return builder.ToString();
     }
 
-
-
     private bool DeviceNameContains(InputDevice device, string value)
     {
         if (device == null || string.IsNullOrEmpty(value)) return false;
@@ -741,7 +754,5 @@ public class ButtonInstructions : MonoBehaviour
 
         return displayName.IndexOf(value, StringComparison.OrdinalIgnoreCase) >= 0
             || productName.IndexOf(value, StringComparison.OrdinalIgnoreCase) >= 0;
-    }
-
-    
+    }    
 }
