@@ -31,7 +31,6 @@ public class BezierBaker : MonoBehaviour
     {
         public Vector3 position;
         public Quaternion rotation;
-        public float radius;
     }
     [SerializeField] private float[] curveRadi;
 
