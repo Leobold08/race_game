@@ -4,44 +4,29 @@ using System;
 using UnityEditor.Recorder.Input;
 using System.Collections.Generic;
 using Unity.Splines.Examples;
+using UnityEditor.EditorTools;
 
 public class AiCarController : BaseCarController
 {
     #pragma warning disable 0414
     // --- Constants ---
     private const float GROUND_RAY_LENGTH = 0.5f;
-    private const float STEERING_DEAD_ZONE = 0.05f;
-    private const float NODE_GIZMO_RADIUS = 0.5f;
     private static readonly Vector3 DEFAULT_CENTER_OF_MASS = new(0, -0.0f, 0);
         // --- Path Following ---
     [Header("Path Following Settings")]
     [Tooltip("Distance threshold for reaching a waypoint.")]
     [SerializeField] private float waypointThreshold = 10.0f;
-    [Tooltip("Angle threshold for switching between straight lines and curves.")]
-    [SerializeField] private float angleThreshold = 35.0f;
 
     // --- Steering ---
-    [Header("Steering Settings")]
-    [Tooltip("Left turn radius (how far the front left wheel can rotate).")]
-    [SerializeField] private float leftTurnRadius = 10.0f;
-    [Tooltip("Right turn radius (how far the front right wheel can rotate).")]
-    [SerializeField] private float rightTurnRadius = 30.0f;
-
+    [Tooltip("How many waypoints to look ahead for at max when finding the nearest one.")]
     [SerializeField] private int lookAheadIndex = 5;
 
     // --- Corner Slowdown ---
-    [Header("AI Turn Slowdown Settings")]
-    [Tooltip("Degrees: Only slow down for turns sharper than this.")]
-    [SerializeField] private float slowdownThreshold = 30f;
-    [Tooltip("Degrees: Max slowdown at this angle or above.")]
-    [SerializeField] private float maxSlowdownAngle = 90f;
-    [Tooltip("Minimum speed factor at max angle (e.g. 0.35 = 35% of Maxspeed).")]
+    [Tooltip("Minimum % of max speed to slow down to when turning")]
     [SerializeField] private float minSlowdown = 0.35f;
 
     // --- Turn Detection ---
     [Header("Turn Detection Settings")]
-    [Tooltip("Radius of the detection sphere for upcoming turns.")]
-    [SerializeField] private float detectionRadius = 7.0f;
     [Tooltip("Tolerance in angle for deviation from the path")]
     [SerializeField] private float curveTolerance = 2.0f;
 
@@ -55,7 +40,6 @@ public class AiCarController : BaseCarController
     [SerializeField] private int objectAvoidanceBeams = 10;
     [SerializeField] private float avoidanceBeamLenght = 10.0f;
     [SerializeField] private float beamAngle = 45f;
-    private List<Ray> rays = new();
     public float safeRadius { get; private set; }
 
     // --- Boost ---
@@ -63,14 +47,10 @@ public class AiCarController : BaseCarController
     [Tooltip("Multiplier applied to speed and acceleration when boosting.")]
     [SerializeField] private float boostMultiplier = 1.25f;
     private bool isBoosting = false;
-    // --- References ---
-    [Header("References")]
-    public AiCarManager aiCarManager;
+    [NonSerialized] public AiCarManager aiCarManager;
     private Vector3 targetPoint;
     private int currentWaypointIndex = 0;
     private int waypointSize;
-    // Amount of points to sample when looking at a curve to find moving speed
-    private int turnLookAhead = 4;
     private BaseCarController.Wheel[] frontWheels = Array.Empty<BaseCarController.Wheel>();
     private float targetTorque;
     private float moveInput = 0f;
@@ -109,7 +89,7 @@ public class AiCarController : BaseCarController
     override protected void Start()
     {
         Grass = LayerMask.NameToLayer("Grass");
-        objectLayerMask = ~LayerMask.NameToLayer("Grass");
+        objectLayerMask = LayerMask.NameToLayer("roadObjects");
 
         waypointSize = aiCarManager.Waypoints.Count();
         targetPoint = aiCarManager.Waypoints[0];
@@ -127,12 +107,12 @@ public class AiCarController : BaseCarController
         if (Physics.Raycast(CarRb.position, Vector3.down, GROUND_RAY_LENGTH)) CarRb.AddForce(GravityMultiplier * Physics.gravity.magnitude * Vector3.down, ForceMode.Acceleration);
 
         // Set new waypoint if close enough to current
-        if (Vector3.Distance(CarRb.position, aiCarManager.Waypoints[currentWaypointIndex]) < waypointThreshold)
+        if (Vector3.Distance(CarRb.position, targetPoint) < waypointThreshold)
         {
             currentWaypointIndex = (currentWaypointIndex + 1) % waypointSize;
-            speedLimit = Mathf.Min(Mathf.Sqrt(Maxspeed * aiCarManager.PointRadi[currentWaypointIndex]), Maxspeed) / 3.6f;
+            speedLimit = Mathf.Clamp(Mathf.Sqrt(Maxspeed * aiCarManager.PointRadi[currentWaypointIndex]), Maxspeed * minSlowdown, Maxspeed) / 3.6f;
+            targetPoint = aiCarManager.Waypoints[currentWaypointIndex];
         }
-        targetPoint = aiCarManager.Waypoints[currentWaypointIndex];
 
 
         // Prevent car from jiggling when already pointing at the target
@@ -194,7 +174,7 @@ public class AiCarController : BaseCarController
         // for (int i = objectAvoidanceBeams / -2; i <= objectAvoidanceBeams / 2; i++)
         // {
         //     // For some reason the object layer mask doesnt work
-        //     if (Physics.Raycast(origin:CarRb.position + CarRb.transform.up, direction:Quaternion.AngleAxis(beamAngle / objectAvoidanceBeams * i - beamAngle / 2f, CarRb.transform.up) * CarRb.transform.forward, maxDistance:avoidanceBeamLenght, hitInfo:out RaycastHit hit))
+        //     if (Physics.Raycast(origin:CarRb.position + CarRb.transform.up, direction:Quaternion.AngleAxis(beamAngle / objectAvoidanceBeams * (i + objectAvoidanceBeams / 2f) - beamAngle / 2f, CarRb.transform.up) * CarRb.transform.forward, maxDistance:avoidanceBeamLenght, hitInfo:out RaycastHit hit))
         //     {
         //         GameObject go = hit.transform.gameObject;
         //         if (go == null || hitObjects.Contains(go)) continue;
@@ -202,11 +182,10 @@ public class AiCarController : BaseCarController
         //         BaseCarController carController = go.GetComponentInChildren<BaseCarController>();
         //         if (carController != null || go.layer == objectLayerMask)
         //         {
-        //             int sign = Math.Sign(i);
-        //             if (sign == 0) sign = -1;
-        //             localPosition.x += (Math.Abs(i) - objectAvoidanceBeams / 2f + avoidanceLateralOffset) * sign;
+        //             int sign = i < 1 ? -1 : 1; // Not sign because 0 would scuff it up
+        //             Debug.Log($"doing {(Math.Abs(i) - objectAvoidanceBeams / 2f + avoidanceLateralOffset) * sign}, hit with beam #{i + objectAvoidanceBeams / 2}, local pos is {localPosition.x} and target pos is {localTarget.x}");
+        //             localPosition.x += (Math.Abs(i) - objectAvoidanceBeams / 2f) * sign;
         //             hitObjects.Add(go);
-        //             Debug.Log($"doing {(Math.Abs(i) - objectAvoidanceBeams / 2f + avoidanceLateralOffset) * sign}");
         //         }
         //     }
         // }
@@ -241,7 +220,7 @@ public class AiCarController : BaseCarController
             }
         }
         
-        if (Vector3.Distance(localTarget, localPosition) > maxAvoidanceOffset) localPosition.x = maxAvoidanceOffset * Mathf.Sign(localPosition.x);
+        if (Vector3.Distance(aiCarManager.Waypoints[currentWaypointIndex], localPosition) > maxAvoidanceOffset) localPosition.x = maxAvoidanceOffset * Mathf.Sign(localPosition.x);
         targetPoint = CarRb.gameObject.transform.TransformPoint(localPosition);
     }
 
