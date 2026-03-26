@@ -14,6 +14,14 @@ public class ButtonInstructions : MonoBehaviour
     [SerializeField] private Transform parent;
 
     [SerializeField] private UnityEngine.UI.Image ButtonImages;
+    [SerializeField] private float comboImageSpacing = 4f;
+    [SerializeField] private float imageToTextGap = 6f;
+    [SerializeField] private float imageScaleMultiplier = 1.15f;
+    [SerializeField] private float imageVerticalOffset = 0f;
+    [SerializeField] private float maxIconAspect = 1.35f;
+    [SerializeField] private float minIconAspect = 1f;
+    [SerializeField] private float comboIconScaleMultiplier = 0.9f;
+    [SerializeField] private float maxComboGroupWidth = 110f;
 
     
 
@@ -39,6 +47,9 @@ public class ButtonInstructions : MonoBehaviour
     private bool childrenHiddenByTutorial;
     private InputDevice lastUsedDevice;
     private Waitbeforestart waitBeforeStart;
+    private readonly List<UnityEngine.UI.Image> runtimeButtonImages = new();
+    private Vector2 baseButtonImageSize;
+    private Vector3 baseButtonImageScale;
 
     public event Action OnTutorialComplete;
 
@@ -68,6 +79,7 @@ public class ButtonInstructions : MonoBehaviour
         waitBeforeStart = FindFirstObjectByType<Waitbeforestart>();
         if (waitBeforeStart) waitBeforeStart.enabled = false;
         AutoPopulateSprites();
+        InitializeButtonImagePool();
 
         inputActions = new CarInputActions();
         InitializeTutorialSteps();
@@ -139,6 +151,16 @@ public class ButtonInstructions : MonoBehaviour
         ShowStep();
     }
 
+    private bool TryGetCurrentStep(out TutorialStep step)
+    {
+        step = null;
+        if (tutorialSteps == null) return false;
+        if (currentStep < 0 || currentStep >= tutorialSteps.Count) return false;
+
+        step = tutorialSteps[currentStep];
+        return step != null;
+    }
+
 
 
     private void InitializeTutorialSteps()
@@ -150,7 +172,7 @@ public class ButtonInstructions : MonoBehaviour
             new TutorialStep{ Instruction="{button}: Steer left", ActionName="Move", CompositePart="left", RequiredDirection=Vector2.left, HoldTime=0.3f },
             new TutorialStep{ Instruction="{button}: Steer right", ActionName="Move", CompositePart="right", RequiredDirection=Vector2.right, HoldTime=0.3f },
             new TutorialStep{ Instruction="{button}: drift", ActionName="Drift", RequiresHold=true, HoldTime=2f },
-            new TutorialStep{ Instruction=" {button}: turbo", ActionName="Turbo", RequiresHold=true, HoldTime=2f },
+            new TutorialStep{ Instruction="{button}: turbo", ActionName="Turbo", RequiresHold=true, HoldTime=2f },
             new TutorialStep{ Instruction="{combo}: turbo while drifting", RequiresHold=true, HoldTime=2f, RequiredComboActions=new string[]{"Drift", "Turbo"} },
             new TutorialStep{ Instruction="{button}: respawn", ActionName="Respawn" }
         };
@@ -206,14 +228,15 @@ public class ButtonInstructions : MonoBehaviour
 
         if (!string.IsNullOrEmpty(step.ActionName) && cachedActions.TryGetValue(step.ActionName, out var action))
         {
-            InstructionText.text = step.Instruction.Replace("{button}", FormatBindingDisplay(GetBindingDisplay(action, step.CompositePart)));
+            var display = FormatBindingDisplay(GetBindingDisplay(action, step.CompositePart));
+            InstructionText.text = BuildInstructionText(step.Instruction, "{button}", display);
             step.HoldTimer = 0f;
             action.performed -= OnActionPerformed;
             action.performed += OnActionPerformed;
         }
         else if (step.RequiredComboActions != null)
         {
-            InstructionText.text = step.Instruction.Replace("{combo}", GetComboBindingDisplay(step.RequiredComboActions));
+            InstructionText.text = BuildInstructionText(step.Instruction, "{combo}", GetComboBindingDisplay(step.RequiredComboActions));
             step.HoldTimer = 0f;
         }
     }
@@ -254,7 +277,7 @@ public class ButtonInstructions : MonoBehaviour
 
     private void UpdateStepInput()
     {
-        var step = tutorialSteps[currentStep];
+        if (!TryGetCurrentStep(out var step)) return;
 
         // Combo Input
         if (step.RequiredComboActions != null && step.RequiredComboActions.Length > 0)
@@ -295,7 +318,9 @@ public class ButtonInstructions : MonoBehaviour
 
     private void OnActionPerformed(InputAction.CallbackContext ctx)
     {
-        var step = tutorialSteps[currentStep];
+        if (tutorialComplete) return;
+        if (!TryGetCurrentStep(out var step)) return;
+
         if (!step.RequiresHold && step.RequiredDirection == Vector2.zero && step.RequiredComboActions == null)
         {
             if (ctx.ReadValue<float>() > 0.5f) AdvanceStep();
@@ -361,11 +386,45 @@ public class ButtonInstructions : MonoBehaviour
 
     private void ShowStep()
     {
-        var step = tutorialSteps[currentStep];
+        if (!TryGetCurrentStep(out var step)) return;
+
         if (!string.IsNullOrEmpty(step.ActionName) && cachedActions.TryGetValue(step.ActionName, out var action))
-            InstructionText.text = step.Instruction.Replace("{button}", FormatBindingDisplay(GetBindingDisplay(action, step.CompositePart)));
+        {
+            var display = FormatBindingDisplay(GetBindingDisplay(action, step.CompositePart));
+            InstructionText.text = BuildInstructionText(step.Instruction, "{button}", display);
+        }
         else if (step.RequiredComboActions != null)
-            InstructionText.text = step.Instruction.Replace("{combo}", GetComboBindingDisplay(step.RequiredComboActions));
+            InstructionText.text = BuildInstructionText(step.Instruction, "{combo}", GetComboBindingDisplay(step.RequiredComboActions));
+    }
+
+    private void InitializeButtonImagePool()
+    {
+        runtimeButtonImages.Clear();
+        if (ButtonImages != null)
+        {
+            runtimeButtonImages.Add(ButtonImages);
+
+            baseButtonImageSize = ButtonImages.rectTransform.sizeDelta;
+            baseButtonImageScale = ButtonImages.rectTransform.localScale;
+            ButtonImages.preserveAspect = false;
+        }
+    }
+
+    private string BuildInstructionText(string template, string placeholder, string replacement)
+    {
+        if (string.IsNullOrEmpty(template)) return string.Empty;
+
+        string text = template.Replace(placeholder, replacement ?? string.Empty);
+
+        if (string.IsNullOrEmpty(replacement))
+        {
+            if (text.StartsWith(": ", StringComparison.Ordinal))
+                text = text.Substring(2);
+            else if (text.StartsWith(":", StringComparison.Ordinal))
+                text = text.Substring(1).TrimStart();
+        }
+
+        return text.Trim();
     }
 
 
@@ -423,11 +482,15 @@ public class ButtonInstructions : MonoBehaviour
         {
             if (cachedActions.TryGetValue(name, out var action))
             {
-                var d = FormatBindingDisplay(GetBindingDisplay(action));
+                var d = GetBindingDisplay(action);
                 if (!string.IsNullOrEmpty(d)) displays.Add(d);
             }
         }
 
+        if (TryShowButtonSprites(displays, true))
+            return string.Empty;
+
+        HideUnusedButtonSprites(0);
         return string.Join(" + ", displays);
     }
 
@@ -435,24 +498,135 @@ public class ButtonInstructions : MonoBehaviour
     {
         if (string.IsNullOrEmpty(display)) return string.Empty;
 
-        if (useImageObjects && ButtonImages != null)
-        {
-            var sprite = GetNamedSpriteForDevice(display);
-            if (sprite != null)
-            {
-                ButtonImages.sprite = sprite;
-                ButtonImages.enabled = true;
-                return string.Empty;
-            }
-            else
-            {
+        if (TryShowButtonSprites(new List<string> { display }, false))
+            return string.Empty;
 
-                if (ButtonImages.sprite == null)
-                    ButtonImages.enabled = false;
-            }
-        }
+        HideUnusedButtonSprites(0);
 
         return display;
+    }
+
+    private bool TryShowButtonSprites(List<string> displays, bool isCombo)
+    {
+        if (!useImageObjects || ButtonImages == null || displays == null || displays.Count == 0)
+            return false;
+
+        List<Sprite> sprites = new();
+        foreach (var display in displays)
+        {
+            if (string.IsNullOrEmpty(display)) return false;
+
+            var sprite = GetNamedSpriteForDevice(display);
+            if (sprite == null) return false;
+
+            sprites.Add(sprite);
+        }
+
+        EnsureButtonImagePoolSize(sprites.Count);
+
+        List<float> iconWidths = new();
+        float comboScale = isCombo ? Mathf.Max(0.5f, comboIconScaleMultiplier) : 1f;
+        float targetHeight = Mathf.Max(1f, baseButtonImageSize.y * imageScaleMultiplier * comboScale);
+        float spacing = comboImageSpacing;
+        float totalWidth = 0f;
+        for (int i = 0; i < sprites.Count; i++)
+        {
+            float width = GetWidthForHeight(sprites[i], targetHeight);
+            iconWidths.Add(width);
+            totalWidth += width;
+        }
+        totalWidth += spacing * Mathf.Max(0, sprites.Count - 1);
+
+        if (isCombo && maxComboGroupWidth > 1f && totalWidth > maxComboGroupWidth)
+        {
+            float shrink = maxComboGroupWidth / totalWidth;
+            targetHeight *= shrink;
+            spacing *= shrink;
+
+            totalWidth = 0f;
+            for (int i = 0; i < iconWidths.Count; i++)
+            {
+                iconWidths[i] *= shrink;
+                totalWidth += iconWidths[i];
+            }
+            totalWidth += spacing * Mathf.Max(0, sprites.Count - 1);
+        }
+
+        Vector2 startPosition = GetIconStartPosition(totalWidth);
+        float currentX = startPosition.x;
+
+        for (int i = 0; i < sprites.Count; i++)
+        {
+            var image = runtimeButtonImages[i];
+            image.sprite = sprites[i];
+            image.enabled = true;
+
+            var rect = image.rectTransform;
+            rect.sizeDelta = new Vector2(iconWidths[i], targetHeight);
+            rect.localScale = baseButtonImageScale;
+            rect.anchoredPosition = new Vector2(currentX + (iconWidths[i] * 0.5f), startPosition.y);
+            currentX += iconWidths[i] + spacing;
+        }
+
+        HideUnusedButtonSprites(sprites.Count);
+        return true;
+    }
+
+    private void EnsureButtonImagePoolSize(int count)
+    {
+        if (ButtonImages == null) return;
+
+        if (runtimeButtonImages.Count == 0)
+            runtimeButtonImages.Add(ButtonImages);
+
+        while (runtimeButtonImages.Count < count)
+        {
+            var clone = Instantiate(ButtonImages, ButtonImages.transform.parent);
+            clone.name = $"{ButtonImages.name}_Combo_{runtimeButtonImages.Count}";
+            clone.preserveAspect = false;
+            runtimeButtonImages.Add(clone);
+        }
+    }
+
+    private Vector2 GetIconStartPosition(float totalIconsWidth)
+    {
+        if (runtimeButtonImages.Count == 0)
+            return Vector2.zero;
+
+        if (InstructionText == null)
+            return runtimeButtonImages[0].rectTransform.anchoredPosition;
+
+        // Place the icon group immediately before the current text run.
+        InstructionText.ForceMeshUpdate();
+        RectTransform textRect = InstructionText.rectTransform;
+        float textHalfWidth = InstructionText.preferredWidth * 0.5f;
+        float startX = textRect.anchoredPosition.x - textHalfWidth - imageToTextGap - totalIconsWidth;
+        float y = textRect.anchoredPosition.y + imageVerticalOffset;
+        return new Vector2(startX, y);
+    }
+
+    private void HideUnusedButtonSprites(int usedCount)
+    {
+        for (int i = usedCount; i < runtimeButtonImages.Count; i++)
+        {
+            var image = runtimeButtonImages[i];
+            if (image == null) continue;
+
+            image.sprite = null;
+            image.enabled = false;
+        }
+    }
+
+    private float GetWidthForHeight(Sprite sprite, float targetHeight)
+    {
+        if (sprite == null) return Mathf.Max(1f, targetHeight);
+
+        Rect r = sprite.rect;
+        if (r.height <= 0.01f) return Mathf.Max(1f, targetHeight);
+
+        float aspect = r.width / r.height;
+        float clampedAspect = Mathf.Clamp(aspect, Mathf.Max(0.5f, minIconAspect), Mathf.Max(minIconAspect, maxIconAspect));
+        return Mathf.Max(1f, targetHeight * clampedAspect);
     }
     private Sprite GetNamedSpriteForDevice(string spriteName)
     {
@@ -494,9 +668,53 @@ public class ButtonInstructions : MonoBehaviour
         {
             if (ns == null || ns.sprite == null || string.IsNullOrEmpty(ns.name)) continue;
             if (string.Equals(ns.name, normalized, StringComparison.OrdinalIgnoreCase)) return ns.sprite;
-            if (NormalizeSpriteName(ns.name) == normalized) return ns.sprite;
+
+            var candidate = NormalizeSpriteName(ns.name);
+            if (candidate == normalized) return ns.sprite;
+            if (AreEquivalentBindingNames(candidate, normalized)) return ns.sprite;
         }
         return null;
+    }
+
+    private bool AreEquivalentBindingNames(string candidate, string binding)
+    {
+        if (string.IsNullOrEmpty(candidate) || string.IsNullOrEmpty(binding))
+            return false;
+
+        var normalizedCandidate = NormalizeBindingAlias(candidate);
+        var normalizedBinding = NormalizeBindingAlias(binding);
+        if (normalizedCandidate == normalizedBinding)
+            return true;
+
+        // Left/Right variants should match generic key art (e.g. leftshift -> shift).
+        var candidateNoSide = RemoveSidePrefix(normalizedCandidate);
+        var bindingNoSide = RemoveSidePrefix(normalizedBinding);
+        return candidateNoSide == bindingNoSide;
+    }
+
+    private string NormalizeBindingAlias(string value)
+    {
+        if (string.IsNullOrEmpty(value)) return string.Empty;
+
+        string normalized = value;
+        normalized = normalized.Replace("ctrl", "control", StringComparison.Ordinal);
+        normalized = normalized.Replace("return", "enter", StringComparison.Ordinal);
+        normalized = normalized.Replace("escape", "esc", StringComparison.Ordinal);
+        normalized = normalized.Replace("spacebar", "space", StringComparison.Ordinal);
+        return normalized;
+    }
+
+    private string RemoveSidePrefix(string value)
+    {
+        if (string.IsNullOrEmpty(value)) return string.Empty;
+
+        if (value.StartsWith("left", StringComparison.Ordinal) && value.Length > 4)
+            return value.Substring(4);
+
+        if (value.StartsWith("right", StringComparison.Ordinal) && value.Length > 5)
+            return value.Substring(5);
+
+        return value;
     }
 
     private string NormalizeSpriteName(string value)
