@@ -35,7 +35,7 @@ public class PlayerCarController : BaseCarController
         Controls = new CarInputActions();
         Controls.Enable();
         PlayerInput = GetComponent<PlayerInput>();
-        TurbeBar = GameObject.Find("turbeFull").GetComponent<Image>();
+        TurbeBar = GameManager.instance.CarUI.transform.Find("TurbeDisplay").GetComponentInChildren<Image>();
         AutoAssignWheelsAndMaterials();
     }
 

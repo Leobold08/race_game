@@ -11,16 +11,16 @@
     "A_mapSelection":
     {
         "Shoreline": "An average-length map surrounded by water. Best suited for beginners and casual players.",
-        "Canyon": "A long map with rises and falls, as well a big hole to fall into. Caution is advised when driving.",
+        "Canyon": "A long map with elevation changes and cliffs to slip off of. Caution is advised when driving.",
         "placeholder3": "Will be added later...",
         "placeholder4": "Will be added later..."
     },
     "B_carSelection":
     {
-        "Bansku": "Higher top speed and slower acceleration. Better for longer maps.",
+        "Bansku": "Higher top speed, but less turbo. Better for longer maps.",
         "Sarya": "The default experience, balanced in every way. Suitable for everyone.",
-        "Tatato": "With this car, you get turbo power and nothing else. Good for competition.",
-        "Teimo": "More turbo at the cost of acceleration. Recommended if you can drive consistently.",
+        "Tatato": "High turbo and high acceleration make a strong car made for competition.",
+        "Teimo": "More speed, but lower turbo capacity. Recommended if you drift a lot.",
         "Placeholder5": "Will be added later...",
         "Placeholder6": "Will be added later...",
         "Placeholder7": "Will be added later...",

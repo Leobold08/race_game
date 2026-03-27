@@ -31,8 +31,8 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
 {
     CarInputActions Controls;
 
-    private AudioSource loadingLoop;
-    private AudioSource menuMusic;
+    [SerializeField] private AudioSource loadingLoop;
+    [SerializeField] private AudioSource menuMusic;
 
     public enum Gamemode {Single, AI, Multi};
     private Gamemode selectedGamemode = Gamemode.Single;
@@ -47,18 +47,21 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
     [SerializeField] private TMP_Dropdown AICarsAmountDropdown; 
     [SerializeField] private TMP_Dropdown AIDifficultyDropdown; 
     [SerializeField] private Toggle reverseRaceToggle;
+    [SerializeField] private TMP_Dropdown timeOfDayDropdown;
 
     [Header("general selection data")]
+    private GameObject firstSelected => GameObject.FindGameObjectWithTag("firstSelectable");
     private TextAsset selectionDetails;
     [SerializeField] private GameObject detailsPanel;
     [SerializeField] private GameObject startButton;
     [SerializeField] private GameObject nextButton;
     private Dictionary<string, Dictionary<string, string>> details;
     [SerializeField] private TextMeshProUGUI detailsPanelText;
-    private GameObject carStatsContainer;
+    [SerializeField] private GameObject carStatsContainer;
     public int selectionIndex = 0;
     private List<GameObject> selectionMenus;
     private List<GameObject> availableSelectionMenus;
+    private string selectedSelectionMenu => availableSelectionMenus[selectionIndex].name;
 
     [Header("car selection")]
     //debt of 16 cars
@@ -91,15 +94,10 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
         availableCars = carBases[baseIndex].cars;
         availableCarStats = carBases[baseIndex].carStats;
         
-        carStatsContainer = GameObject.Find("carStatsContainer");
         carStatsContainer.SetActive(false);
-        selectionMenus = GameObject.FindGameObjectsWithTag("selectionMenu")
-        .OrderBy(go => go.name).ToList();
+        selectionMenus = GameObject.FindGameObjectsWithTag("selectionMenu").OrderBy(go => go.name).ToList();
         availableSelectionMenus = selectionMenus;
         foreach (var menu in availableSelectionMenus.Skip(1)) menu.SetActive(false);
-
-        menuMusic = GameObject.Find("menuLoop").GetComponent<AudioSource>();
-        loadingLoop = GameObject.Find("loadingLoop").GetComponent<AudioSource>();
     }
     void OnEnable()
     {
@@ -133,7 +131,7 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
 
         if (current != null)
         {
-            Dictionary<string, string> currentMenu = details[availableSelectionMenus[selectionIndex].name];
+            Dictionary<string, string> currentMenu = details[selectedSelectionMenu];
             //TODO: setuppaa todennäkösesti variable tolle ja sen onchanged paskiainen tänne,
             //jotta voi yksinkertastaa koodia
 
@@ -184,7 +182,7 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
 
     private void UpdateCarStats()
     {
-        if (availableSelectionMenus[selectionIndex].name != "B_carSelection") return;
+        if (selectedSelectionMenu != "B_carSelection") return;
 
         index = -1;
         //laita activeCarIndex kuntoon
@@ -227,7 +225,7 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
     
     public void RightButton()
     {
-        if (availableSelectionMenus[selectionIndex].name != "B_carSelection") return;
+        if (selectedSelectionMenu != "B_carSelection") return;
 
         carTypeSwitchSound.Play();
         availableCars[index].SetActive(false);
@@ -244,7 +242,7 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
 
     public void LeftButton()
     {
-        if (availableSelectionMenus[selectionIndex].name != "B_carSelection") return;
+        if (selectedSelectionMenu != "B_carSelection") return;
         
         carTypeSwitchSound.Play();
         availableCars[index].SetActive(false);
@@ -279,10 +277,9 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
         uiAdvanceSound.Play();
 
         carStatsContainer.SetActive(false);
-        GameObject firstSelected = GameObject.FindGameObjectWithTag("firstSelectable");
         firstSelected.GetComponent<Selectable>().Select();
 
-        if (availableSelectionMenus[selectionIndex].name == "B_carSelection")
+        if (selectedSelectionMenu == "B_carSelection")
         {
             carStatsContainer.SetActive(true);
             if (index >= 0 && index < availableCars.Count)
@@ -311,12 +308,11 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
             uiCancelSound.Play();
             
             carStatsContainer.SetActive(false);
-            GameObject firstSelected = GameObject.FindGameObjectWithTag("firstSelectable");
             firstSelected.GetComponent<Selectable>().Select();
 
-            if (availableSelectionMenus[selectionIndex].name == "A_mapSelection")
+            if (selectedSelectionMenu == "A_mapSelection")
                 foreach (CarBase carBase in carBases) foreach (GameObject car in carBase.cars) car.SetActive(false);
-            else if (availableSelectionMenus[selectionIndex].name == "B_carSelection")
+            else if (selectedSelectionMenu == "B_carSelection")
                 carStatsContainer.SetActive(true);
         }
         else
@@ -333,18 +329,15 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
         startButton.SetActive(false);
         if (selectionIndex == 0) detailsPanel.SetActive(false);
 
-        if (availableSelectionMenus[selectionIndex].name == "C_optionSelection") startButton.SetActive(true);
-
-        else if (availableSelectionMenus[selectionIndex].name == "1_AIoptionSelection") nextButton.SetActive(true);
+        if (selectedSelectionMenu == "C_optionSelection") startButton.SetActive(true);
+        else if (selectedSelectionMenu == "1_AIoptionSelection") nextButton.SetActive(true);
     }
 
     private void SetMapToLoad()
     {
         string selectedMap = savedMapBaseName;
-        TMP_Dropdown dayOrNight = GameObject.Find("Time").GetComponent<TMP_Dropdown>();
-
         if (selectedGamemode == Gamemode.AI) selectedMap = $"ai_{savedMapBaseName}";
-        if (dayOrNight.value == 1) selectedMap += $"_night";
+        if (timeOfDayDropdown.value == 1) selectedMap += $"_night";
         PlayerPrefs.SetString("SelectedMap", selectedMap);
         PlayerPrefs.Save();
 
