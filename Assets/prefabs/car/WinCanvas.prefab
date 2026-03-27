@@ -237,7 +237,6 @@ GameObject:
   - component: {fileID: 187323641737001631}
   - component: {fileID: 2267798233672880565}
   - component: {fileID: 2489763275863997582}
-  - component: {fileID: 5277501776489912908}
   - component: {fileID: 2241720195892548915}
   m_Layer: 5
   m_Name: userDataInput
@@ -366,7 +365,7 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5277501776489912908}
+      - m_Target: {fileID: 7931227733456490809}
         m_TargetAssemblyTypeName: userDataInput, Assembly-CSharp
         m_MethodName: CheckForInvalidName
         m_Mode: 1
@@ -387,7 +386,7 @@ MonoBehaviour:
   m_OnDeselect:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5277501776489912908}
+      - m_Target: {fileID: 7931227733456490809}
         m_TargetAssemblyTypeName: userDataInput, Assembly-CSharp
         m_MethodName: CheckForInvalidName
         m_Mode: 1
@@ -408,7 +407,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5277501776489912908}
+      - m_Target: {fileID: 7931227733456490809}
         m_TargetAssemblyTypeName: userDataInput, Assembly-CSharp
         m_MethodName: UpdateUserName
         m_Mode: 1
@@ -441,20 +440,6 @@ MonoBehaviour:
   isAlert: 0
   m_InputValidator: {fileID: 0}
   m_ShouldActivateOnSelect: 1
---- !u!114 &5277501776489912908
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 823483825735065463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 184ba6885e97dca459ee105a503a6443, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::userDataInput
-  userName: 
-  bannedPopup: {fileID: 6133883031992830278}
 --- !u!114 &2241720195892548915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -868,6 +853,7 @@ GameObject:
   - component: {fileID: 66221865973979393}
   - component: {fileID: 2223898795751077038}
   - component: {fileID: 2656051287054486450}
+  - component: {fileID: 7931227733456490809}
   m_Layer: 5
   m_Name: WinCanvas
   m_TagString: Untagged
@@ -982,6 +968,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d710ccd0c4515448fdd28bf7966451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::winmenu
+--- !u!114 &7931227733456490809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3168483669016942917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 184ba6885e97dca459ee105a503a6443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::userDataInput
+  userName: 
+  bannedPopup: {fileID: 6133883031992830278}
 --- !u!1 &3519180184561171245
 GameObject:
   m_ObjectHideFlags: 0
@@ -5889,6 +5889,22 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1756011281811333056, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1756011281811333056, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.b
+      value: 0.56078434
+      objectReference: {fileID: 0}
+    - target: {fileID: 1756011281811333056, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1756011281811333056, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.r
+      value: 0.65882355
+      objectReference: {fileID: 0}
+    - target: {fileID: 1756011281811333056, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
       propertyPath: m_Navigation.m_SelectOnLeft
       value: 
       objectReference: {fileID: 2489763275863997582}
@@ -5919,7 +5935,7 @@ PrefabInstance:
     - target: {fileID: 1756011281811333056, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 5277501776489912908}
+      objectReference: {fileID: 7931227733456490809}
     - target: {fileID: 1756011281811333056, guid: 7455ed7a4f74bfa45b78c46530f2aca5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 

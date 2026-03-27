@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
 
     [Header("scene asetukset")]
     public string sceneSelected => SceneManager.GetActiveScene().name;
-    private string[] maps = new string[]
+    private readonly string[] maps = new string[]
     {
         "haukipudas",
         "haukipudas_night",
@@ -44,8 +44,7 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
 
-        if (sceneSelected == "tutorial") CurrentCar = GameObject.Find("REALCAR");
-        else if (maps.Contains(sceneSelected) && cars.Length > 0)
+        if (maps.Contains(sceneSelected) && cars.Length > 0)
         {
             GameObject selectedCar = cars.FirstOrDefault(c => c.name == PlayerPrefs.GetString("SelectedCar"));
             if (selectedCar == null) selectedCar = cars[0];

@@ -14,7 +14,11 @@ public class userDataInput : MonoBehaviour
     private TextAsset jsonText;
     private TextAsset jsonRegexText;
     private string[] bannedNamesArray;
-    private string[] bannedNamePopups;
+    private readonly string[] bannedNamePopups = new string[]
+    {
+        "Name cannot be empty!",
+        "Invalid name!"
+    };
     [SerializeField] private Text bannedPopup;
     private Button enter;
     private winmenu winmenu;
@@ -22,24 +26,21 @@ public class userDataInput : MonoBehaviour
 
     void OnEnable()
     {
-        inputField = GameObject.Find("userDataInput").GetComponent<TMP_InputField>();
-        enter = GameObject.Find("SubmitButton").GetComponent<Button>();
+        inputField = GetComponentInChildren<TMP_InputField>();
+        Debug.Log(inputField);
+        enter = transform.Find("Submit").GetComponentInChildren<Button>();
+        Debug.Log(enter);
 
         jsonText = Resources.Load<TextAsset>("bannedNames");
         bannedNamesArray = JsonUtility.FromJson<BannedNames>(jsonText.text).names.ToArray();
         jsonRegexText = Resources.Load<TextAsset>("regexReplacementValues");
         Dictionary<char, string> regexReplacements = JsonConvert.DeserializeObject<Dictionary<char, string>>(jsonRegexText.text);
-        bannedNamePopups = new string[]
-        {
-            "Name cannot be empty!",
-            "Invalid name!"
-        };
         bannedRegexWords = AddRegexToHashset(bannedNamesArray, regexReplacements);
     }
 
     void Start()
     {
-        winmenu = FindFirstObjectByType<winmenu>();
+        winmenu = GetComponent<winmenu>();
     }
     
     [Serializable]

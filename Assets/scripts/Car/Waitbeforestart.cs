@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 
 public class Waitbeforestart : MonoBehaviour
 {
@@ -27,11 +26,10 @@ public class Waitbeforestart : MonoBehaviour
         for (int val = 3; val >= 1; val--)
         {
             countGraphics.Add(GameManager.instance.CarUI.transform.Find($"s{val}").gameObject);
-            //pieni hack väliaikasesti
-            countSounds.Add(GameObject.Find($"count{val}").GetComponent<AudioSource>());
+            countSounds.Add(GameManager.instance.CarUI.transform.Find($"s{val}").GetComponent<AudioSource>());
         }
         countGraphics.Add(GameManager.instance.CarUI.transform.Find("go").gameObject);
-        countSounds.Add(GameObject.Find("countGo").GetComponent<AudioSource>());
+        countSounds.Add(GameManager.instance.CarUI.transform.Find("go").GetComponent<AudioSource>());
         
         foreach (GameObject img in countGraphics) img.SetActive(false);
     }
@@ -68,10 +66,6 @@ public class Waitbeforestart : MonoBehaviour
             Color c = img.color;
             c.a = alpha;
             img.color = c;
-        }).setIgnoreTimeScale(true).setEaseLinear().setOnComplete(() =>
-        {
-            foreach (GameObject img in countGraphics) img.SetActive(false);
-            Destroy(this);
-        });
+        }).setIgnoreTimeScale(true).setEaseLinear().setOnComplete(() => { Destroy(this); });
     }
 }
