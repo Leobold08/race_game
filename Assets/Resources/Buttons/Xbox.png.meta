@@ -132,28 +132,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gdb-xbox-2_49
-      rect:
-        serializedVersion: 2
-        x: 352
-        y: 592
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7ed2cca5536cbff43b0c578e8db5c27e
-      internalID: -1415056871
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Button South
       rect:
         serializedVersion: 2
@@ -303,28 +281,6 @@ TextureImporter:
       bones: []
       spriteID: 3d7546e4c725fe74a87b425ea30502ed
       internalID: 1990813883
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gdb-xbox-2_535
-      rect:
-        serializedVersion: 2
-        x: 352
-        y: 192
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 38dd2acd2ff2e7c4bb55223238819db7
-      internalID: 1238482529
       vertices: []
       indices: 
       edges: []
