@@ -12,7 +12,6 @@ Material:
   m_Parent: {fileID: 2100000, guid: be327438b13e64940af805323324e9e7, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _ALPHAPREMULTIPLY_ON
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -32,8 +31,8 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - _BaseColor: {r: 0.3725491, g: 0.90588236, b: 0.43235895, a: 1}
-    - _Color: {r: 0.37254906, g: 0.90588236, b: 0.43235892, a: 1}
+    - _BaseColor: {r: 0.90588236, g: 0.3725491, b: 0.8914437, a: 1}
+    - _Color: {r: 0.90588236, g: 0.37254906, b: 0.8914437, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &444542176541989824

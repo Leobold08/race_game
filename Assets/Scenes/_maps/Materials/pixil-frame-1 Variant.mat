@@ -12,7 +12,6 @@ Material:
   m_Parent: {fileID: 2100000, guid: 50342460b5754f74a90d2cd34fc63a39, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _ALPHAPREMULTIPLY_ON
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
