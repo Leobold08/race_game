@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class RacerScript : MonoBehaviour
 {
@@ -143,6 +144,13 @@ public class RacerScript : MonoBehaviour
         if (transform.position.y < -1) RespawnAtLastCheckpoint();
     }
 
+    public void StartRace()
+    {
+        racestarted = true;
+        startTimer = true;
+        musicControl.StartMusicTracks();
+    }
+
     void HandleStart()
     {
         if (!startTimer)
@@ -176,7 +184,7 @@ public class RacerScript : MonoBehaviour
             {
                 raceFinished = true;
                 startTimer = false;
-                EndRace();
+                StartCoroutine(EndRace());
             }
             else
             {
@@ -208,27 +216,23 @@ public class RacerScript : MonoBehaviour
     }
 
     //KUTSU TÄÄ AINOASTAA SILLO KU KISA LOPPUU!!!
-    public void EndRace()
+    public IEnumerator EndRace()
     {
         respawnPoint = startFinishLine;
         for (int i = 0; i < checkpointStates.Length; i++) checkpointStates[i] = false;
-        musicControl.StopMusicTracks(true);
         if (GameManager.instance.CarUI != null) GameManager.instance.CarUI.SetActive(false);
         if (startFinishLine != null) startFinishLine.gameObject.SetActive(false);
+        musicControl.StopMusicTracks(true);
+        //raceFinish.Play();
+
         raceFinished = true;
         startTimer = false;
-
         carController.StopDrifting();
         carController.CanDrift = false; 
         carController.CanUseTurbo = false;
+        yield return new WaitForSecondsRealtime(2.5f);
+
         winmenu.OnRaceEnd();
         Destroy(FindFirstObjectByType<OptionCategories>(FindObjectsInactive.Include));
-    }
-
-    public void StartRace()
-    {
-        racestarted = true;
-        startTimer = true;
-        musicControl.StartMusicTracks();
     }
 }

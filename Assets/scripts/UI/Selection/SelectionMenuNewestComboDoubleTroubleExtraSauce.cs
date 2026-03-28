@@ -58,6 +58,7 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
     private Dictionary<string, Dictionary<string, string>> details;
     [SerializeField] private TextMeshProUGUI detailsPanelText;
     [SerializeField] private GameObject carStatsContainer;
+    [SerializeField] private RectTransform imageCarouselContainer;
     public int selectionIndex = 0;
     private List<GameObject> selectionMenus;
     private List<GameObject> availableSelectionMenus;
@@ -79,11 +80,8 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
     [SerializeField] private AudioSource uiAdvanceSound;
     [SerializeField] private AudioSource uiCancelSound;
     [SerializeField] private AudioSource uiStartRaceSound;
+    private int imageCarouselTweenID;
     
-
-
-    //4. setuppaa map selectionin kuva juttu [ehkä]
-
     void Awake()
     {
         Controls = new CarInputActions();
@@ -277,9 +275,12 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
         uiAdvanceSound.Play();
 
         carStatsContainer.SetActive(false);
+        LeanTween.cancel(imageCarouselTweenID);
+        imageCarouselContainer.anchoredPosition = new(imageCarouselContainer.anchoredPosition.x, 230f);
         firstSelected.GetComponent<Selectable>().Select();
 
-        if (selectedSelectionMenu == "B_carSelection")
+        if (selectedSelectionMenu == "A_mapSelection") imageCarouselTweenID = LeanTween.value(imageCarouselContainer.anchoredPosition.y, -20f, 0.5f).setEaseInOutCirc().setOnUpdate((float val) =>{ imageCarouselContainer.anchoredPosition = new Vector3(imageCarouselContainer.anchoredPosition.x, val); }).id;
+        else if (selectedSelectionMenu == "B_carSelection")
         {
             carStatsContainer.SetActive(true);
             if (index >= 0 && index < availableCars.Count)
@@ -308,17 +309,18 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
             uiCancelSound.Play();
             
             carStatsContainer.SetActive(false);
+            LeanTween.cancel(imageCarouselTweenID);
+            imageCarouselContainer.anchoredPosition = new(imageCarouselContainer.anchoredPosition.x, 230f);
             firstSelected.GetComponent<Selectable>().Select();
 
             if (selectedSelectionMenu == "A_mapSelection")
+            {
+                imageCarouselTweenID = LeanTween.value(imageCarouselContainer.anchoredPosition.y, -20f, 0.5f).setEaseInOutCirc().setOnUpdate((float val) =>{ imageCarouselContainer.anchoredPosition = new Vector3(imageCarouselContainer.anchoredPosition.x, val); }).id;
                 foreach (CarBase carBase in carBases) foreach (GameObject car in carBase.cars) car.SetActive(false);
-            else if (selectedSelectionMenu == "B_carSelection")
-                carStatsContainer.SetActive(true);
+            }
+            else if (selectedSelectionMenu == "B_carSelection") carStatsContainer.SetActive(true);
         }
-        else
-        {
-            SceneManager.LoadSceneAsync("MainMenu");
-        }
+        else SceneManager.LoadSceneAsync("MainMenu");
     }
 
     //helper
