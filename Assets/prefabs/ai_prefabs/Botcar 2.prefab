@@ -1184,7 +1184,7 @@ MonoBehaviour:
   maxAvoidanceOffset: 8
   objectAvoidanceBeams: 10
   avoidanceBeamLenght: 30
-  beamAngle: 30
+  beamAngle: 60
   boostMultiplier: 1.25
 --- !u!1 &6333829925512713852
 GameObject:
