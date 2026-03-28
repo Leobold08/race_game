@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
   m_Name: LiftGammaGain
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.LiftGammaGain
-  active: 1
+  active: 0
   lift:
     m_OverrideState: 1
     m_Value: {x: 1, y: 1, z: 1, w: 0.0045188204}
@@ -200,13 +200,13 @@ MonoBehaviour:
   active: 1
   distance:
     m_OverrideState: 1
-    m_Value: 100
+    m_Value: 512
   baseHeight:
     m_OverrideState: 1
     m_Value: 0
   maximumHeight:
     m_OverrideState: 1
-    m_Value: 700
+    m_Value: 675.69
   enableGround:
     m_OverrideState: 1
     m_Value: 0
@@ -215,7 +215,7 @@ MonoBehaviour:
     m_Value: 0
   density:
     m_OverrideState: 1
-    m_Value: 0.713
+    m_Value: 0.415
   attenuationDistance:
     m_OverrideState: 0
     m_Value: 128
@@ -230,13 +230,13 @@ MonoBehaviour:
     m_Value: 1
   anisotropy:
     m_OverrideState: 1
-    m_Value: 0.4
+    m_Value: 0.11
   scattering:
     m_OverrideState: 1
-    m_Value: 0.162
+    m_Value: 0.591
   tint:
     m_OverrideState: 1
-    m_Value: {r: 0.5754717, g: 0.4883959, b: 0.3555981, a: 1}
+    m_Value: {r: 0.16981131, g: 0.16981131, b: 0.16981131, a: 1}
   enableAdditionalLightsContribution:
     m_OverrideState: 1
     m_Value: 1
