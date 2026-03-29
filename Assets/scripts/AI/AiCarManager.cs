@@ -16,7 +16,8 @@ public class AiCarManager : MonoBehaviour
     [SerializeField] private byte spawnedAiCarCount = 0;
     [SerializeField] private AiCarController[] AiCarPrefabs;
     private AIDifficulty difficulty;
-    public Vector3[] Waypoints { get; private set; }
+    public BezierBaker.BakedPoint[] Waypoints { get; private set; }
+    public float[] PointRadi { get; private set; }
     public enum AIDifficulty { Beginner, Intermediate, Hard } 
  
     public struct DifficultyStats
@@ -43,7 +44,8 @@ public class AiCarManager : MonoBehaviour
     {
         BezierBaker bezierBaker = GetComponent<BezierBaker>();
         Waypoints = bezierBaker.GetCachedPoints();
-        spawnedAiCarCount = 1;//(byte)PlayerPrefs.GetInt("AIAmount");
+        PointRadi = bezierBaker.GetPointRadi();
+        spawnedAiCarCount = 3;//(byte)PlayerPrefs.GetInt("AIAmount");
         difficulty = (AIDifficulty)PlayerPrefs.GetInt("AILevel");
 
         // Spawn AI
@@ -61,7 +63,7 @@ public class AiCarManager : MonoBehaviour
 
                 // Initialize the controller
                 AiCarController controller = newAI.GetComponent<AiCarController>();
-                controller.Initialize(this, difficultyRanges[difficulty]);
+                controller.Initialize(this, difficultyRanges[difficulty], bezierBaker.StartIndex);
                 
                 GameManager.instance.spawnedCars.Add(controller);
             }

@@ -153,12 +153,12 @@ public class BetterNewAiCarController : MonoBehaviour
         }
 
         // Set new waypoint if close enough to current
-        if (Vector3.Distance(CarRb.position, aiCarManager.Waypoints[currentWaypointIndex]) < waypointThreshold)
+        if (Vector3.Distance(CarRb.position, aiCarManager.Waypoints[currentWaypointIndex].position) < waypointThreshold)
         {
             currentWaypointIndex = (currentWaypointIndex + 1) % aiCarManager.Waypoints.Count();
         }
 
-        targetPoint = aiCarManager.Waypoints[currentWaypointIndex];
+        targetPoint = aiCarManager.Waypoints[currentWaypointIndex].position;
 
         AvoidObstacles();
 
