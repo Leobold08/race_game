@@ -13,7 +13,7 @@ public class TutorialUIRenderer
 
     private readonly CanvasGroup canvasGroup;
     private float fadeSpeed = 5f;
-    private float comboImageSpacing = 56f;
+    private float comboImageSpacing = 128f;
 
     public TutorialUIRenderer(TextMeshProUGUI instruction, TextMeshProUGUI progress, Image buttonImage)
     {
