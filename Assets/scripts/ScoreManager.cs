@@ -119,7 +119,7 @@ public class ScoreManager : MonoBehaviour
             if (multiplier > 0f)
             {
                 float target = driftCompoundMultiplier * Mathf.Pow(multiplier, deltatime * driftMultiplierRate);
-                float lerpFactor = Mathf.Clamp01(deltatime * driftMultiplierRate * 50f); //if you dont like how slowly the multiplier goes, ramp it up to 75f, or 100, anything over that becomes a child's play
+                float lerpFactor = Mathf.Clamp01(deltatime * driftMultiplierRate * 75f); //if you dont like how slowly the multiplier goes, ramp it up to 75f, or 100, anything over that becomes a child's play
                 driftCompoundMultiplier = Mathf.Min(Mathf.Lerp(driftCompoundMultiplier, target, lerpFactor), maxDriftMultiplier);
                 driftSessionBaseGain    += basePointsPerSecond * deltatime;
             }

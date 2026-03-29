@@ -12,8 +12,10 @@ public class TutorialUIRenderer
     private readonly List<Image> imagePool = new();
 
     private readonly CanvasGroup canvasGroup;
+    private readonly Vector3 baseButtonScale;
     private float fadeSpeed = 5f;
     private float comboImageSpacing = 128f;
+    private const float EmphasizedKeyScaleMultiplier = 1.3f;
 
     public TutorialUIRenderer(TextMeshProUGUI instruction, TextMeshProUGUI progress, Image buttonImage)
     {
@@ -25,6 +27,8 @@ public class TutorialUIRenderer
 
         if (canvasGroup == null)
             canvasGroup = instruction.gameObject.AddComponent<CanvasGroup>();
+
+        baseButtonScale = buttonImage != null ? buttonImage.rectTransform.localScale : Vector3.one;
 
         if (buttonImage != null)
             imagePool.Add(buttonImage);
@@ -103,6 +107,14 @@ public class TutorialUIRenderer
             return;
         }
 
+        int shiftIndex = sprites.FindIndex(s => s != null && s.name.IndexOf("shift", StringComparison.OrdinalIgnoreCase) >= 0);
+        if (shiftIndex > 0)
+        {
+            var shiftSprite = sprites[shiftIndex];
+            sprites.RemoveAt(shiftIndex);
+            sprites.Insert(0, shiftSprite);
+        }
+
         EnsureImagePoolSize(sprites.Count);
 
         Vector2 origin = imagePool[0].rectTransform.anchoredPosition;
@@ -111,7 +123,19 @@ public class TutorialUIRenderer
             var image = imagePool[i];
             image.sprite = sprites[i];
             image.enabled = true;
-            image.rectTransform.anchoredPosition = origin + new Vector2(i * comboImageSpacing, 0f);
+            ApplyButtonScale(image, sprites[i]);
+
+            if (i > 0)
+            {
+                var layoutElement = image.GetComponent<LayoutElement>();
+                if (layoutElement == null)
+                    layoutElement = image.gameObject.AddComponent<LayoutElement>();
+
+                layoutElement.ignoreLayout = true;
+            }
+
+            float xOffset = i == 0 ? 0f : -i * (comboImageSpacing + 20f);
+            image.rectTransform.anchoredPosition = origin + new Vector2(xOffset, 0f);
         }
 
         HideUnusedImages(sprites.Count);
@@ -129,6 +153,20 @@ public class TutorialUIRenderer
             clone.name = $"{buttonImage.name}_Combo_{imagePool.Count}";
             imagePool.Add(clone);
         }
+    }
+
+    private void ApplyButtonScale(Image image, Sprite sprite)
+    {
+        if (image == null) return;
+
+        string name = sprite != null ? sprite.name : string.Empty;
+        bool emphasize = !string.IsNullOrEmpty(name)
+            && (name.IndexOf("shift", StringComparison.OrdinalIgnoreCase) >= 0
+                || name.IndexOf("space", StringComparison.OrdinalIgnoreCase) >= 0
+                || name.IndexOf("control", StringComparison.OrdinalIgnoreCase) >= 0
+                || name.IndexOf("ctrl", StringComparison.OrdinalIgnoreCase) >= 0);
+
+        image.rectTransform.localScale = emphasize ? Vector3.one * EmphasizedKeyScaleMultiplier : baseButtonScale;
     }
 
     private void HideUnusedImages(int usedCount)
