@@ -1,10 +1,6 @@
 using UnityEngine;
 using System.Linq;
 using System;
-using UnityEditor.Recorder.Input;
-using System.Collections.Generic;
-using Unity.Splines.Examples;
-using UnityEditor.EditorTools;
 using UnityEngine.SocialPlatforms;
 using NUnit.Framework;
 
@@ -25,7 +21,8 @@ public class AiCarController : BaseCarController
 
     // --- Corner Slowdown ---
     [Tooltip("Minimum % of max speed to slow down to when turning")]
-    [SerializeField] private float minSlowdown = 0.35f;
+    [UnityEngine.Range(0f, 1f)]
+    [SerializeField] private float minSlowdown = 0.5f;
 
     // --- Turn Detection ---
     [Header("Turn Detection Settings")]
@@ -61,15 +58,18 @@ public class AiCarController : BaseCarController
     private float avoidance;
     // Used for calculating the speed on curves
     private float speedLimit;
+    private int startIndex = 0;
     public AiCarController Initialize(
         AiCarManager aiCarManager, 
-        AiCarManager.DifficultyStats difficultyStats
+        AiCarManager.DifficultyStats difficultyStats,
+        int startIndex
         )
     {
         this.aiCarManager = aiCarManager;
         Maxspeed = difficultyStats.maxSpeed;
         MaxAcceleration = difficultyStats.maxAcceleration;
         avoidance = difficultyStats.avoidance;
+        this.startIndex = startIndex;
         return this;
     }
 
@@ -104,8 +104,6 @@ public class AiCarController : BaseCarController
 
     private void FixedUpdate()
     {
-        long startTime = DateTime.Now.Ticks;
-
         // Gravity
         if (Physics.Raycast(CarRb.position, Vector3.down, GROUND_RAY_LENGTH)) CarRb.AddForce(GravityMultiplier * Physics.gravity.magnitude * Vector3.down, ForceMode.Acceleration);
 
@@ -137,7 +135,6 @@ public class AiCarController : BaseCarController
         AvoidObstacles();
         ApplyDriveInputs();
         ApplySpeedLimit(speedLimit);
-        Debug.Log($"ai took {(DateTime.Now.Ticks - startTime) / 10} microseconds");
     }
 
     private void ApplyDriveInputs()
@@ -198,6 +195,11 @@ public class AiCarController : BaseCarController
         // }
         // if (!hasHit) return;
 
+        if (Physics.CheckBox(CarRb.transform.forward + CarRb.position, new(0.5f, 0.5f, 0.5f), CarRb.rotation, ~objectLayerMask))
+        {
+            Debug.Log("hi");
+        }
+
         bool hasHit = false;
         foreach (BaseCarController other in GameManager.instance.spawnedCars)
         {
@@ -208,7 +210,7 @@ public class AiCarController : BaseCarController
             float otherSafeRadius = Mathf.Max(other.CarWidth, other.CarLength) * 0.5f;
             float minSafeDistance = safeRadius + otherSafeRadius + avoidanceBuffer;
 
-            if (distance < minSafeDistance && Vector3.Dot(CarRb.transform.forward, toOther.normalized) > 0.5f)
+            if (distance < minSafeDistance && Vector3.Dot(CarRb.transform.forward, toOther.normalized) > 0.3f)
             {
                 Vector3 myFuturePos = CarRb.position + CarRb.linearVelocity;
                 Vector3 otherFuturePos = other.CarRb.position + other.CarRb.linearVelocity;
@@ -226,7 +228,7 @@ public class AiCarController : BaseCarController
         }
         if (!hasHit) return;
         
-        if (Mathf.Abs(localPosition.x - localX) > maxAvoidanceOffset) localPosition.x = maxAvoidanceOffset * Mathf.Sign(localPosition.x);
+        if (Mathf.Abs(Mathf.Abs(localPosition.x) - Mathf.Abs(localX)) > maxAvoidanceOffset) localPosition.x = maxAvoidanceOffset * Mathf.Sign(localPosition.x);
         targetPoint = CarRb.transform.TransformPoint(localPosition);
     }
 
@@ -236,6 +238,7 @@ public class AiCarController : BaseCarController
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(targetPoint, 0.5f);
         Gizmos.DrawLine(CarRb.position, targetPoint);
+        Gizmos.DrawSphere(CarRb.transform.forward + CarRb.position, 0.5f);
         
         // for (int i = 1; i <= objectAvoidanceBeams; i++)
         // {

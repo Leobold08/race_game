@@ -45,7 +45,7 @@ public class AiCarManager : MonoBehaviour
         BezierBaker bezierBaker = GetComponent<BezierBaker>();
         Waypoints = bezierBaker.GetCachedPoints();
         PointRadi = bezierBaker.GetPointRadi();
-        spawnedAiCarCount = 1;//(byte)PlayerPrefs.GetInt("AIAmount");
+        spawnedAiCarCount = 3;//(byte)PlayerPrefs.GetInt("AIAmount");
         difficulty = (AIDifficulty)PlayerPrefs.GetInt("AILevel");
 
         // Spawn AI
@@ -63,7 +63,7 @@ public class AiCarManager : MonoBehaviour
 
                 // Initialize the controller
                 AiCarController controller = newAI.GetComponent<AiCarController>();
-                controller.Initialize(this, difficultyRanges[difficulty]);
+                controller.Initialize(this, difficultyRanges[difficulty], bezierBaker.StartIndex);
                 
                 GameManager.instance.spawnedCars.Add(controller);
             }

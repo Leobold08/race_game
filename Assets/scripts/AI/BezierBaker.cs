@@ -14,6 +14,8 @@ using UnityEngine.Splines;
 public class BezierBaker : MonoBehaviour
 {
     [Header("Path Settings")]
+    [Tooltip("What index to start ai at")]
+    public int StartIndex { get; private set; } = 0;
     [Tooltip("Parent transform containing cachedPoints for the AI path.")]
     public Transform path;
     [Range(1, 100)]
@@ -57,6 +59,7 @@ public class BezierBaker : MonoBehaviour
                 rotation = Quaternion.identity
             });
         }
+        StartIndex = 0;
         bakedPoints = tempPoints.ToArray();
     }
 
@@ -73,6 +76,7 @@ public class BezierBaker : MonoBehaviour
                 rotation = knot.Rotation
             });
         }
+        StartIndex = 0;
         bakedPoints = tempPoints.ToArray();
     }
 

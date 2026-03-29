@@ -1177,10 +1177,10 @@ MonoBehaviour:
   TurbeWaitTime: 2
   waypointThreshold: 10
   lookAheadIndex: 5
-  minSlowdown: 0.35
+  minSlowdown: 0.5
   curveTolerance: 2
-  avoidanceBuffer: 5
-  avoidanceLateralOffset: 2
+  avoidanceBuffer: 10
+  avoidanceLateralOffset: 3
   maxAvoidanceOffset: 8
   objectAvoidanceBeams: 10
   avoidanceBeamLenght: 30
