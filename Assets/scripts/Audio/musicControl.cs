@@ -97,7 +97,6 @@ public class musicControl : MonoBehaviour
         //jostain syystä IsTurboActive ei halua toimia samalla framella music staten kanssa, toisin kuin drift...
         if (CurrentMusState == CarMusicState.Turbo && !Controls.CarControls.turbo.IsPressed())
         {
-            Debug.LogWarning("Kill yourself");
             if (carController.IsDrifting) CurrentMusState = CarMusicState.Drift;
             else CurrentMusState = CarMusicState.Main;
             FadeTracks();
