@@ -343,7 +343,7 @@ public class SelectionMenuNewestComboDoubleTroubleExtraSauce : MonoBehaviour
         PlayerPrefs.SetString("SelectedMap", selectedMap);
         PlayerPrefs.Save();
 
-        Debug.Log($"onnittelut, voitat lomamatkan kohteeseen: {selectedMap}");
+        //Debug.Log($"onnittelut, voitat lomamatkan kohteeseen: {selectedMap}");
     }
 
     public void SaveBaseMapName(string selecta)

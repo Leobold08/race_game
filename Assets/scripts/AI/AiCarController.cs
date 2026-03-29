@@ -162,7 +162,7 @@ public class AiCarController : BaseCarController
         foreach (Wheel wheel in Wheels)
         {
             wheel.WheelCollider.motorTorque = targetTorque;
-            Debug.Log(wheel.WheelCollider.motorTorque);
+            //Debug.Log(wheel.WheelCollider.motorTorque);
             wheel.WheelCollider.brakeTorque = 0f;
         }
     }
@@ -197,7 +197,7 @@ public class AiCarController : BaseCarController
 
         if (Physics.CheckBox(CarRb.transform.forward + CarRb.position, new(0.5f, 0.5f, 0.5f), CarRb.rotation, ~objectLayerMask))
         {
-            Debug.Log("hi");
+            //Debug.Log("hi");
         }
 
         bool hasHit = false;

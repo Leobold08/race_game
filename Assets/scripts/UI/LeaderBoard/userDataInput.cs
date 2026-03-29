@@ -27,9 +27,7 @@ public class userDataInput : MonoBehaviour
     void OnEnable()
     {
         inputField = GetComponentInChildren<TMP_InputField>();
-        Debug.Log(inputField);
         enter = transform.Find("Submit").GetComponentInChildren<Button>();
-        Debug.Log(enter);
 
         jsonText = Resources.Load<TextAsset>("bannedNames");
         bannedNamesArray = JsonUtility.FromJson<BannedNames>(jsonText.text).names.ToArray();
@@ -96,7 +94,6 @@ public class userDataInput : MonoBehaviour
             //huom. tää jo toimii
             if (Regex.IsMatch(userName, bannedName))
             {
-                Debug.Log("THIS IS A BAD NAME!!!");
                 bannedPopup.text = bannedNamePopups[1];
                 enter.interactable = false;
                 Debug.Log($"Username censor completed in {(DateTime.Now.Ticks - startTime) / 10} microseconds");

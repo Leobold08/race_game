@@ -124,7 +124,6 @@ public class musicControl : MonoBehaviour
         foreach (AudioSource track in musicTracks) track.Stop();
 
         if (endRaceEvent || stopFinalLap && finalLapTrack != null) finalLapTrack.Stop();
-        if (endRaceEvent) resultsTrack.Play();
     }
 
     public void PausedMusicHandler()
