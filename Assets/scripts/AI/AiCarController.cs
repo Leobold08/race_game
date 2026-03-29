@@ -95,7 +95,7 @@ public class AiCarController : BaseCarController
 
         waypointSize = aiCarManager.Waypoints.Count();
         targetPoint = aiCarManager.Waypoints[0].position;
-        speedLimit = Mathf.Min(Mathf.Sqrt(Maxspeed * BezierMath.GetRadius(targetPoint, aiCarManager.Waypoints[(currentWaypointIndex + 1) % waypointSize].position, aiCarManager.Waypoints[(currentWaypointIndex + 2) % waypointSize].position)), Maxspeed);
+        speedLimit = Mathf.Clamp(Mathf.Sqrt(Maxspeed * aiCarManager.PointRadi[currentWaypointIndex]), Maxspeed * minSlowdown, Maxspeed) / 3.6f;
         
         base.Start();
 
