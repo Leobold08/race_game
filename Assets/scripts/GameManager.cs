@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             if (racerscript.raceFinished) return;
-            racerscript.EndRace();
+            StartCoroutine(racerscript.EndRace());
         }
     }
 #endif

@@ -16,9 +16,10 @@ public class ButtonInstructions : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI instructionText;
+    [SerializeField] private TextMeshProUGUI instructionText2;
     [SerializeField] private TextMeshProUGUI progressText;
     [SerializeField] private Image buttonImage;
-    [SerializeField] private float comboImageSpacing = 56f;
+    [SerializeField] private float comboImageSpacing = 128f;
     [SerializeField] private Transform parent;
 
     [Header("Button Sprites")]
@@ -62,6 +63,12 @@ public class ButtonInstructions : MonoBehaviour
         input.Enable();
         controller.Start();
         HideOtherChildren();
+        LeanTween.value(instructionText2.color.a, 0f, 9f).setOnUpdate((float val) =>
+        {
+            Color c = instructionText2.color;
+            c.a = val;
+            instructionText2.color = c;
+        }).setEaseInExpo().setIgnoreTimeScale(true);
     }
 
     private void OnDisable()
@@ -119,7 +126,7 @@ public class ButtonInstructions : MonoBehaviour
             waitBeforeStart.enabled = true;
 
         RestoreOtherChildren();
-        enabled = false;
+        Destroy(gameObject);
     }
 
     private void HideOtherChildren()
@@ -134,7 +141,8 @@ public class ButtonInstructions : MonoBehaviour
 
             if (child == instructionText.transform ||
                 child == progressText.transform ||
-                child == buttonImage.transform)
+                child == buttonImage.transform ||
+                child == instructionText2.transform)
                 continue;
 
             hiddenChildren.Add(child);
