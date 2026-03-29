@@ -7,7 +7,7 @@ public class PlayerCarColors : MonoBehaviour
     private Light right;
     private Light left;
     public float duration = 1.0f;
-    [SerializeField] private AudioSource lights;
+    public AudioSource lights;
 
     CarInputActions Controls;
 

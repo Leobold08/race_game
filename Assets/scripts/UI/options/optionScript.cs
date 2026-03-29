@@ -51,24 +51,24 @@ public class OptionScript : MonoBehaviour
     {
         var valueName = $"{toggle.name}_value";
         toggle.isOn = PlayerPrefs.GetInt(valueName) == 1;
-        Debug.Log($"toggle {toggle} init; value: {toggle.isOn}");
+        //Debug.Log($"toggle {toggle} init; value: {toggle.isOn}");
 
         toggle.onValueChanged.AddListener((value) =>
         {
             PlayerPrefs.SetInt(valueName, value ? 1 : 0);
-            Debug.Log($"changed: {toggle.name}, with value of {toggle.isOn}");
+            //Debug.Log($"changed: {toggle.name}, with value of {toggle.isOn}");
         });
     }
     private void InitSpecificOptionValue(Slider slider)
     {
         var valueName = $"{slider.name}_value";
         slider.value = PlayerPrefs.GetFloat(valueName);
-        Debug.Log($"toggle {slider} init; value: {slider.value}");
+        //Debug.Log($"toggle {slider} init; value: {slider.value}");
         
         slider.onValueChanged.AddListener((value) =>
         {
             PlayerPrefs.SetFloat(valueName, value);
-            Debug.Log($"changed: {slider.name}, with value of {slider.value}");
+            //Debug.Log($"changed: {slider.name}, with value of {slider.value}");
 
             if (slider.name == "pixel") pixelCount.SetFloat("_pixelcount", slider.value * 64f);
         });
@@ -77,12 +77,12 @@ public class OptionScript : MonoBehaviour
     {
         var valueName = $"{dropdown.name}_value";
         dropdown.value = PlayerPrefs.GetInt(valueName);
-        Debug.Log($"toggle {dropdown} init; value: {dropdown.value}");
+        //Debug.Log($"toggle {dropdown} init; value: {dropdown.value}");
         
         dropdown.onValueChanged.AddListener((value) =>
         {
             PlayerPrefs.SetInt(valueName, value);
-            Debug.Log($"changed: {dropdown.name}, with value of {dropdown.value}");
+            //Debug.Log($"changed: {dropdown.name}, with value of {dropdown.value}");
         });
     }
 
@@ -90,7 +90,6 @@ public class OptionScript : MonoBehaviour
     {
         //yep
         PlayerPrefs.Save();
-        Debug.Log("settings saved!");
     }
 
     public void MenuOpenTween()

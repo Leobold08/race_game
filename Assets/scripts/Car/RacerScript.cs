@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
-using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class RacerScript : MonoBehaviour
 {
     private GameObject respawnfade;
+    private Image finishedImg;
     private bool FadeState;
 
     CarInputActions Controls;
@@ -29,6 +29,7 @@ public class RacerScript : MonoBehaviour
 
     private Transform respawnPoint;
     private musicControl musicControl;
+    private SFXManager sfxmngr;
 
     private GameObject finalLapImg;
 
@@ -40,6 +41,7 @@ public class RacerScript : MonoBehaviour
         Controls = new CarInputActions();
         Controls.Enable();
         musicControl = FindAnyObjectByType<musicControl>();
+        sfxmngr = FindAnyObjectByType<SFXManager>();
         carController = GetComponent<PlayerCarController>();
         winmenu = FindAnyObjectByType<winmenu>(FindObjectsInactive.Include);
     }
@@ -51,8 +53,9 @@ public class RacerScript : MonoBehaviour
 
         startFinishLine = GameObject.FindGameObjectWithTag("StartFinishLine").transform;
         checkpoints = GameObject.FindGameObjectsWithTag("checkpointTag").Select(a => a.transform).ToList();
-        if (SceneManager.GetActiveScene().name != "tutorial") SetupRacingShit();
+        SetupRacingShit();
         if (GameManager.instance.CarUI != null) respawnfade = GameManager.instance.CarUI.transform.Find("respawnfade").gameObject;
+        finishedImg = GameManager.instance.CarUI.transform.Find("Race Finished").GetComponent<Image>();
         totalLaps = PlayerPrefs.GetInt("Laps");
     }
 
@@ -128,7 +131,7 @@ public class RacerScript : MonoBehaviour
 
     public void RespawnAtLastCheckpoint()
     {
-        Debug.Log("Respawning at the last checkpoint...");
+        //Debug.Log("Respawning at the last checkpoint...");
         transform.SetPositionAndRotation(respawnPoint != null ? respawnPoint.position : startFinishLine.position,
         respawnPoint != null ? respawnPoint.rotation : startFinishLine.rotation);
 
@@ -220,10 +223,21 @@ public class RacerScript : MonoBehaviour
     {
         respawnPoint = startFinishLine;
         for (int i = 0; i < checkpointStates.Length; i++) checkpointStates[i] = false;
-        if (GameManager.instance.CarUI != null) GameManager.instance.CarUI.SetActive(false);
         if (startFinishLine != null) startFinishLine.gameObject.SetActive(false);
+
         musicControl.StopMusicTracks(true);
-        //raceFinish.Play();
+        sfxmngr.raceFinished.Play();
+        finishedImg.color = new(1f, 1f, 1f, 1f);
+        //TODO: erittäin paska tapa ottaa nämä...
+        GameManager.instance.CarUI.GetComponentInChildren<SpeedMeter>().gameObject.SetActive(false);
+        GameManager.instance.CarUI.transform.Find("TurbeDisplay").gameObject.SetActive(false);
+        LeanTween.value(finishedImg.color.a, 0.0f, 2.5f)
+        .setOnUpdate((float alpha) =>
+        {
+            Color c = finishedImg.color;
+            c.a = alpha;
+            finishedImg.color = c;
+        }).setIgnoreTimeScale(true).setEaseInCirc();
 
         raceFinished = true;
         startTimer = false;
@@ -232,6 +246,8 @@ public class RacerScript : MonoBehaviour
         carController.CanUseTurbo = false;
         yield return new WaitForSecondsRealtime(2.5f);
 
+        if (GameManager.instance.CarUI != null) GameManager.instance.CarUI.SetActive(false);
+        musicControl.resultsTrack.Play();
         winmenu.OnRaceEnd();
         Destroy(FindFirstObjectByType<OptionCategories>(FindObjectsInactive.Include));
     }

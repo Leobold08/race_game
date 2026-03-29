@@ -54,7 +54,7 @@ public class OptionCategories : MonoBehaviour
         int currentButtonIndex = CategoryButtonList.IndexOf(currentlySelected.GetComponent<Button>());
         if (previousButtonIndex == currentButtonIndex) return;
         index = previousButtonIndex > currentButtonIndex ? index -= 1 : index += 1 ;
-        Debug.Log($"index: {index}, prev: {previousButtonIndex}, cur: {currentButtonIndex}");
+        //Debug.Log($"index: {index}, prev: {previousButtonIndex}, cur: {currentButtonIndex}");
 
         CategoryContents[previousButtonIndex].gameObject.SetActive(false);
         CategoryContents[currentButtonIndex].gameObject.SetActive(true);

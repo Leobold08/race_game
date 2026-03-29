@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class SFXManager : MonoBehaviour
@@ -14,7 +13,10 @@ public class SFXManager : MonoBehaviour
     [SerializeField] private List<GameObject> interactables;
     [SerializeField] private AudioSource gamePaused;
     [SerializeField] private AudioSource pausedTrack;
+    [SerializeField] private AudioSource carLightsToggle;
     public AudioSource nextLap;
+    public AudioSource raceFinished;
+
     [ContextMenu("Assign SFX")]
     void FindSounds()
     {
@@ -44,6 +46,8 @@ public class SFXManager : MonoBehaviour
                 //TODO: dropdown SFX jollai muulla event paskalla
             }
         }
+        PlayerCarColors c = FindFirstObjectByType<PlayerCarColors>();
+        if (c != null) c.lights = carLightsToggle;
     }
 
     //TODO: muuttaa hiukan paremmaks, mutta tarpeeks hyvä atm
