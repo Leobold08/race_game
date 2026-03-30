@@ -40,6 +40,10 @@ public class BaseCarController : MonoBehaviour
     WheelHit hit;
     [SerializeField] protected float GrassSpeedMultiplier = 0.5f;
     protected LayerMask Grass;
+    [SerializeField] protected string GrassLayerName = "Grass";
+    [Header("Trail settings")]
+    [SerializeField] protected bool EmitTrailsOnlyWhileDrifting = false;
+    [SerializeField] protected float TrailMinSpeedKmh = 8.0f;
     public bool GrassRespawnActive = false;
     protected bool isOnGrassCached;
     protected bool isOnGrassCachedValid;
@@ -73,9 +77,21 @@ public class BaseCarController : MonoBehaviour
 
     protected virtual void Start()
     {
+        InitializeGrassLayerMask();
         carCollider = GetComponentInChildren<MeshCollider>();
         CarWidth = carCollider.bounds.size.x;
         CarLength = carCollider.bounds.size.z;
+    }
+
+    protected void InitializeGrassLayerMask()
+    {
+        int layerIndex = LayerMask.NameToLayer(GrassLayerName);
+        if (layerIndex >= 0)
+        {
+            Grass = 1 << layerIndex;
+            return;
+        }
+        Grass = 1 << 7;
     }
 
     public float GetSpeed()
@@ -103,8 +119,7 @@ public class BaseCarController : MonoBehaviour
         var Meshes = transform.GetComponentsInChildren<Transform>().First(obj => obj.name == "meshes");
         
         var Effects = transform.GetComponentsInChildren<Transform>().First(obj => obj.name == "wheelEffectobj");
-
-        Grass = 1 << 7;
+        InitializeGrassLayerMask();
 
         foreach (var WheelCollider in Colliders)
         {
@@ -136,6 +151,11 @@ public class BaseCarController : MonoBehaviour
 
     protected bool IsWheelOnGrass(Wheel wheel)
     {
+        if (Grass.value == 0)
+        {
+            InitializeGrassLayerMask();
+        }
+
         if (wheel.WheelCollider.GetGroundHit(out hit))
         {
             return (Grass.value & (1 << hit.collider.gameObject.layer)) != 0;
@@ -154,9 +174,30 @@ public class BaseCarController : MonoBehaviour
 
             if (WheelOnGrass) wheelsOnGrass++;
 
+            if (wheel.WheelEffectobj == null) continue;
+
             var trail = wheel.WheelEffectobj.GetComponentInChildren<TrailRenderer>();
-                                                //if you want rgb colors change one of them to rgbcolor and uncomment the rgb color just for fun
-            trail.material.color = WheelOnGrass ? GrassTrailColor : RoadTrailColor;
+            if (trail == null) continue;
+
+            Color targetColor = WheelOnGrass ? GrassTrailColor : RoadTrailColor;
+            targetColor.a = 1f;
+
+            // Keep trail color assignment shader-agnostic for builds.
+            trail.startColor = targetColor;
+            trail.endColor = targetColor;
+
+            Material trailMaterial = trail.material;
+            if (trailMaterial != null)
+            {
+                if (trailMaterial.HasProperty("_BaseColor"))
+                {
+                    trailMaterial.SetColor("_BaseColor", targetColor);
+                }
+                if (trailMaterial.HasProperty("_Color"))
+                {
+                    trailMaterial.SetColor("_Color", targetColor);
+                }
+            }
         }
 
 
@@ -307,19 +348,26 @@ public class BaseCarController : MonoBehaviour
     {
         foreach (var wheel in Wheels.Where(w => w.Axel == Axel.Rear))
         {
+            if (wheel.WheelEffectobj == null) continue;
+
             var trailRenderer = wheel.WheelEffectobj.GetComponentInChildren<TrailRenderer>();
+            if (trailRenderer == null) continue;
+
             bool wheelGrounded = IsWheelGrounded(wheel);
-            bool shouldEmit = enable && wheelGrounded;
+            float speedKmh = CarRb != null ? CarRb.linearVelocity.magnitude * 3.6f : 0f;
+            bool shouldEmit = wheelGrounded && speedKmh >= TrailMinSpeedKmh && (!EmitTrailsOnlyWhileDrifting || enable);
+
+            trailRenderer.enabled = true;
 
             if (shouldEmit)
             {
                 trailRenderer.emitting = true;
-                wheel.SmokeParticle.Play();
+                if (wheel.SmokeParticle != null) wheel.SmokeParticle.Play();
             }
             else
             {
                 trailRenderer.emitting = false;
-                wheel.SmokeParticle.Stop();
+                if (wheel.SmokeParticle != null) wheel.SmokeParticle.Stop();
             }
         }
     }
