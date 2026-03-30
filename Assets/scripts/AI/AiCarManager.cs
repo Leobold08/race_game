@@ -47,6 +47,8 @@ public class AiCarManager : MonoBehaviour
         PointRadi = bezierBaker.GetPointRadi();
         spawnedAiCarCount = (byte)PlayerPrefs.GetInt("AIAmount");
         difficulty = (AIDifficulty)PlayerPrefs.GetInt("AILevel");
+        Vector3 spawnDirection = transform.rotation.eulerAngles;
+        spawnDirection.y *= PlayerPrefs.GetInt("Reverse") == 0 ? 1 : -1;
 
         // Spawn AI
         if (spawnedAiCarCount > 0)
@@ -59,11 +61,11 @@ public class AiCarManager : MonoBehaviour
                 // Get a random prefab from the list
                 AiCarController prefab = AiCarPrefabs[UnityEngine.Random.Range(0, AiCarPrefabs.Length)];
                 
-                GameObject newAI = Instantiate(prefab.gameObject, spawnPoints[i % spawnPoints.Length].position, transform.rotation);
+                GameObject newAI = Instantiate(prefab.gameObject, spawnPoints[i % spawnPoints.Length].position, Quaternion.Euler(spawnDirection));
 
                 // Initialize the controller
                 AiCarController controller = newAI.GetComponent<AiCarController>();
-                controller.Initialize(this, difficultyRanges[difficulty], bezierBaker.StartIndex);
+                controller.Initialize(this, difficultyRanges[difficulty], bezierBaker.StartIndex, bezierBaker.ReverseStartIndex);
                 
                 GameManager.instance.spawnedCars.Add(controller);
             }

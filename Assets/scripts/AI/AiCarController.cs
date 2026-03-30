@@ -58,11 +58,14 @@ public class AiCarController : BaseCarController
     private float avoidance;
     // Used for calculating the speed on curves
     private float speedLimit;
+    private int waypointSign = 1;
     private int startIndex = 0;
+    private int reverseStartIndex = 0;
     public AiCarController Initialize(
         AiCarManager aiCarManager, 
         AiCarManager.DifficultyStats difficultyStats,
-        int startIndex
+        int startIndex,
+        int reverseStartIndex
         )
     {
         this.aiCarManager = aiCarManager;
@@ -70,6 +73,7 @@ public class AiCarController : BaseCarController
         MaxAcceleration = difficultyStats.maxAcceleration;
         avoidance = difficultyStats.avoidance;
         this.startIndex = startIndex;
+        this.reverseStartIndex = reverseStartIndex;
         return this;
     }
 
@@ -92,6 +96,12 @@ public class AiCarController : BaseCarController
     {
         Grass = LayerMask.NameToLayer("Grass");
         objectLayerMask = LayerMask.NameToLayer("roadObjects");
+        waypointSign = PlayerPrefs.GetInt("Reverse") == 0 ? 1 : -1;
+        if (waypointSign == -1)
+        {
+            startIndex = reverseStartIndex;
+        }
+        currentWaypointIndex = startIndex;
 
         waypointSize = aiCarManager.Waypoints.Count();
         targetPoint = aiCarManager.Waypoints[0].position;
@@ -110,11 +120,11 @@ public class AiCarController : BaseCarController
         // Set new waypoint if close enough to current
         if (Vector3.Distance(CarRb.position, targetPoint) < waypointThreshold || Vector3.Distance(CarRb.position, aiCarManager.Waypoints[currentWaypointIndex].position) < waypointThreshold)
         {
-            currentWaypointIndex = (currentWaypointIndex + 1) % waypointSize;
+            int newIndex = currentWaypointIndex + waypointSign;
+            currentWaypointIndex = (Math.Sign(newIndex) >= 0 ? newIndex : waypointSize) % waypointSize;
             speedLimit = Mathf.Clamp(Mathf.Sqrt(Maxspeed * aiCarManager.PointRadi[currentWaypointIndex]) * 1.3f, Maxspeed * minSlowdown, Maxspeed) / 3.6f;
             targetPoint = aiCarManager.Waypoints[currentWaypointIndex].position;
         }
-
 
         // Prevent car from jiggling when already pointing at the target
         if (Vector3.Angle(CarRb.rotation.eulerAngles.normalized, targetPoint.normalized) > curveTolerance)
