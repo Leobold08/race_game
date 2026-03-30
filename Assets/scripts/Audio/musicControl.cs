@@ -32,9 +32,10 @@ public class musicControl : MonoBehaviour
         Controls.CarControls.turbo.started += ctx => TurboCall();
         Controls.CarControls.turbo.canceled += ctx => TurboCanceled();
     }
-
     private void OnEnable() => Controls.Enable();
-    private void OnDisable()
+    private void OnDisable() => DisableEventsAndControls();
+    private void OnDestroy() => DisableEventsAndControls();
+    private void DisableEventsAndControls()
     {
         LeanTween.cancelAll();
         Controls.CarControls.Drift.started -= ctx => DriftCall();
@@ -43,7 +44,6 @@ public class musicControl : MonoBehaviour
         Controls.CarControls.turbo.canceled -= ctx => TurboCanceled();
         Controls.Disable();
     }
-    private void OnDestroy() => Controls.Disable();
 
     void Start()
     {

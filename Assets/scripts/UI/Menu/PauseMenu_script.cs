@@ -13,6 +13,7 @@ public class PauseMenu : MonoBehaviour
     private CarInputActions Controls;
     private RacerScript racerScript;
     private GameObject fullMenu;
+    private musicControl musicCtrl;
 
     void Awake()
     {
@@ -23,6 +24,7 @@ public class PauseMenu : MonoBehaviour
         fullMenu = transform.Find("menuCanvas").gameObject;
         Optionspanel = GetComponentInChildren<OptionScript>().gameObject;
         firstSelected = EventSystem.current.firstSelectedGameObject.GetComponent<Selectable>();
+        musicCtrl = FindFirstObjectByType<musicControl>();
     }
 
     private void OnEnable() => Controls.Enable();
@@ -53,7 +55,6 @@ public class PauseMenu : MonoBehaviour
     {
         fullMenu.SetActive(!fullMenu.activeSelf);
         LeanTween.cancel(fullMenu);
-        musicControl musicCtrl = FindFirstObjectByType<musicControl>();
         SFXManager SFXMngr = FindFirstObjectByType<SFXManager>();
         Time.timeScale = fullMenu.activeSelf ? 0 : 1;
         if (musicCtrl != null) musicCtrl.PausedMusicHandler();
@@ -68,6 +69,7 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitGame()
     {
+        Destroy(musicCtrl); //sillä emme pidä ongelmista
         SceneManager.LoadSceneAsync("MainMenu");
     }
     public void RestartGame()
