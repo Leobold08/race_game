@@ -110,28 +110,6 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: gdb-xbox-2_0
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 561
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ffda4d43747ca6645877d895ea3ae7fb
-      internalID: -158302077
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Button South
       rect:
         serializedVersion: 2
