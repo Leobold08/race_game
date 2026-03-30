@@ -135,6 +135,8 @@ public class BaseCarController : MonoBehaviour
             var Effect = Effects.transform.Find(WheelCollider.name);
 
             wheel.WheelEffectobj = Effect?.gameObject;
+                var trailRenderer = wheel.WheelEffectobj != null ? wheel.WheelEffectobj.GetComponentInChildren<TrailRenderer>(true) : null;
+                if (trailRenderer != null && (trailRenderer.sharedMaterial == null || trailRenderer.sharedMaterial.shader == null || !trailRenderer.sharedMaterial.shader.isSupported)) trailRenderer.sharedMaterial = new Material(Shader.Find("Sprites/Default"));
                     wheel.SmokeParticle =
             wheel.WheelEffectobj != null
                 ? wheel.WheelEffectobj.GetComponentInChildren<ParticleSystem>(true)
@@ -166,7 +168,6 @@ public class BaseCarController : MonoBehaviour
     protected void OnGrass()
     {
         int wheelsOnGrass = 0;
-        //Color rgbColor = Color.HSVToRGB((Time.time * 0.5f) % 1f, 1f, 1f);
 
         foreach (var wheel in Wheels)
         {
@@ -182,24 +183,9 @@ public class BaseCarController : MonoBehaviour
             Color targetColor = WheelOnGrass ? GrassTrailColor : RoadTrailColor;
             targetColor.a = 1f;
 
-            // Keep trail color assignment shader-agnostic for builds.
             trail.startColor = targetColor;
             trail.endColor = targetColor;
-
-            Material trailMaterial = trail.material;
-            if (trailMaterial != null)
-            {
-                if (trailMaterial.HasProperty("_BaseColor"))
-                {
-                    trailMaterial.SetColor("_BaseColor", targetColor);
-                }
-                if (trailMaterial.HasProperty("_Color"))
-                {
-                    trailMaterial.SetColor("_Color", targetColor);
-                }
-            }
         }
-
 
         if (ScoreManager.instance != null)
             ScoreManager.instance.SetOnGrass(wheelsOnGrass >= 2);
@@ -352,7 +338,6 @@ public class BaseCarController : MonoBehaviour
 
             var trailRenderer = wheel.WheelEffectobj.GetComponentInChildren<TrailRenderer>();
             if (trailRenderer == null) continue;
-
             bool wheelGrounded = IsWheelGrounded(wheel);
 
             // Always require active drift input for skid trails.
