@@ -15,7 +15,9 @@ public class BezierBaker : MonoBehaviour
 {
     [Header("Path Settings")]
     [Tooltip("What index to start ai at")]
-    public int StartIndex { get; private set; } = 0;
+    public int StartIndex = 0;
+    public int ReverseStartIndex = 0;
+
     [Tooltip("Parent transform containing cachedPoints for the AI path.")]
     public Transform path;
     [Range(1, 100)]
