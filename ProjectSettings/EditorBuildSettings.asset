@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/_maps/haukipudas.unity
     guid: 05737f1c449c0ec44815ec509bc53956
   - enabled: 1
-    path: Assets/Scenes/_maps/tutorial.unity
-    guid: 1022368dcaef6f748a58105d762e2987
-  - enabled: 1
     path: Assets/Scenes/_maps/ai_haukipudas.unity
     guid: 5bb0d27b497c758469b1c32b5e356450
   - enabled: 1

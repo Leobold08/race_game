@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using UnityEditor.EditorTools;
+
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.Splines;
