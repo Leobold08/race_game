@@ -24,7 +24,7 @@ public class PauseMenu : MonoBehaviour
         fullMenu = transform.Find("menuCanvas").gameObject;
         Optionspanel = GetComponentInChildren<OptionScript>().gameObject;
         firstSelected = EventSystem.current.firstSelectedGameObject.GetComponent<Selectable>();
-        FindFirstObjectByType<musicControl>();
+        musicCtrl = FindFirstObjectByType<musicControl>();
     }
 
     private void OnEnable() => Controls.Enable();
