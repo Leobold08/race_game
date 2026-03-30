@@ -205,7 +205,7 @@ public class PlayerCarController : BaseCarController
         if (IsTurboActive)
             Maxspeed = Mathf.Lerp(Maxspeed, BaseSpeed + Turbesped, Time.deltaTime * 0.5f);
         else
-            Maxspeed = Mathf.Lerp(Maxspeed, DriftMaxSpeed, Time.deltaTime * 0.4f);
+            Maxspeed = Mathf.Lerp(Maxspeed, DriftMaxSpeed, Time.deltaTime * 0.1f);
 
         
         if (Mathf.Abs(SteerInput) > 0.1f)
@@ -306,10 +306,9 @@ public class PlayerCarController : BaseCarController
 
         TargetTorque = rawTorque;
 
-        // Additional hard reduction while drifting so the car loses speed even when not turning
         if (IsDrifting)
         {
-            TargetTorque *= 0.5f; // reduce to 50% while drifting
+            TargetTorque *= Mathf.Lerp(0.5f, 0.7f, steerFactor); 
         }
 
         if (!IsDrifting)
