@@ -512,7 +512,7 @@ public partial class @CarInputActions: IInputActionCollection2, IDisposable
                     ""id"": ""20b0499c-ed92-44bf-9bbf-152f619212a3"",
                     ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""StickDeadzone(min=0.2,max=0.925)"",
                     ""groups"": """",
                     ""action"": ""Move"",
                     ""isComposite"": false,
