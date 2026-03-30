@@ -1029,7 +1029,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -1160,6 +1160,8 @@ MonoBehaviour:
     SmokeParticle: {fileID: 304971687747636552}
     Axel: 1
   GrassSpeedMultiplier: 0.5
+  GrassLayerName: Grass
+  EmitTrailsOnlyWhileDrifting: 1
   GrassRespawnActive: 0
   MoveInput: 0
   SteerInput: 0

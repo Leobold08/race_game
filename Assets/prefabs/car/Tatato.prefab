@@ -282,8 +282,6 @@ MonoBehaviour:
   moveOffset: {x: 0, y: 2.5, z: -4}
   rotOffset: {x: 0, y: 1.7, z: 0}
   carTarget: {fileID: 8070669712328928004}
-  smoothTime: 0.3
-  setTutorialValues: 0
 --- !u!1 &1573036502406986707
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,14 +807,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxAcceleration: 1000
   BrakeAcceleration: 200
-  TurnSensitivty: 1
-  TurnSensitivtyAtHighSpeed: 18
-  TurnSensitivtyAtLowSpeed: 30
+  TurnSensitivity: 1
+  TurnSensitivityAtHighSpeed: 17.5
+  TurnSensitivityAtLowSpeed: 30
   Deceleration: 1
   Maxspeed: 200
   GravityMultiplier: 1.5
   Wheels: []
   GrassSpeedMultiplier: 0.5
+  GrassLayerName: Grass
+  EmitTrailsOnlyWhileDrifting: 1
   GrassRespawnActive: 0
   MoveInput: 0
   SteerInput: 0
@@ -831,7 +831,10 @@ MonoBehaviour:
   turbechargepush: 20
   TurbeReduce: 15
   TurbeRegen: 15
-  turbeChargeAmount: 3
+  TurbeWaitTime: 2
+  selectedTurboType: 0
+  LastNonWheelInputTime: 0
+  LastWheelInputTime: 0
 --- !u!114 &8914551668265311642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -844,17 +847,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 718c68663d4dc28408fcc839dde75394, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winMenu: {fileID: 0}
-  Minimap: {fileID: 0}
   laptime: 0
-  besttime: 0
   racestarted: 0
+  raceFinished: 0
   startFinishLine: {fileID: 0}
   checkpoints:
   - {fileID: 0}
-  raceFinished: 0
-  endButtons: []
-  otherStuff: []
+  currentLap: 1
 --- !u!114 &5630865942300931916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -867,9 +866,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf77673f73d573c489fdc8dfb2a2c314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointLight: {fileID: 0}
-  right: {fileID: 0}
-  left: {fileID: 0}
   duration: 3
   lights: {fileID: 0}
 --- !u!1 &3689803584756702517
@@ -938,7 +934,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4a41beaa4d4933548a400bdbad0eb0e7, type: 2}
+  - {fileID: 2100000, guid: d3dcbc8bdaf724143bfb1dfd49e6a780, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1291,7 +1287,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 448b16aa0a3db484cb689a5ca7209028, type: 2}
+  - {fileID: 2100000, guid: 6ece4d579db479144b95489319d9b453, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1381,7 +1377,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4a41beaa4d4933548a400bdbad0eb0e7, type: 2}
+  - {fileID: 2100000, guid: d3dcbc8bdaf724143bfb1dfd49e6a780, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1542,7 +1538,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4a41beaa4d4933548a400bdbad0eb0e7, type: 2}
+  - {fileID: 2100000, guid: d3dcbc8bdaf724143bfb1dfd49e6a780, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1632,7 +1628,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4a41beaa4d4933548a400bdbad0eb0e7, type: 2}
+  - {fileID: 2100000, guid: d3dcbc8bdaf724143bfb1dfd49e6a780, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1723,8 +1719,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: aef9556b93a458641833bce390b0118e, type: 2}
-  - {fileID: 2100000, guid: aef9556b93a458641833bce390b0118e, type: 2}
+  - {fileID: 2100000, guid: 6ece4d579db479144b95489319d9b453, type: 2}
+  - {fileID: 2100000, guid: 6ece4d579db479144b95489319d9b453, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

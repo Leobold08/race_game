@@ -155,13 +155,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35a1bd58dd7548198609eabd8ae2bb7d, type: 3}
   m_Name: Pixelation
   m_EditorClassIdentifier: Assembly-CSharp::PSX.Pixelation
-  active: 0
+  active: 1
   widthPixelation:
-    m_OverrideState: 0
-    m_Value: 512
+    m_OverrideState: 1
+    m_Value: 10
   heightPixelation:
-    m_OverrideState: 0
-    m_Value: 512
+    m_OverrideState: 1
+    m_Value: 10
   colorPrecision:
     m_OverrideState: 0
     m_Value: 32
@@ -230,7 +230,7 @@ MonoBehaviour:
     m_Value: 1
   anisotropy:
     m_OverrideState: 1
-    m_Value: 0.11
+    m_Value: 0.987
   scattering:
     m_OverrideState: 1
     m_Value: 0.591
@@ -267,18 +267,18 @@ MonoBehaviour:
   active: 0
   fogDensity:
     m_OverrideState: 1
-    m_Value: 9999
+    m_Value: 9981.9
   fogDistance:
-    m_OverrideState: 0
-    m_Value: 10
+    m_OverrideState: 1
+    m_Value: 86.9
   fogColor:
-    m_OverrideState: 0
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 0, b: 0, a: 1}
   fogNear:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
   fogFar:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 100
   fogAltScale:
     m_OverrideState: 0

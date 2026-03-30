@@ -167,7 +167,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4a41beaa4d4933548a400bdbad0eb0e7, type: 2}
+  - {fileID: 2100000, guid: d3dcbc8bdaf724143bfb1dfd49e6a780, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -346,8 +346,6 @@ MonoBehaviour:
   moveOffset: {x: 0, y: 2.5, z: -4}
   rotOffset: {x: 0, y: 1.7, z: 0}
   carTarget: {fileID: 6864653929209379342}
-  smoothTime: 0.3
-  setTutorialValues: 0
 --- !u!1 &2001825485098282248
 GameObject:
   m_ObjectHideFlags: 0
@@ -414,7 +412,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4a41beaa4d4933548a400bdbad0eb0e7, type: 2}
+  - {fileID: 2100000, guid: d3dcbc8bdaf724143bfb1dfd49e6a780, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -593,14 +591,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxAcceleration: 1000
   BrakeAcceleration: 200
-  TurnSensitivty: 1
-  TurnSensitivtyAtHighSpeed: 18
-  TurnSensitivtyAtLowSpeed: 30
+  TurnSensitivity: 1
+  TurnSensitivityAtHighSpeed: 17.5
+  TurnSensitivityAtLowSpeed: 30
   Deceleration: 1
   Maxspeed: 190
   GravityMultiplier: 1.5
   Wheels: []
   GrassSpeedMultiplier: 0.5
+  GrassLayerName: Grass
+  EmitTrailsOnlyWhileDrifting: 1
   GrassRespawnActive: 0
   MoveInput: 0
   SteerInput: 0
@@ -615,7 +615,10 @@ MonoBehaviour:
   turbechargepush: 20
   TurbeReduce: 20
   TurbeRegen: 15
-  turbeChargeAmount: 3
+  TurbeWaitTime: 2
+  selectedTurboType: 0
+  LastNonWheelInputTime: 0
+  LastWheelInputTime: 0
 --- !u!114 &187602521392888673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -628,17 +631,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 718c68663d4dc28408fcc839dde75394, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winMenu: {fileID: 0}
-  Minimap: {fileID: 0}
   laptime: 0
-  besttime: 0
   racestarted: 0
+  raceFinished: 0
   startFinishLine: {fileID: 0}
   checkpoints:
   - {fileID: 0}
-  raceFinished: 0
-  endButtons: []
-  otherStuff: []
+  currentLap: 1
 --- !u!114 &1311118830665507097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -651,9 +650,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf77673f73d573c489fdc8dfb2a2c314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointLight: {fileID: 0}
-  right: {fileID: 0}
-  left: {fileID: 0}
   duration: 3
   lights: {fileID: 0}
 --- !u!1 &3083179061489932530
@@ -882,7 +878,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4a41beaa4d4933548a400bdbad0eb0e7, type: 2}
+  - {fileID: 2100000, guid: d3dcbc8bdaf724143bfb1dfd49e6a780, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -973,8 +969,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: be148bfa16d91fc408eef161dcebcef6, type: 2}
-  - {fileID: 2100000, guid: be148bfa16d91fc408eef161dcebcef6, type: 2}
+  - {fileID: 2100000, guid: c25c75d470cc8a045babd380c1d2bdb3, type: 2}
+  - {fileID: 2100000, guid: c25c75d470cc8a045babd380c1d2bdb3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1157,7 +1153,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4a41beaa4d4933548a400bdbad0eb0e7, type: 2}
+  - {fileID: 2100000, guid: d3dcbc8bdaf724143bfb1dfd49e6a780, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1711,7 +1707,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 448b16aa0a3db484cb689a5ca7209028, type: 2}
+  - {fileID: 2100000, guid: c25c75d470cc8a045babd380c1d2bdb3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
