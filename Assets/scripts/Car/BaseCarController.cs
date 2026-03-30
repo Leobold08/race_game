@@ -42,8 +42,7 @@ public class BaseCarController : MonoBehaviour
     protected LayerMask Grass;
     [SerializeField] protected string GrassLayerName = "Grass";
     [Header("Trail settings")]
-    [SerializeField] protected bool EmitTrailsOnlyWhileDrifting = false;
-    [SerializeField] protected float TrailMinSpeedKmh = 8.0f;
+    [SerializeField] protected bool EmitTrailsOnlyWhileDrifting = true;
     public bool GrassRespawnActive = false;
     protected bool isOnGrassCached;
     protected bool isOnGrassCachedValid;
@@ -81,6 +80,7 @@ public class BaseCarController : MonoBehaviour
         carCollider = GetComponentInChildren<MeshCollider>();
         CarWidth = carCollider.bounds.size.x;
         CarLength = carCollider.bounds.size.z;
+        ClearWheelTrails();
     }
 
     protected void InitializeGrassLayerMask()
@@ -354,8 +354,9 @@ public class BaseCarController : MonoBehaviour
             if (trailRenderer == null) continue;
 
             bool wheelGrounded = IsWheelGrounded(wheel);
-            float speedKmh = CarRb != null ? CarRb.linearVelocity.magnitude * 3.6f : 0f;
-            bool shouldEmit = wheelGrounded && speedKmh >= TrailMinSpeedKmh && (!EmitTrailsOnlyWhileDrifting || enable);
+
+            // Always require active drift input for skid trails.
+            bool shouldEmit = enable && wheelGrounded;
 
             trailRenderer.enabled = true;
 
@@ -367,6 +368,7 @@ public class BaseCarController : MonoBehaviour
             else
             {
                 trailRenderer.emitting = false;
+                trailRenderer.Clear();
                 if (wheel.SmokeParticle != null) wheel.SmokeParticle.Stop();
             }
         }
@@ -376,7 +378,11 @@ public class BaseCarController : MonoBehaviour
     {
         foreach (var wheel in Wheels)
         {
+            if (wheel.WheelEffectobj == null) continue;
+
             var trail = wheel.WheelEffectobj.GetComponentInChildren<TrailRenderer>();
+            if (trail == null) continue;
+
             // explicitly stop emitting and clear the trail so it can be re-enabled later
             trail.emitting = false;
             trail.Clear();
