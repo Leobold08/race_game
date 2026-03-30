@@ -126,7 +126,6 @@ public class AiCarController : BaseCarController
             targetPoint = aiCarManager.Waypoints[currentWaypointIndex].position;
         }
 
-
         // Prevent car from jiggling when already pointing at the target
         if (Vector3.Angle(CarRb.rotation.eulerAngles.normalized, targetPoint.normalized) > curveTolerance)
         {
