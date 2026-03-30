@@ -16,6 +16,8 @@ public class TutorialUIRenderer
     private float fadeSpeed = 5f;
     private float comboImageSpacing = 128f;
     private const float EmphasizedKeyScaleMultiplier = 1.3f;
+    private const float EmphasizedControllerScaleMultiplier = 1.4f;
+    private static readonly string[] KeyboardEmphasisTokens = { "shift", "space", "control", "ctrl" };
 
     public TutorialUIRenderer(TextMeshProUGUI instruction, TextMeshProUGUI progress, Image buttonImage)
     {
@@ -115,6 +117,8 @@ public class TutorialUIRenderer
             sprites.Insert(0, shiftSprite);
         }
 
+        bool useControllerScale = input.GetCurrentDeviceFamily() != TutorialInputHandler.DeviceFamily.KeyboardMouse;
+
         EnsureImagePoolSize(sprites.Count);
 
         Vector2 origin = imagePool[0].rectTransform.anchoredPosition;
@@ -123,7 +127,7 @@ public class TutorialUIRenderer
             var image = imagePool[i];
             image.sprite = sprites[i];
             image.enabled = true;
-            ApplyButtonScale(image, sprites[i]);
+            ApplyButtonScale(image, sprites[i], useControllerScale);
 
             if (i > 0)
             {
@@ -155,18 +159,61 @@ public class TutorialUIRenderer
         }
     }
 
-    private void ApplyButtonScale(Image image, Sprite sprite)
+    private void ApplyButtonScale(Image image, Sprite sprite, bool useControllerScale)
     {
         if (image == null) return;
 
         string name = sprite != null ? sprite.name : string.Empty;
-        bool emphasize = !string.IsNullOrEmpty(name)
-            && (name.IndexOf("shift", StringComparison.OrdinalIgnoreCase) >= 0
-                || name.IndexOf("space", StringComparison.OrdinalIgnoreCase) >= 0
-                || name.IndexOf("control", StringComparison.OrdinalIgnoreCase) >= 0
-                || name.IndexOf("ctrl", StringComparison.OrdinalIgnoreCase) >= 0);
+        string normalizedName = NormalizeForSpriteMatch(name);
+
+        if (useControllerScale)
+        {
+            if (IsRightTriggerSprite(normalizedName))
+            {
+                image.rectTransform.localScale = baseButtonScale;
+                return;
+            }
+
+            image.rectTransform.localScale = baseButtonScale * EmphasizedControllerScaleMultiplier;
+            return;
+        }
+
+        bool emphasize = ContainsAnyToken(normalizedName, KeyboardEmphasisTokens);
 
         image.rectTransform.localScale = emphasize ? Vector3.one * EmphasizedKeyScaleMultiplier : baseButtonScale;
+    }
+
+    private static bool ContainsAnyToken(string value, string[] tokens)
+    {
+        if (string.IsNullOrEmpty(value)) return false;
+
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            if (value.IndexOf(tokens[i], StringComparison.OrdinalIgnoreCase) >= 0)
+                return true;
+        }
+
+        return false;
+    }
+
+    private static string NormalizeForSpriteMatch(string value)
+    {
+        if (string.IsNullOrEmpty(value)) return string.Empty;
+
+        var chars = new System.Text.StringBuilder(value.Length);
+        for (int i = 0; i < value.Length; i++)
+        {
+            char ch = value[i];
+            if (char.IsLetterOrDigit(ch)) chars.Append(char.ToLowerInvariant(ch));
+        }
+
+        return chars.ToString();
+    }
+
+    private static bool IsRightTriggerSprite(string normalizedName)
+    {
+        return normalizedName.Contains("righttrigger", StringComparison.Ordinal)
+            || normalizedName.Equals("rt", StringComparison.Ordinal);
     }
 
     private void HideUnusedImages(int usedCount)
