@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.EditorTools;
+
 using UnityEngine;
 
 // Add AiSpawnPosition prefabs as children to this manager to set spawn positions for AI
