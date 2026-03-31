@@ -185,7 +185,6 @@ public class PlayerCarController : BaseCarController
         float speed = CarRb.linearVelocity.magnitude;
         isOnGrassCachedValid = false;
         UpdateDriftSpeed();
-        ApplyGravity();
         Move();
         Steer();
         Decelerate();
@@ -257,6 +256,24 @@ public class PlayerCarController : BaseCarController
         if (!CanUseTurbo) return;
         Turbe.Apply(this, selectedTurboType);
         TurbeMeter();
+    }
+
+    protected override void OnGrass()
+    {
+        int wheelsOnGrass = 0;
+
+        foreach (var wheel in Wheels)
+        {
+            bool WheelOnGrass = IsWheelOnGrass(wheel);
+            if (IsWheelOnGrass(wheel)) wheelsOnGrass++;
+            if (wheel.WheelEffectobj == null) continue;
+
+            var trail = wheel.WheelEffectobj.GetComponentInChildren<TrailRenderer>();
+            if (trail == null) continue;
+
+            trail.startColor = WheelOnGrass ? GrassTrailColor : RoadTrailColor;
+        }
+        if (ScoreManager.instance != null) ScoreManager.instance.SetOnGrass(wheelsOnGrass >= 2);
     }
 
 
