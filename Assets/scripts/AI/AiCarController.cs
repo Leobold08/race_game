@@ -60,12 +60,12 @@ public class AiCarController : BaseCarController
     private float speedLimit;
     private int waypointSign = 1;
     private int startIndex = 0;
-    private int reverseStartIndex = 0;
+    private bool isReversed;
     public AiCarController Initialize(
         AiCarManager aiCarManager, 
         AiCarManager.DifficultyStats difficultyStats,
         int startIndex,
-        int reverseStartIndex
+        bool isReversed
         )
     {
         this.aiCarManager = aiCarManager;
@@ -73,7 +73,7 @@ public class AiCarController : BaseCarController
         MaxAcceleration = difficultyStats.maxAcceleration;
         avoidance = difficultyStats.avoidance;
         this.startIndex = startIndex;
-        this.reverseStartIndex = reverseStartIndex;
+        this.isReversed = isReversed;
         return this;
     }
 
@@ -96,15 +96,11 @@ public class AiCarController : BaseCarController
     {
         Grass = LayerMask.NameToLayer("Grass");
         objectLayerMask = LayerMask.NameToLayer("roadObjects");
-        waypointSign = PlayerPrefs.GetInt("Reverse") == 0 ? 1 : -1;
-        if (waypointSign == -1)
-        {
-            startIndex = reverseStartIndex;
-        }
+        waypointSign = isReversed ? -1 : 1;
         currentWaypointIndex = startIndex;
 
         waypointSize = aiCarManager.Waypoints.Count();
-        targetPoint = aiCarManager.Waypoints[0].position;
+        targetPoint = aiCarManager.Waypoints[currentWaypointIndex].position;
         speedLimit = Mathf.Clamp(Mathf.Sqrt(Maxspeed * aiCarManager.PointRadi[currentWaypointIndex]), Maxspeed * minSlowdown, Maxspeed) / 3.6f;
         
         base.Start();
@@ -121,7 +117,7 @@ public class AiCarController : BaseCarController
         if (Vector3.Distance(CarRb.position, targetPoint) < waypointThreshold || Vector3.Distance(CarRb.position, aiCarManager.Waypoints[currentWaypointIndex].position) < waypointThreshold)
         {
             int newIndex = currentWaypointIndex + waypointSign;
-            currentWaypointIndex = (Math.Sign(newIndex) >= 0 ? newIndex : waypointSize) % waypointSize;
+            currentWaypointIndex = (Math.Sign(newIndex) >= 0 ? newIndex : waypointSize - 1) % waypointSize;
             speedLimit = Mathf.Clamp(Mathf.Sqrt(Maxspeed * aiCarManager.PointRadi[currentWaypointIndex]) * 1.3f, Maxspeed * minSlowdown, Maxspeed) / 3.6f;
             targetPoint = aiCarManager.Waypoints[currentWaypointIndex].position;
         }
@@ -204,11 +200,6 @@ public class AiCarController : BaseCarController
         //     }
         // }
         // if (!hasHit) return;
-
-        if (Physics.CheckBox(CarRb.transform.forward + CarRb.position, new(0.5f, 0.5f, 0.5f), CarRb.rotation, ~objectLayerMask))
-        {
-            //Debug.Log("hi");
-        }
 
         bool hasHit = false;
         foreach (BaseCarController other in GameManager.instance.spawnedCars)
