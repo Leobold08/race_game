@@ -445,7 +445,7 @@ public class PlayerCarController : BaseCarController
             float expo = 1f - Mathf.Exp(-12f * timer / duration);
             CarRb.AddForce(transform.forward * turboStrength * 2.5f * expo * Time.deltaTime, ForceMode.VelocityChange);
 
-            Maxspeed = Mathf.Lerp(boostedMax, GetCurrentBaseSpeed(), smooth);
+            Maxspeed = Mathf.Lerp(Maxspeed, Mathf.Lerp(boostedMax, GetCurrentBaseSpeed(), smooth), Time.deltaTime * 2f);
 
             yield return null;
         }
