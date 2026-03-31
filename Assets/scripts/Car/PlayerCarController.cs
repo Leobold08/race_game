@@ -408,9 +408,9 @@ public class PlayerCarController : BaseCarController
     {
         float driftmultiplier = ScoreManager.instance.CurrentDriftMultiplier;
 
-        if (driftmultiplier < 4f) return;
+        if (driftmultiplier < 6) return;
 
-        float turbe = Mathf.InverseLerp(4f, 10f, driftmultiplier);
+        float turbe = Mathf.InverseLerp(6f, 10f, driftmultiplier);
         float TurbeStrength = Mathf.Lerp(1f, 3f, turbe);
         float Duration = 3.5f;
 
@@ -442,11 +442,10 @@ public class PlayerCarController : BaseCarController
             timer += Time.deltaTime;
             float smooth = Mathf.SmoothStep(0f, 1f, timer / duration);
 
-            float force = Mathf.Min(turboStrength * (1f - smooth) * Time.deltaTime, 0.5f);
-            CarRb.AddForce(transform.forward * force, ForceMode.VelocityChange);
+            float expo = 1f - Mathf.Exp(-12f * timer / duration);
+            CarRb.AddForce(transform.forward * turboStrength * 2.5f * expo * Time.deltaTime, ForceMode.VelocityChange);
 
-
-            Maxspeed = Mathf.Lerp(boostedMax, GetCurrentBaseSpeed(), smooth);
+            Maxspeed = Mathf.Lerp(Maxspeed, Mathf.Lerp(boostedMax, GetCurrentBaseSpeed(), smooth), Time.deltaTime * 2f);
 
             yield return null;
         }

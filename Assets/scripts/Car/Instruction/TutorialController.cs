@@ -23,13 +23,13 @@ public class TutorialController
     {
         steps = new List<TutorialStep>
         {
-            new("Drive forward", "MoveForward", holdTime: 0.75f),
-            new("Brake", "Brake", holdTime:0.75f),
+            new("Drive forward", "MoveForward", holdTime: 0.25f),
+            new("Brake", "Brake", holdTime:0.25f),
             new("Steer left", "Move", Vector2.left),
             new("Steer right", "Move", Vector2.right),
-            new("Drift", "Drift", holdTime:0.75f),
-            new("Turbo", "Turbo", holdTime:0.75f),
-            new("Turbo + Drift", new[] { "Turbo", "Drift" },0.75f),
+            new("Drift", "Drift", holdTime:0.25f),
+            new("Turbo", "Turbo", holdTime:0.25f),
+            new("Turbo + Drift", new[] { "Turbo", "Drift" },0.25f),
             new("Respawn", "Respawn")
         };
     }
