@@ -56,7 +56,7 @@ public class BaseCarController : MonoBehaviour
     [Header("Drift asetukset")]
     //protected float DriftMultiplier = 1.0f;
     public bool IsDrifting { get; protected set; } = false;
-    protected Color GrassTrailColor = new Color(0.6f, 0.35f, 0.1f);
+    protected Color GrassTrailColor = new Color(0.36f, 0.21f, 0.06f);
     protected Color RoadTrailColor = new Color(0.08f, 0.08f, 0.08f);
     internal float PerusMaxAccerelation, PerusTargetTorque, SmoothedMaxAcceleration;
     [Header("turbe asetukset")]
@@ -184,7 +184,7 @@ public class BaseCarController : MonoBehaviour
             targetColor.a = 1f;
 
             trail.startColor = targetColor;
-            trail.endColor = targetColor;
+
         }
 
         if (ScoreManager.instance != null)
@@ -340,7 +340,6 @@ public class BaseCarController : MonoBehaviour
             if (trailRenderer == null) continue;
             bool wheelGrounded = IsWheelGrounded(wheel);
 
-            // Always require active drift input for skid trails.
             bool shouldEmit = enable && wheelGrounded;
 
             trailRenderer.enabled = true;
@@ -353,7 +352,6 @@ public class BaseCarController : MonoBehaviour
             else
             {
                 trailRenderer.emitting = false;
-                trailRenderer.Clear();
                 if (wheel.SmokeParticle != null) wheel.SmokeParticle.Stop();
             }
         }
@@ -368,7 +366,6 @@ public class BaseCarController : MonoBehaviour
             var trail = wheel.WheelEffectobj.GetComponentInChildren<TrailRenderer>();
             if (trail == null) continue;
 
-            // explicitly stop emitting and clear the trail so it can be re-enabled later
             trail.emitting = false;
             trail.Clear();
             trail.enabled = true;
