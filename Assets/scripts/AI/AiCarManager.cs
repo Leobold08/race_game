@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-
+using NUnit.Framework.Internal;
 using UnityEngine;
 
 // Add AiSpawnPosition prefabs as children to this manager to set spawn positions for AI
@@ -19,6 +19,8 @@ public class AiCarManager : MonoBehaviour
     public BezierBaker.BakedPoint[] Waypoints { get; private set; }
     public float[] PointRadi { get; private set; }
     public enum AIDifficulty { Beginner, Intermediate, Hard } 
+    [SerializeField] private float reverseSpawnDirection;
+    [SerializeField] private bool forceReverse;
  
     public struct DifficultyStats
     {
@@ -47,8 +49,14 @@ public class AiCarManager : MonoBehaviour
         PointRadi = bezierBaker.GetPointRadi();
         spawnedAiCarCount = (byte)PlayerPrefs.GetInt("AIAmount");
         difficulty = (AIDifficulty)PlayerPrefs.GetInt("AILevel");
+        bool isReversed = PlayerPrefs.GetInt("Reverse") == 1 || forceReverse;
+        int startIndex = bezierBaker.StartIndex;
         Vector3 spawnDirection = transform.rotation.eulerAngles;
-        spawnDirection.y *= PlayerPrefs.GetInt("Reverse") == 0 ? 1 : -1;
+        if (isReversed)
+        {
+            spawnDirection.y = reverseSpawnDirection;
+            startIndex = bezierBaker.ReverseStartIndex;
+        }
 
         // Spawn AI
         if (spawnedAiCarCount > 0)
@@ -65,7 +73,7 @@ public class AiCarManager : MonoBehaviour
 
                 // Initialize the controller
                 AiCarController controller = newAI.GetComponent<AiCarController>();
-                controller.Initialize(this, difficultyRanges[difficulty], bezierBaker.StartIndex, bezierBaker.ReverseStartIndex);
+                controller.Initialize(this, difficultyRanges[difficulty], startIndex, isReversed);
                 
                 GameManager.instance.spawnedCars.Add(controller);
             }

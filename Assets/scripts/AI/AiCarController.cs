@@ -60,12 +60,12 @@ public class AiCarController : BaseCarController
     private float speedLimit;
     private int waypointSign = 1;
     private int startIndex = 0;
-    private int reverseStartIndex = 0;
+    private bool isReversed;
     public AiCarController Initialize(
         AiCarManager aiCarManager, 
         AiCarManager.DifficultyStats difficultyStats,
         int startIndex,
-        int reverseStartIndex
+        bool isReversed
         )
     {
         this.aiCarManager = aiCarManager;
@@ -73,7 +73,7 @@ public class AiCarController : BaseCarController
         MaxAcceleration = difficultyStats.maxAcceleration;
         avoidance = difficultyStats.avoidance;
         this.startIndex = startIndex;
-        this.reverseStartIndex = reverseStartIndex;
+        this.isReversed = isReversed;
         return this;
     }
 
@@ -96,11 +96,7 @@ public class AiCarController : BaseCarController
     {
         Grass = LayerMask.NameToLayer("Grass");
         objectLayerMask = LayerMask.NameToLayer("roadObjects");
-        waypointSign = PlayerPrefs.GetInt("Reverse") == 0 ? 1 : -1;
-        if (waypointSign == -1)
-        {
-            startIndex = reverseStartIndex;
-        }
+        waypointSign = isReversed ? -1 : 1;
         currentWaypointIndex = startIndex;
 
         waypointSize = aiCarManager.Waypoints.Count();
@@ -204,11 +200,6 @@ public class AiCarController : BaseCarController
         //     }
         // }
         // if (!hasHit) return;
-
-        if (Physics.CheckBox(CarRb.transform.forward + CarRb.position, new(0.5f, 0.5f, 0.5f), CarRb.rotation, ~objectLayerMask))
-        {
-            //Debug.Log("hi");
-        }
 
         bool hasHit = false;
         foreach (BaseCarController other in GameManager.instance.spawnedCars)
