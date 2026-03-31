@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
   m_Name: LiftGammaGain
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.LiftGammaGain
-  active: 0
+  active: 1
   lift:
     m_OverrideState: 1
     m_Value: {x: 1, y: 1, z: 1, w: 0.0045188204}
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35a1bd58dd7548198609eabd8ae2bb7d, type: 3}
   m_Name: Pixelation
   m_EditorClassIdentifier: Assembly-CSharp::PSX.Pixelation
-  active: 1
+  active: 0
   widthPixelation:
     m_OverrideState: 1
     m_Value: 10
@@ -200,13 +200,13 @@ MonoBehaviour:
   active: 1
   distance:
     m_OverrideState: 1
-    m_Value: 512
+    m_Value: 300
   baseHeight:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 158.7
   maximumHeight:
     m_OverrideState: 1
-    m_Value: 675.69
+    m_Value: 218.2
   enableGround:
     m_OverrideState: 1
     m_Value: 0
@@ -215,7 +215,7 @@ MonoBehaviour:
     m_Value: 0
   density:
     m_OverrideState: 1
-    m_Value: 0.415
+    m_Value: 0.327
   attenuationDistance:
     m_OverrideState: 0
     m_Value: 128
@@ -230,13 +230,13 @@ MonoBehaviour:
     m_Value: 1
   anisotropy:
     m_OverrideState: 1
-    m_Value: 0.987
+    m_Value: 0.138
   scattering:
     m_OverrideState: 1
-    m_Value: 0.591
+    m_Value: 0.18
   tint:
     m_OverrideState: 1
-    m_Value: {r: 0.16981131, g: 0.16981131, b: 0.16981131, a: 1}
+    m_Value: {r: 0.6155722, g: 0.6155722, b: 0.6155722, a: 1}
   enableAdditionalLightsContribution:
     m_OverrideState: 1
     m_Value: 1
