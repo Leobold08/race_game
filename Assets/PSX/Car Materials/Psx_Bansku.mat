@@ -76,9 +76,9 @@ Material:
     m_Ints: []
     m_Floats:
     - Boolean_193028D2: 1
-    - Boolean_3F1A8DAB: 0
+    - Boolean_3F1A8DAB: 1
     - Boolean_43476D73: 1
-    - Boolean_7165A49C: 1
+    - Boolean_7165A49C: 0
     - Boolean_85059BBE: 1
     - Boolean_8BBF99CD: 1
     - Boolean_D258FF8E: 1
@@ -88,7 +88,7 @@ Material:
     - Vector1_B2CC132F: 30
     - Vector1_B74833F8: 1
     - Vector1_B9994903: -18.33
-    - Vector1_E8746023: 12.3
+    - Vector1_E8746023: 500
     - Vector1_F6C0D59C: 1
     - _AlphaClip: 0
     - _AlphaToMask: 0
@@ -120,7 +120,7 @@ Material:
     - _ZWrite: 1
     - _ZWriteControl: 0
     m_Colors:
-    - Color_2E5415DE: {r: 1, g: 1, b: 1, a: 0}
+    - Color_2E5415DE: {r: 0.92653286, g: 1, b: 0, a: 0}
     - Color_EB2C7663: {r: 0.46226418, g: 0, b: 0, a: 0}
     - Vector2_3094B3F9: {r: 5, g: 64, b: 0, a: 0}
     - Vector2_8044833E: {r: 1, g: 1, b: 0, a: 0}
