@@ -11,6 +11,9 @@ public class OptionScript : MonoBehaviour
     private List<OptionComponent> OptionsList;
     [SerializeField] private AudioMixer main;
     public AudioMixerGroup[] AllMixerGroups { get { return main.FindMatchingGroups(string.Empty); } }
+    private const bool DefaultToggleValue = true;
+    private const float DefaultSliderValue = 1f;
+    private const int DefaultDropdownValue = 0; //ei oo niin pakollinen
 
     void Awake()
     {
@@ -50,7 +53,7 @@ public class OptionScript : MonoBehaviour
     private void InitSpecificOptionValue(Toggle toggle)
     {
         var valueName = $"{toggle.name}_value";
-        toggle.isOn = PlayerPrefs.GetInt(valueName) == 1;
+        toggle.isOn = PlayerPrefs.HasKey(valueName) ? PlayerPrefs.GetInt(valueName) == 1 : DefaultToggleValue;
         //Debug.Log($"toggle {toggle} init; value: {toggle.isOn}");
 
         toggle.onValueChanged.AddListener((value) =>
@@ -62,7 +65,7 @@ public class OptionScript : MonoBehaviour
     private void InitSpecificOptionValue(Slider slider)
     {
         var valueName = $"{slider.name}_value";
-        slider.value = PlayerPrefs.GetFloat(valueName);
+        slider.value = PlayerPrefs.HasKey(valueName) ? PlayerPrefs.GetFloat(valueName) : DefaultSliderValue;
         //Debug.Log($"toggle {slider} init; value: {slider.value}");
         
         slider.onValueChanged.AddListener((value) =>
@@ -76,7 +79,7 @@ public class OptionScript : MonoBehaviour
     private void InitSpecificOptionValue(TMP_Dropdown dropdown)
     {
         var valueName = $"{dropdown.name}_value";
-        dropdown.value = PlayerPrefs.GetInt(valueName);
+        dropdown.value = PlayerPrefs.HasKey(valueName) ? PlayerPrefs.GetInt(valueName) : DefaultDropdownValue;
         //Debug.Log($"toggle {dropdown} init; value: {dropdown.value}");
         
         dropdown.onValueChanged.AddListener((value) =>
@@ -86,11 +89,7 @@ public class OptionScript : MonoBehaviour
         });
     }
 
-    public void SavePlayerPrefs()
-    {
-        //yep
-        PlayerPrefs.Save();
-    }
+    public void SavePlayerPrefs() => PlayerPrefs.Save();
 
     public void MenuOpenTween()
     {
