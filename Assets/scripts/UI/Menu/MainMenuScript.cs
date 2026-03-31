@@ -43,10 +43,6 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadSceneAsync("SelectionMenu");
     }
-    public void PlayTutorial()
-    {
-        SceneManager.LoadSceneAsync("tutorial");
-    }
     public void QuitGame()
     {
         Application.Quit();
