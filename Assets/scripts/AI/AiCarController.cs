@@ -94,7 +94,6 @@ public class AiCarController : BaseCarController
 
     override protected void Start()
     {
-        Grass = LayerMask.NameToLayer("Grass");
         objectLayerMask = LayerMask.NameToLayer("roadObjects");
         waypointSign = isReversed ? -1 : 1;
         currentWaypointIndex = startIndex;
