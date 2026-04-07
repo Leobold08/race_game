@@ -23,9 +23,8 @@ public class PlayerCarController : BaseCarController
 
 
     internal Coroutine TurbeBoost;
-    // timestamps to arbitrate input sources (wheel vs non-wheel)
-    public float LastNonWheelInputTime = 0f;
-    public float LastWheelInputTime = 0f;
+    internal float LastNonWheelInputTime = 0f;
+    internal float LastWheelInputTime = 0f;
 
 
     
@@ -189,7 +188,7 @@ public class PlayerCarController : BaseCarController
         Steer();
         Decelerate();
         Applyturnsensitivity(speed);
-        OnGrass();
+        //OnGrass();
         HandleTurbo();
 
         ApplySpeedLimit(Maxspeed / 3.6f);
@@ -261,17 +260,21 @@ public class PlayerCarController : BaseCarController
     protected override void OnGrass()
     {
         int wheelsOnGrass = 0;
-
         foreach (var wheel in Wheels)
         {
-            bool WheelOnGrass = IsWheelOnGrass(wheel);
-            if (IsWheelOnGrass(wheel)) wheelsOnGrass++;
-            if (wheel.WheelEffectobj == null) continue;
+            if (IsWheelOnGrass(wheel))
+            {
+                wheelsOnGrass++;
+                print(wheelsOnGrass);
+            }
+            GameObject wheelEffectObj = wheel.WheelEffectobj;
+            if (wheelEffectObj == null) continue;
 
-            var trail = wheel.WheelEffectobj.GetComponentInChildren<TrailRenderer>();
+            var trail = wheelEffectObj.GetComponentInChildren<TrailRenderer>();
             if (trail == null) continue;
 
-            trail.startColor = WheelOnGrass ? GrassTrailColor : RoadTrailColor;
+            bool IsTheWheelOnGrass = IsWheelOnGrass(wheel);
+            trail.startColor = IsTheWheelOnGrass ? GrassTrailColor : RoadTrailColor;
         }
         if (ScoreManager.instance != null) ScoreManager.instance.SetOnGrass(wheelsOnGrass >= 2);
     }
@@ -280,7 +283,6 @@ public class PlayerCarController : BaseCarController
 
     void Move()
     {
-        //HandeSteepSlope();
         UpdateTargetTorque();
         AdjustSpeedForGrass();
         AdjustSuspension();

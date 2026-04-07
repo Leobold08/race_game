@@ -40,7 +40,7 @@ public class BaseCarController : MonoBehaviour
     WheelHit hit;
     [SerializeField] protected float GrassSpeedMultiplier = 0.5f;
     protected LayerMask Grass;
-    [SerializeField] protected string GrassLayerName = "Grass";
+    [SerializeField] protected string GrassLayerName = "grass";
     [Header("Trail settings")]
     [SerializeField] protected bool EmitTrailsOnlyWhileDrifting = true;
     public bool GrassRespawnActive = false;
@@ -85,7 +85,6 @@ public class BaseCarController : MonoBehaviour
 
     public float GetSpeed()
     {
-        GameManager.instance.carSpeed = CarRb.linearVelocity.magnitude * 3.6f;
         return CarRb.linearVelocity.magnitude * 3.6f;
     }
 
@@ -141,8 +140,7 @@ public class BaseCarController : MonoBehaviour
 
     protected bool IsWheelOnGrass(Wheel wheel)
     {
-        if (wheel.WheelCollider.GetGroundHit(out hit)) return Grass == hit.collider.gameObject.layer;
-        return false;
+        return wheel.WheelCollider.GetGroundHit(out hit) && Grass == hit.collider.gameObject.layer;
     }
 
     protected virtual void OnGrass()

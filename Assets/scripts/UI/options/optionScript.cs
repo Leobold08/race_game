@@ -25,7 +25,7 @@ public class OptionScript : MonoBehaviour
     {
         //vois koittaa välttää tämmöstä awake > start juttua. hauska juttu myös VOLUME EI PIDÄ AWAKEN KÄYTÖSTÄ
         InitializeVolumeSliders();
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
     public void InitializeOptions()
@@ -66,6 +66,8 @@ public class OptionScript : MonoBehaviour
     {
         var valueName = $"{slider.name}_value";
         slider.value = PlayerPrefs.HasKey(valueName) ? PlayerPrefs.GetFloat(valueName) : DefaultSliderValue;
+        //TODO: näistä vitun hardkoodatuista paskoista pitää päästä eroon
+        if (slider.name == "pixel" && !PlayerPrefs.HasKey(valueName)) slider.value = 5f;
         //Debug.Log($"toggle {slider} init; value: {slider.value}");
         
         slider.onValueChanged.AddListener((value) =>
