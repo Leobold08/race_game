@@ -76,22 +76,11 @@ public class BaseCarController : MonoBehaviour
 
     protected virtual void Start()
     {
-        InitializeGrassLayerMask();
         carCollider = GetComponentInChildren<MeshCollider>();
         CarWidth = carCollider.bounds.size.x;
         CarLength = carCollider.bounds.size.z;
+        Grass = LayerMask.NameToLayer(GrassLayerName);
         ClearWheelTrails();
-    }
-
-    protected void InitializeGrassLayerMask()
-    {
-        int layerIndex = LayerMask.NameToLayer(GrassLayerName);
-        if (layerIndex >= 0)
-        {
-            Grass = 1 << layerIndex;
-            return;
-        }
-        Grass = 1 << 7;
     }
 
     public float GetSpeed()
@@ -119,7 +108,6 @@ public class BaseCarController : MonoBehaviour
         var Meshes = transform.GetComponentsInChildren<Transform>().First(obj => obj.name == "meshes");
         
         var Effects = transform.GetComponentsInChildren<Transform>().First(obj => obj.name == "wheelEffectobj");
-        InitializeGrassLayerMask();
 
         foreach (var WheelCollider in Colliders)
         {
@@ -153,47 +141,27 @@ public class BaseCarController : MonoBehaviour
 
     protected bool IsWheelOnGrass(Wheel wheel)
     {
-        if (Grass.value == 0)
-        {
-            InitializeGrassLayerMask();
-        }
-
-        if (wheel.WheelCollider.GetGroundHit(out hit))
-        {
-            return (Grass.value & (1 << hit.collider.gameObject.layer)) != 0;
-        }
+        if (wheel.WheelCollider.GetGroundHit(out hit)) return Grass == hit.collider.gameObject.layer;
         return false;
     }
 
-    protected void OnGrass()
+    protected virtual void OnGrass()
     {
-        int wheelsOnGrass = 0;
-
         foreach (var wheel in Wheels)
         {
-            bool WheelOnGrass = IsWheelGrounded(wheel) && IsWheelOnGrass(wheel);
-
-            if (WheelOnGrass) wheelsOnGrass++;
-
+            bool WheelOnGrass = IsWheelOnGrass(wheel);
             if (wheel.WheelEffectobj == null) continue;
 
             var trail = wheel.WheelEffectobj.GetComponentInChildren<TrailRenderer>();
             if (trail == null) continue;
 
-            Color targetColor = WheelOnGrass ? GrassTrailColor : RoadTrailColor;
-            targetColor.a = 1f;
-
-            trail.startColor = targetColor;
-
+            trail.startColor = WheelOnGrass ? GrassTrailColor : RoadTrailColor;
         }
-
-        if (ScoreManager.instance != null)
-            ScoreManager.instance.SetOnGrass(wheelsOnGrass >= 2);
     }
 
     protected virtual bool IsOnGrass()
     {
-        return Wheels.Any(wheel => IsWheelGrounded(wheel) && IsWheelOnGrass(wheel));
+        return Wheels.Any(wheel => IsWheelOnGrass(wheel));
     }
 
     protected void AdjustSpeedForGrass()
@@ -202,7 +170,7 @@ public class BaseCarController : MonoBehaviour
         {
             TargetTorque *= GrassSpeedMultiplier;
 
-            Maxspeed = Mathf.Lerp(Maxspeed, Maxspeed * GrassSpeedMultiplier,Time.deltaTime);
+            Maxspeed = Mathf.Lerp(Maxspeed, Maxspeed * GrassSpeedMultiplier, Time.deltaTime);
         }
     }
 
@@ -282,13 +250,7 @@ public class BaseCarController : MonoBehaviour
     }
 
     
-    protected void ApplyGravity()
-    {
-        if (Wheels.All(w => !IsWheelGrounded(w)))
-        {
-            CarRb.AddForce(Vector3.down * GravityMultiplier * Physics.gravity.magnitude, ForceMode.Acceleration);
-        }
-    }
+
 
     protected void AdjustWheelsForDrift()
     {
