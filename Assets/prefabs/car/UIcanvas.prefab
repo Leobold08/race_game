@@ -566,6 +566,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6410773925970127485}
   - component: {fileID: 6388024786043110119}
+  - component: {fileID: 5720071553289955601}
   m_Layer: 0
   m_Name: ScoreContainer
   m_TagString: Untagged
@@ -618,6 +619,30 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &5720071553289955601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358040558875421969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21917819455109d4f99e1283ad6bb39f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberSprites:
+  - {fileID: 1197767586, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
+  - {fileID: -1783108577, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
+  - {fileID: -631359010, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
+  - {fileID: -2018109058, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
+  - {fileID: -723308037, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
+  - {fileID: 1876958155, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
+  - {fileID: 680046995, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
+  - {fileID: 2011141198, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
+  - {fileID: 1288078298, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
+  - {fileID: 2006065192, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
+  digitPrefab: {fileID: 8624740118581079510}
 --- !u!1 &2186337789622851477
 GameObject:
   m_ObjectHideFlags: 0
@@ -752,63 +777,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!1 &2726137560342685478
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 490914493064301864}
-  - component: {fileID: 7163556303190635858}
-  m_Layer: 0
-  m_Name: ScoreManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &490914493064301864
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2726137560342685478}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 173.62648, y: 241.2096, z: 76.07271}
-  m_LocalScale: {x: 1.9106256, y: 1.9106256, z: 1.9106256}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 9025469661172098587}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7163556303190635858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2726137560342685478}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21917819455109d4f99e1283ad6bb39f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numberSprites:
-  - {fileID: 1197767586, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
-  - {fileID: -1783108577, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
-  - {fileID: -631359010, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
-  - {fileID: -2018109058, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
-  - {fileID: -723308037, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
-  - {fileID: 1876958155, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
-  - {fileID: 680046995, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
-  - {fileID: 2011141198, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
-  - {fileID: 1288078298, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
-  - {fileID: 2006065192, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
-  scoreContainer: {fileID: 1358040558875421969}
-  digitPrefab: {fileID: 8624740118581079510}
 --- !u!1 &3640706764145589724
 GameObject:
   m_ObjectHideFlags: 0
@@ -1553,7 +1521,6 @@ RectTransform:
   - {fileID: 3133809505715066586}
   - {fileID: 7820992398983966993}
   - {fileID: 6410773925970127485}
-  - {fileID: 490914493064301864}
   - {fileID: 7319335419775516194}
   - {fileID: 7146218567274277513}
   - {fileID: 7843887336847443804}

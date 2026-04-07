@@ -8,21 +8,19 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
+    public CarInputActions Controls;
     public static GameManager instance;
     public static RacerScript racerscript;
     public GameObject CarUI;
 
-    [Header("menut")]
     public bool isPaused => Time.timeScale == 0;
 
-    [Header("car selection")]
     public GameObject CurrentCar { get; private set; }
     [SerializeField] private Transform playerSpawn;
     [SerializeField] private Transform reverse_playerSpawn;
     [SerializeField] private GameObject[] cars;
-    public HashSet<BaseCarController> spawnedCars = new();
+    [NonSerialized] public HashSet<BaseCarController> spawnedCars = new();
 
-    [Header("scene asetukset")]
     public string sceneSelected => SceneManager.GetActiveScene().name;
     private readonly string[] maps = new string[]
     {
@@ -36,13 +34,12 @@ public class GameManager : MonoBehaviour
         "ai_canyon",
         "ai_canyon_night"
     };
-    
-    [Header("auto")]
-    public float carSpeed;
 
     void Awake()
     {
         instance = this;
+        Controls = new();
+        Controls.Enable();
 
         if (maps.Contains(sceneSelected) && cars.Length > 0)
         {
@@ -51,6 +48,9 @@ public class GameManager : MonoBehaviour
             Transform spawn = PlayerPrefs.GetInt("Reverse") == 1 ? reverse_playerSpawn : playerSpawn;
             CurrentCar = Instantiate(selectedCar, spawn.position, spawn.rotation);
             spawnedCars.Add(CurrentCar.GetComponentInChildren<BaseCarController>());
+            #if UNITY_EDITOR
+                Controls.CarControls.Debug_Win.performed += context => ManualRaceEnd();
+            #endif
         }
     }
 
@@ -58,15 +58,22 @@ public class GameManager : MonoBehaviour
     {
         racerscript = FindAnyObjectByType<RacerScript>();
     }
-
-#if UNITY_EDITOR
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
+    #if UNITY_EDITOR
+        void OnDisable()
         {
-            if (racerscript.raceFinished) return;
-            StartCoroutine(racerscript.EndRace());
+            Controls.Disable();
+            Controls.CarControls.Debug_Win.performed -= context => ManualRaceEnd();
         }
+        void OnDestroy()
+        {
+            Controls.Disable();
+            Controls.CarControls.Debug_Win.performed -= context => ManualRaceEnd();
+        }
+    #endif
+
+    public void ManualRaceEnd()
+    {
+        if (racerscript.raceFinished) return;
+        StartCoroutine(racerscript.EndRace());
     }
-#endif
 }

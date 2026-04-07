@@ -10,19 +10,10 @@ public class leaderboardClearer : MonoBehaviour
     void Start()
     {
         filePath = Path.Combine(Application.persistentDataPath, "race_result.json");
+        GameManager.instance.Controls.CarControls.Debug_ClearLeaderboard.performed += context => ClearLeaderboardData();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-        {
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                ClearLeaderboardData();
-            }
-        }
-    }
+    void OnDisable() => GameManager.instance.Controls.CarControls.Debug_ClearLeaderboard.performed -= context => ClearLeaderboardData();
+    void OnDestroy() => GameManager.instance.Controls.CarControls.Debug_ClearLeaderboard.performed -= context => ClearLeaderboardData();
 
     private void ClearLeaderboardData()
     {
@@ -33,9 +24,6 @@ public class leaderboardClearer : MonoBehaviour
             LeaderboardManager.ClearLeaderboard();
             Debug.Log("Leaderboard data cleared!");
         }
-        else
-        {
-            Debug.LogWarning("No leaderboard data file found to delete.");
-        }
+        else Debug.LogWarning("No leaderboard data file found to delete.");
     }
 }
