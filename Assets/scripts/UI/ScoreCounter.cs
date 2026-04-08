@@ -31,7 +31,7 @@ public class ScoreCounter : MonoBehaviour
 
     void UpdateScoreUI(string scoreString, string prevScoreString)
     {
-        if (numberSprites != null) return;
+        if (numberSprites == null) return;
         for (int i = 0; i < scoreNumberCount; i++)
         {
             char digitChar = scoreString[i];
