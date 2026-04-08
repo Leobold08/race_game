@@ -12,8 +12,15 @@ public class SplineMeshExtrude : MonoBehaviour
         NegativeX, NegativeY, NegativeZ
     }
 
+    [System.Serializable]
+    public struct SegmentPreset
+    {
+        public Mesh templateMesh;
+        public Material material;
+    }
+
     [SerializeField]
-    private Mesh extrusionTemplateMesh;
+    private List<SegmentPreset> segmentPresets = new List<SegmentPreset>();
     [SerializeField]
     private Axis extrusionAxis;
     [SerializeField]
@@ -78,10 +85,19 @@ public class SplineMeshExtrude : MonoBehaviour
 
     private void RebuildMesh()
     {
-        if (spline == null || extrusionTemplateMesh == null || meshFilter == null) return;
+        if (spline == null || segmentPresets == null || segmentPresets.Count == 0 || meshFilter == null) return;
 
         Mesh generatedMesh = GenerateMesh();
         meshFilter.sharedMesh = generatedMesh;
+
+        MeshRenderer renderer = gameObject.GetComponent<MeshRenderer>();
+        if (renderer != null)
+        {
+            Material[] mats = new Material[segmentPresets.Count];
+            for(int i=0; i<segmentPresets.Count; i++)
+                mats[i] = segmentPresets[i].material;
+            renderer.sharedMaterials = mats;
+        }
 
         if (meshCollider)
             meshCollider.sharedMesh = generatedMesh;
@@ -99,34 +115,60 @@ public class SplineMeshExtrude : MonoBehaviour
         }
 
         List<Vector3> vertices = new List<Vector3>();
-        List<int> triangles = new List<int>();
         List<Vector3> normals = new List<Vector3>();
         List<Vector2> uvs = new List<Vector2>();
 
-        // distinguish verticies from first and second edges
-        (int[] firstEdge, int[] secondEdge) = GetEdgeIndicies(extrusionTemplateMesh.vertices, extrusionAxis);
+        List<List<int>> subMeshTriangles = new List<List<int>>();
+        for (int i = 0; i < segmentPresets.Count; i++)
+            subMeshTriangles.Add(new List<int>());
 
-        templateVertices = CollapsePointsOnAxis(extrusionTemplateMesh.vertices, extrusionAxis);
-        templateVertices = templateVertices.Select(position => Vector3.Scale(position, localMeshScale)).ToArray();
+        int curveCount = spline.GetCurveCount();
 
         for (int i = 0; i < positions.Length - 1; i++)
         {
-            AppendMeshSegment(vertices, triangles, normals, uvs,
+            float tValue = (float)i / (positions.Length - 1);
+            int segmentIndex = Mathf.FloorToInt(tValue * curveCount);
+            if (segmentIndex >= curveCount) segmentIndex = curveCount - 1;
+
+            int presetIndex = segmentIndex < segmentPresets.Count ? segmentIndex : segmentPresets.Count - 1;
+            SegmentPreset currentPreset = segmentPresets[presetIndex];
+            
+            Mesh currentTemplateMesh = currentPreset.templateMesh;
+            if (currentTemplateMesh == null)
+            {
+                currentPreset = segmentPresets[0];
+                currentTemplateMesh = currentPreset.templateMesh;
+                presetIndex = 0;
+                if (currentTemplateMesh == null) continue;
+            }
+
+            // distinguish verticies from first and second edges
+            (int[] firstEdge, int[] secondEdge) = GetEdgeIndicies(currentTemplateMesh.vertices, extrusionAxis);
+
+            templateVertices = CollapsePointsOnAxis(currentTemplateMesh.vertices, extrusionAxis);
+            templateVertices = templateVertices.Select(position => Vector3.Scale(position, localMeshScale)).ToArray();
+
+            AppendMeshSegment(vertices, subMeshTriangles[presetIndex], normals, uvs,
                               positions[i], tangents[i], upVectors[i], positions[i + 1], tangents[i + 1], upVectors[i + 1],
-                              firstEdge, secondEdge);
+                              firstEdge, secondEdge, currentTemplateMesh);
         }
 
         mesh.vertices = vertices.ToArray();
-        mesh.triangles = triangles.ToArray();
         mesh.normals = normals.ToArray();
         mesh.uv = uvs.ToArray();
+
+        mesh.subMeshCount = segmentPresets.Count;
+        for (int i = 0; i < segmentPresets.Count; i++)
+        {
+            mesh.SetTriangles(subMeshTriangles[i].ToArray(), i);
+        }
 
         return mesh;
     }
 
     private void AppendMeshSegment(List<Vector3> vertices, List<int> triangles, List<Vector3> normals, List<Vector2> uvs,
         Vector3 firstPos, Vector3 firstTangent, Vector3 firstUp, Vector3 secondPos, Vector3 secondTangent, Vector3 secondUp, 
-        int[] firstEdgeIndicies, int[] secondEdgeIndicies)
+        int[] firstEdgeIndicies, int[] secondEdgeIndicies, Mesh extrusionTemplateMesh)
     {
         Vector3[] newVertices = new Vector3[templateVertices.Length];
         Vector3[] newNormals = new Vector3[extrusionTemplateMesh.normals.Length];
