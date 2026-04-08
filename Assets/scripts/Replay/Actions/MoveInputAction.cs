@@ -2,7 +2,7 @@ using System;
 using System.Reflection;
 using UnityEngine;
 
-public abstract class MoveInputAction: AbstractInputAction
+public class MoveInputAction: AbstractInputAction
 {
     new public static string type = "MoveAction";
     public float drive;

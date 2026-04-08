@@ -22,15 +22,29 @@ public class InputRecorder : MonoBehaviour
     void OnDisable()
     {
         inputEvents.Disable();
+        inputEvents.Dispose();
     }
 
     void OnDestroy()
     {
         inputEvents.Disable();
+        inputEvents.Dispose();
     }
 
     bool FilterInput(InputEventPtr inputEventPtr, InputDevice inputDevice)
     {
         return true;
+    }
+
+    [ContextMenu("Get types")]
+    void GetTypes()
+    {
+        AbstractAction.GetTypes();
+    }
+
+    [ContextMenu("replay trace")]
+    void Replay()
+    {
+        inputEvents.Replay();
     }
 }
