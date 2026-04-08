@@ -31,20 +31,13 @@ public class ScoreCounter : MonoBehaviour
 
     void UpdateScoreUI(string scoreString, string prevScoreString)
     {
-        Debug.Log($"score: {scoreString} previous: {prevScoreString}");
+        if (numberSprites != null) return;
         for (int i = 0; i < scoreNumberCount; i++)
         {
             char digitChar = scoreString[i];
             int digit = digitChar - '0';
 
-            if (prevScoreString.Length != scoreNumberCount || prevScoreString[i] != digitChar)
-            {
-                if (digit >= 0 && digit <= 9 && numberSprites != null && numberSprites.Length > digit)
-                {
-                    scoreNumberImages[i].sprite = numberSprites[digit];
-                    Debug.Log("a thing has happened");
-                }
-            }
+            if (prevScoreString.Length != scoreNumberCount || prevScoreString[i] != digitChar) if (digit >= 0 && digit <= 9 && numberSprites.Length > digit) scoreNumberImages[i].sprite = numberSprites[digit];
         }
     }
 }
