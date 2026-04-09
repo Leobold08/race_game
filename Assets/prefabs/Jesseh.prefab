@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2403357242950795412}
-  - component: {fileID: 2577814550170192270}
   m_Layer: 0
   m_Name: Jesseh
   m_TagString: Untagged
@@ -33,20 +32,6 @@ Transform:
   - {fileID: 2951060409038759029}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2577814550170192270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1344804428241938005}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 743fe0f816f43de4aa53d8026d5cbcb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EditorDisableWaterInEditMode
-  waterOverride: {fileID: 0}
-  childName: Waltuh
 --- !u!1001 &1560573342851024613
 PrefabInstance:
   m_ObjectHideFlags: 0

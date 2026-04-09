@@ -653,6 +653,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7843887336847443804}
   - component: {fileID: 5151370167672616858}
+  - component: {fileID: 53414155120220041}
   m_Layer: 5
   m_Name: LapContainer
   m_TagString: Untagged
@@ -705,6 +706,41 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &53414155120220041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2186337789622851477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98d5a004f133d814585fa9f6d16277e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberSprites:
+  - {fileID: 1197767586, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
+  - {fileID: -1783108577, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
+  - {fileID: -631359010, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
+  - {fileID: -2018109058, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
+  - {fileID: -723308037, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
+  - {fileID: 1876958155, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
+  - {fileID: 680046995, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
+  - {fileID: 2011141198, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
+  - {fileID: 1288078298, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
+  - {fileID: 2006065192, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
+  finalLapNumberSprites:
+  - {fileID: -709086354, guid: 0524ea821b097d6449557e7288664f14, type: 3}
+  - {fileID: -323463921, guid: 0524ea821b097d6449557e7288664f14, type: 3}
+  - {fileID: -554531197, guid: 0524ea821b097d6449557e7288664f14, type: 3}
+  - {fileID: 2069161897, guid: 0524ea821b097d6449557e7288664f14, type: 3}
+  - {fileID: 1962550650, guid: 0524ea821b097d6449557e7288664f14, type: 3}
+  - {fileID: 319851824, guid: 0524ea821b097d6449557e7288664f14, type: 3}
+  - {fileID: 116746076, guid: 0524ea821b097d6449557e7288664f14, type: 3}
+  - {fileID: 860580514, guid: 0524ea821b097d6449557e7288664f14, type: 3}
+  - {fileID: 379103307, guid: 0524ea821b097d6449557e7288664f14, type: 3}
+  - {fileID: 1420360379, guid: 0524ea821b097d6449557e7288664f14, type: 3}
+  digitPrefab: {fileID: 8624740118581079510}
 --- !u!1 &2265204518820237361
 GameObject:
   m_ObjectHideFlags: 0
@@ -1916,7 +1952,7 @@ MonoBehaviour:
   - {fileID: 2011141198, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
   - {fileID: 1288078298, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
   - {fileID: 2006065192, guid: d1ce8b20e4359914a900f52a5c6849d0, type: 3}
-  lapContainer: {fileID: 2186337789622851477}
+  finalLapNumberSprites: []
   digitPrefab: {fileID: 8624740118581079510}
 --- !u!1 &7323567513546739768
 GameObject:

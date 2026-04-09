@@ -1,54 +1,43 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ScoreCounter : MonoBehaviour
 {
-    public Sprite[] numberSprites; // Array to hold sprites for digits 0-9
-    public GameObject digitPrefab; // Prefab for a single digit (with an Image component)
+    public Sprite[] numberSprites;
+    public GameObject digitPrefab;
 
-    private const int digitCount = 7; // Always 7 digits
-    private Image[] digitImages;
+    private const int scoreNumberCount = 7;
+    private Image[] scoreNumberImages = new Image[scoreNumberCount];
+    private string ScoreString => Score.ToString().PadLeft(scoreNumberCount, '0');
     private string lastScoreString = "";
+    private int Score => ScoreManager.instance.GetScoreInt();
 
     void Start()
     {
-        digitImages = new Image[digitCount];
-        for (int i = 0; i < digitCount; i++)
+        for (int i = 0; i < scoreNumberCount; i++)
         {
-            GameObject digitGO = Instantiate(digitPrefab, transform);
-            digitImages[i] = digitGO.GetComponent<Image>();
+            GameObject number = Instantiate(digitPrefab, transform);
+            scoreNumberImages[i] = number.GetComponent<Image>();
+            if (scoreNumberImages[i] == null) throw new NullReferenceException($"index of {i} was null in scoreNumberImages");
         }
     }
 
     void Update()
     {
-        int score = ScoreManager.instance.GetScoreInt();
-        string scoreString = score.ToString().PadLeft(digitCount, '0');
-
-        // Only update UI if the score string has changed
-        if (scoreString != lastScoreString)
-        {
-            UpdateScoreUI(scoreString, lastScoreString);
-            lastScoreString = scoreString;
-        }
+        if (ScoreString != lastScoreString) UpdateScoreUI(ScoreString, lastScoreString);
+        lastScoreString = ScoreString;
     }
 
     void UpdateScoreUI(string scoreString, string prevScoreString)
     {
-        for (int i = 0; i < digitCount; i++)
+        if (numberSprites == null) return;
+        for (int i = 0; i < scoreNumberCount; i++)
         {
-            if (digitImages[i] == null)
-                continue;
-
             char digitChar = scoreString[i];
             int digit = digitChar - '0';
 
-            // Only update if this digit has changed
-            if (prevScoreString.Length != digitCount || prevScoreString[i] != digitChar)
-            {
-                if (digit >= 0 && digit <= 9 && numberSprites != null && numberSprites.Length > digit)
-                    digitImages[i].sprite = numberSprites[digit];
-            }
+            if (prevScoreString.Length != scoreNumberCount || prevScoreString[i] != digitChar) if (digit >= 0 && digit <= 9 && numberSprites.Length > digit) scoreNumberImages[i].sprite = numberSprites[digit];
         }
     }
 }

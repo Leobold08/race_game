@@ -6,7 +6,7 @@ public class PlayerCarColors : MonoBehaviour
     private Light pointLight;
     private Light right;
     private Light left;
-    public float duration = 1.0f;
+    public float duration = 3f;
     public AudioSource lights;
 
     CarInputActions Controls;
@@ -29,20 +29,12 @@ public class PlayerCarColors : MonoBehaviour
 
         Controls.CarControls.lights.performed += ctx => LightsState(1);
         Controls.CarControls.underglow.performed += ctx => LightsState(2);
+        LeanTween.value(pointLight.gameObject, new Color(1f, 0f, 0f), new Color(0f, 0f, 1f), duration).setOnUpdate((Color val) => { pointLight.color = val; }).setLoopPingPong();
     }
 
     private void OnDisable()
     {
         Controls.Disable();
-    }
-
-    private void Update()
-    {
-        if (pointLight.enabled)
-        {
-            float t = Mathf.PingPong(Time.time / duration, 1.0f);
-            pointLight.color = Color.Lerp(Color.red, Color.blue, t);
-        }
     }
     
     /// <summary>
