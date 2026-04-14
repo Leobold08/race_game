@@ -1175,6 +1175,7 @@ GameObject:
   - component: {fileID: 7026640168309599442}
   - component: {fileID: 8984414616937260121}
   - component: {fileID: 273639920665147954}
+  - component: {fileID: 3840663368446193145}
   m_Layer: 0
   m_Name: car
   m_TagString: Untagged
@@ -1272,8 +1273,6 @@ MonoBehaviour:
   TurbeRegen: 15
   TurbeWaitTime: 2
   selectedTurboType: 0
-  LastNonWheelInputTime: 0
-  LastWheelInputTime: 0
 --- !u!114 &8984414616937260121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1318,6 +1317,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duration: 3
   lights: {fileID: 0}
+--- !u!114 &3840663368446193145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6334048508725160481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0ba3bb882cbc814bbfe0ef28975fec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputRecorder
 --- !u!1 &6464818183039503655
 GameObject:
   m_ObjectHideFlags: 0

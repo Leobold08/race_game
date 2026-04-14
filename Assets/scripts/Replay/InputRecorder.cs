@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Mono.Cecil.Cil;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
@@ -7,33 +10,40 @@ using UnityEngine.InputSystem.LowLevel;
 [RequireComponent(typeof(PlayerCarController))]
 public class InputRecorder : MonoBehaviour
 {
-    private InputEventTrace inputEvents;
+    private InputEventTrace inputTrace;
     [SerializeField] private HashSet<InputAction> recordedInputs = new();
+    private string dataDirPath;
+
+    void Awake()
+    {
+        dataDirPath = Application.persistentDataPath + "/Replays";
+    }
 
     void OnEnable()
     {
-        inputEvents = new()
+        inputTrace = new()
         {
             onFilterEvent = (ptr, device) => FilterInput(ptr, device)
         };
-        inputEvents.Enable();
+        inputTrace.Enable();
+        Debug.Log("data path: " + dataDirPath);
     }
 
     void OnDisable()
     {
-        inputEvents.Disable();
-        inputEvents.Dispose();
+        inputTrace.Disable();
+        inputTrace.Dispose();
     }
 
     void OnDestroy()
     {
-        inputEvents.Disable();
-        inputEvents.Dispose();
+        inputTrace.Disable();
+        inputTrace.Dispose();
     }
 
     bool FilterInput(InputEventPtr inputEventPtr, InputDevice inputDevice)
     {
-        return true;
+        return true;//inputDevice is not Mouse;
     }
 
     [ContextMenu("Get types")]
@@ -42,9 +52,40 @@ public class InputRecorder : MonoBehaviour
         AbstractAction.GetTypes();
     }
 
+    [ContextMenu("Toggle trace")]
+    void ToggleTrace()
+    {
+        if (inputTrace.enabled) inputTrace.Disable();
+        else inputTrace.Enable();
+        Debug.Log("trace " + (inputTrace.enabled ? "enabled" : "disabled"));
+    }
+
     [ContextMenu("replay trace")]
     void Replay()
     {
-        inputEvents.Replay();
+        inputTrace.Replay().PlayAllEventsAccordingToTimestamps();
+    }
+
+    [ContextMenu("Log trace")]
+    void LogTrace()
+    {
+        foreach (var a in inputTrace)
+        {
+            Debug.Log(a.ToString());
+        }
+    }
+
+    [ContextMenu("Write Trace")]
+    void WriteTrace()
+    {
+        inputTrace.WriteTo(dataDirPath + "/replay.txt");
+    }
+
+    [ContextMenu("Read trace")] 
+    void ReadTrace()
+    {
+        InputEventTrace trace = new();
+        trace.ReadFrom(dataDirPath + "/replay.txt");
+        trace.Replay().PlayAllEventsAccordingToTimestamps();
     }
 }
