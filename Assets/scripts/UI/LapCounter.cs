@@ -1,68 +1,60 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LapCounter : MonoBehaviour
 {
-    public Sprite[] numberSprites; // Sprites for digits 0-9
-    public GameObject lapContainer; // Parent GameObject for the lap UI
-    public GameObject digitPrefab; // Prefab for a single digit (with an Image component)
+    public Sprite[] numberSprites;
+    public Sprite[] finalLapNumberSprites;
+    public GameObject digitPrefab;
 
-    private const int digitCount = 1; // Only one digit for lap
-    private Image[] digitImages;
+    private const int lapNumberCount = 1;
+    private Image[] lapNumberImages = new Image[lapNumberCount];
     private string lastLapString = "";
-    private RacerScript racer; // Now private, found at runtime
+    private int laps;
+    private RacerScript racer;
+    private int CurrentLap => racer != null ? racer.currentLap : 0;
+    private string LapString => CurrentLap.ToString().PadLeft(lapNumberCount, '0');
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    //TODO: if lauseitten poisto ja muutama pieni parannus
+
     void Start()
     {
-        // Find the active car and its RacerScript
-        GameObject car = GameObject.FindGameObjectWithTag("thisisacar");
-        if (car != null)
-            //tää on keksitty - vittu tervemenoa tolle aiemmalle koodille mitä täs oli
-            racer = car.GetComponentInChildren<RacerScript>();
+        if (GameManager.instance.CurrentCar != null) racer = GameManager.instance.CurrentCar.GetComponentInChildren<RacerScript>();
+        laps = PlayerPrefs.GetInt("Laps");
+        if (laps == 1) numberSprites = finalLapNumberSprites;
 
-        // Instantiate digit object and cache its Image component
-        digitImages = new Image[digitCount];
-        for (int i = 0; i < digitCount; i++)
+        for (int i = 0; i < lapNumberCount; i++)
         {
-            GameObject digitGO = Instantiate(digitPrefab, lapContainer.transform);
-            digitImages[i] = digitGO.GetComponent<Image>();
+            GameObject digitGO = Instantiate(digitPrefab, transform);
+            lapNumberImages[i] = digitGO.GetComponent<Image>();
+            if (lapNumberImages[i] == null) throw new NullReferenceException($"index of {i} was null in lapNumberImages");
         }
     }
 
-    // Update is called once per frame aaa
     void Update()
     {
-        int lap = racer != null ? racer.currentLap : 0;
-        int totalLaps = PlayerPrefs.GetInt("Laps");
-        string lapString = lap.ToString().PadLeft(digitCount, '0');
-
-        // Only update UI if the lap string has changed
-        if (lapString != lastLapString)
-        {
-            UpdateLapUI(lapString, lastLapString);
-            lastLapString = lapString;
-        }
+        if (LapString != lastLapString) UpdateLapUI(LapString, lastLapString);
+        lastLapString = LapString;
     }
 
     void UpdateLapUI(string lapString, string prevLapString)
     {
-        for (int i = 0; i < digitCount; i++)
+        if (CurrentLap == laps) numberSprites = finalLapNumberSprites;
+        if (numberSprites == null) return;
+        for (int i = 0; i < lapNumberCount; i++)
         {
-            if (digitImages[i] == null)
-                continue;
-
             char digitChar = lapString[i];
             int digit = digitChar - '0';
 
-            // Only update if this digit has changed
-            if (prevLapString.Length != digitCount || prevLapString[i] != digitChar)
+            if (prevLapString.Length != lapNumberCount || prevLapString[i] != digitChar)
             {
                 SFXManager SFXMngr = FindFirstObjectByType<SFXManager>(FindObjectsInactive.Exclude);
-                //how can this be so ass
                 if (digit >= 0 && digit <= 9 && numberSprites != null && numberSprites.Length > digit)
-                    digitImages[i].sprite = numberSprites[digit];
+                {
+                    lapNumberImages[i].sprite = numberSprites[digit];
                     if (digit != 1) SFXMngr.nextLap.Play();
+                }
             }
         }
     }

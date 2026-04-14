@@ -44,13 +44,14 @@ GameObject:
   - component: {fileID: 6307277541275771459}
   - component: {fileID: 294686412129273568}
   - component: {fileID: 7740112131856812397}
+  - component: {fileID: 8339236781871222213}
   m_Layer: 0
   m_Name: Waltuh
   m_TagString: RespawnTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4421409903188189840
 Transform:
   m_ObjectHideFlags: 0
@@ -162,3 +163,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 50, y: 5, z: 49.500008}
   m_Center: {x: 24.5, y: 2, z: 24.750004}
+--- !u!114 &8339236781871222213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4987536163850274440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 743fe0f816f43de4aa53d8026d5cbcb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EditorDisableWaterInEditMode
