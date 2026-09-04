@@ -21,7 +21,7 @@ public class PauseMenu : MonoBehaviour
         fullMenu = transform.Find("menuCanvas").gameObject;
         optionsPanel = GetComponentInChildren<Options>().gameObject;
         firstSelected = EventSystem.current.firstSelectedGameObject.GetComponent<Selectable>();
-        musicMngr = FindFirstObjectByType<MusicManager>();
+        musicMngr = FindAnyObjectByType<MusicManager>();
     }
 
     private void OnEnable() => Controls.Enable();
@@ -39,7 +39,7 @@ public class PauseMenu : MonoBehaviour
     void Start()
     {
         fullMenu.SetActive(false);
-        racerScript = FindFirstObjectByType<RacerScript>();  
+        racerScript = FindAnyObjectByType<RacerScript>();  
     }
 
     void PauseMenuCheck()
@@ -53,7 +53,7 @@ public class PauseMenu : MonoBehaviour
         Debug.Log($"pause menu should open!");
         fullMenu.SetActive(!fullMenu.activeSelf);
         LeanTween.cancel(fullMenu);
-        SFXManager SFXMngr = FindFirstObjectByType<SFXManager>();
+        SFXManager SFXMngr = FindAnyObjectByType<SFXManager>();
         Time.timeScale = fullMenu.activeSelf ? 0 : 1;
         if (musicMngr != null) musicMngr.PausedMusicHandler();
         if (SFXMngr != null && racerScript.racestarted) SFXMngr.PauseStateHandler();

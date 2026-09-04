@@ -7,6 +7,7 @@ using UnityEngine;
 // where Wheels is basically an array containing 4 instances of Wheel.
 // Wheels also contains utility functions.
 
+[Serializable]
 public class Wheel
 {
     public enum Axel

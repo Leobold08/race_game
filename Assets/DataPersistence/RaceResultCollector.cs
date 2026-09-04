@@ -61,7 +61,7 @@ public class RaceResultCollector : MonoBehaviour
 
     private float GetTime()
     {
-        RacerScript racer = FindFirstObjectByType<RacerScript>();
+        RacerScript racer = FindAnyObjectByType<RacerScript>();
         if (racer != null)
         {
             // Round to 2 decimal places

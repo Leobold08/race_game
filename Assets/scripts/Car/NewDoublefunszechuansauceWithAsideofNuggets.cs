@@ -45,7 +45,7 @@ public class NewDoublefunszechuansauceWithAsideofNuggets : BaseCarController
         Controls = new CarInputActions();
 
         //PlayerInput = GetComponent<PlayerInput>();
-        LGM = FindFirstObjectByType<LogitechMovement>();
+        LGM = FindAnyObjectByType<LogitechMovement>();
 
         CarRb = GetComponent<Rigidbody>();
 
