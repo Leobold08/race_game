@@ -15,12 +15,11 @@ public class LogitechMovement : MonoBehaviour
     public bool allowAutoEnable = true;
 
     private NewDoublefunszechuansauceWithAsideofNuggets NUGGETS;
-    private int activeDeviceIndex = 0;
 
     void Awake()
     {
         Instance = this;
-        NUGGETS = FindFirstObjectByType<NewDoublefunszechuansauceWithAsideofNuggets>();
+        NUGGETS = FindAnyObjectByType<NewDoublefunszechuansauceWithAsideofNuggets>();
     }
 
     void Update()

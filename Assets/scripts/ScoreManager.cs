@@ -46,14 +46,14 @@ public class ScoreManager : MonoBehaviour
 
     void Start()
     {
-        NUGGETS = FindFirstObjectByType<NewDoublefunszechuansauceWithAsideofNuggets>();
+        NUGGETS = FindAnyObjectByType<NewDoublefunszechuansauceWithAsideofNuggets>();
         if (NUGGETS == null)
         {
-            NUGGETS = FindFirstObjectByType<PlayerCarController>();
+            NUGGETS = FindAnyObjectByType<PlayerCarController>();
         }
         
-        racerScript  = FindFirstObjectByType<RacerScript>();
-        multCounter  ??= FindFirstObjectByType<MultCounter>(FindObjectsInactive.Include);
+        racerScript  = FindAnyObjectByType<RacerScript>();
+        multCounter  ??= FindAnyObjectByType<MultCounter>(FindObjectsInactive.Include);
     }
 
     void Update()

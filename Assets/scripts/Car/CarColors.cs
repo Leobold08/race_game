@@ -7,7 +7,7 @@ public class CarColors : MonoBehaviour
     private Light pointLight;
     [SerializeField] private List<Light> leftLights;
     [SerializeField] private List<Light> rightLights;
-    [SerializeField] private float duration = 3f;
+    //[SerializeField] private float duration = 3f;
     public AudioSource lights;
 
     private void Start()

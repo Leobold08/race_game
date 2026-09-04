@@ -264,7 +264,7 @@ public class RacerScript : MonoBehaviour
         if (GameManager.instance.CarUI != null) GameManager.instance.CarUI.SetActive(false);
         musicManager.resultsTrack.Play();
         winmenu.OnRaceEnd();
-        Destroy(FindFirstObjectByType<OptionCategories>(FindObjectsInactive.Include));
+        Destroy(FindAnyObjectByType<OptionCategories>(FindObjectsInactive.Include));
     }
     
     //leo teki (trust)

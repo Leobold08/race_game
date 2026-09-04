@@ -30,7 +30,7 @@ public class Dashboard : MonoBehaviour
         rect = GetComponent<RectTransform>();
         rectedImage = rected.GetComponent<Image>();
         dashboardButtons = GetComponentsInChildren<Selectable>().ToList();
-        musicManager = FindFirstObjectByType<MusicManager>();
+        musicManager = FindAnyObjectByType<MusicManager>();
         colors = GameManager.CurrentCar.GetComponentInChildren<CarColors>();
         foreach (var b in dashboardButtons) b.interactable = false;
 

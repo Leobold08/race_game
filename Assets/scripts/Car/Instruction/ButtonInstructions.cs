@@ -44,7 +44,7 @@ public class ButtonInstructions : MonoBehaviour
     {
         Time.timeScale = 0f;
 
-        waitBeforeStart = FindFirstObjectByType<Waitbeforestart>();
+        waitBeforeStart = FindAnyObjectByType<Waitbeforestart>();
         if (waitBeforeStart != null)
             waitBeforeStart.enabled = false;
 
